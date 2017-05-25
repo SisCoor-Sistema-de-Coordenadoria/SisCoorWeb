@@ -1,32 +1,31 @@
 <%-- 
     Document   : index
     Created on : 19/04/2017, 21:39:17
-    Author     : Tarcisio
---%>
+    Author     : Tarcisio & Jehymison
 
+    --------------------------------- LEIA-ME ----------------------------------
+    ----------------------------------------------------------------------------
+    Para importações das tags usem primeiro o '<%@taglib' para informar os 
+    caminhos com 'tagdir=/WEB-INF/tags/' e o prefixo da tag com 'prefix = 'tag'.
+    ----------------------------------------------------------------------------
+    Toda pagina deve conter a '<tag:header>' e a '<tag:footer>', ficando a cargo
+    do desenvolvedor criar a parte de conteúdo da sua página.
+    ----------------------------------------------------------------------------
+    Maiores dúvidas entrar em contato:jehymes.gil@live.com|jehymes.gil@gmail.com
+    ----------------------------------------------------------------------------
+    ----------------------------------------------------------------------------
+--%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Disciplina"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Servidor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SisCoor - Horário de Aulas</title>
-    </head>
-    <body>
-        <center>
-        <br>
-        <br>
-        <h1>SisCoor - Módulos:</h1>
-        <a href="horario_de_aulas/horario_matutino_criar.jsp">Horário de Aulas</a>
-        <br>
-        <br>
-        <a href="uso_laboratorio/uso_laboratorio_criar.jsp">Uso de Laboratório</a>
-        <br>
-        <br>
-        <a href="">Proposta de Trabalho de Conclusão de Curso</a>
-        <br>
-        <br>
-        </center>
-    </body>
-</html>
+<%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
+<tag:headerHome title="SisCoor Web - 1.0" titlePage="Início" usuario="Nome do Usuário" caminho="resources"/>
+
+<tag:conteudoInicio />
+<!--
+Conteúdo do Início do Site aqui.
+-->
+<tag:conteudoFim />
+
+<%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
+<tag:footerHome ano="2017" versao="1.0" caminho="resources" desenvolvedores="Tarcísio Ribeiro, Jehymison Gil e Naiane Maria."/>
