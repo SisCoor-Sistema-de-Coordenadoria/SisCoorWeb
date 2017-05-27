@@ -14,143 +14,83 @@ import java.sql.Date;
 public class Aluno {
     private String senha;
     private String matricula;
-    private int id;
+    private int idAluno;
     private String nome;
     private String cpf;
     private String email;
     private String telefone;
-    private Date DatadeNascimento; 
+    private Date dataNascimento; 
     private int tipo;
-    
 
-    /**
-     * @return the senha
-     */
     public String getSenha() {
         return senha;
     }
 
-    /**
-     * @param senha the senha to set
-     */
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
-    /**
-     * @return the matricula
-     */
     public String getMatricula() {
         return matricula;
     }
 
-    /**
-     * @param matricula the matricula to set
-     */
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
+    public int getIdAluno() {
+        return idAluno;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
+    public void setIdAluno(int idAluno) {
+        this.idAluno = idAluno;
     }
 
-    /**
-     * @return the nome
-     */
     public String getNome() {
         return nome;
     }
 
-    /**
-     * @param nome the nome to set
-     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    /**
-     * @return the cpf
-     */
     public String getCpf() {
         return cpf;
     }
 
-    /**
-     * @param cpf the cpf to set
-     */
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    /**
-     * @return the email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @param email the email to set
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /**
-     * @return the telefone
-     */
     public String getTelefone() {
         return telefone;
     }
 
-    /**
-     * @param telefone the telefone to set
-     */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-    /**
-     * @return the DatadeNascimento
-     */
-    public Date getDatadeNascimento() {
-        return DatadeNascimento;
+    public Date getDataNascimento() {
+        return dataNascimento;
     }
 
-    /**
-     * @param DatadeNascimento the DatadeNascimento to set
-     */
-    public void setDatadeNascimento(Date DatadeNascimento) {
-        this.DatadeNascimento = DatadeNascimento;
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
-    /**
-     * @return the tipo
-     */
     public int getTipo() {
         return tipo;
     }
 
-    /**
-     * @param tipo the tipo to set
-     */
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }
-
-    /**
-     * @return the senha
-     */
-    
 }

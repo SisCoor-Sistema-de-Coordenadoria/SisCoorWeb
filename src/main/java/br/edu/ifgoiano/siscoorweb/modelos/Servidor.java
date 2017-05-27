@@ -3,43 +3,57 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.edu.ifgoiano.siscoorweb.modelos;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
- * @author Tarcisio
+ * @author joesi
  */
 public class Servidor {
+    private String siape;
+    private String senha;
     private int idServidor;
     private String nome;
     private String cpf;
     private String email;
-    private String siape;
-    private String senha;
     private String telefone;
     private int tipo;
     private Date dataNascimento;
 
-    public Servidor(int idServidor, String nome, String cpf, String email, String suap, String senha, String telefone, int tipo, Date dataNascimento) {
-        this.idServidor = idServidor;
+    public Servidor(String nome){
+        this.nome = nome;
+    }
+    
+    public Servidor(){
+    }
+
+    public Servidor(String siape, String senha, String nome, String cpf, String email, String telefone, int tipo, Date dataNascimento) {
+        this.siape = siape;
+        this.senha = senha;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
-        this.siape = suap;
-        this.senha = senha;
         this.telefone = telefone;
         this.tipo = tipo;
         this.dataNascimento = dataNascimento;
     }
-
-    public Servidor() {
-    }
     
-    public Servidor(String nome){
-        this.nome = nome;
+    public String getSiape() {
+        return siape;
+    }
+
+    public void setSiape(String siape) {
+        this.siape = siape;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public int getIdServidor() {
@@ -72,22 +86,6 @@ public class Servidor {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSiape() {
-        return siape;
-    }
-
-    public void setSiape(String siape) {
-        this.siape = siape;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getTelefone() {

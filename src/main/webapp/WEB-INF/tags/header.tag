@@ -125,7 +125,7 @@
                                         <div class="icon-bg bg-pink"></div>
                                     </i><span class="menu-title">Uso de Laboratório</span></a></li>
 
-                                    <li class="${horarioAtivo}"><a href="${paramVolta}/horario_de_aulas/horario_matutino_criar.jsp"><i class="fa fa-calendar fa-fw">
+                                    <li class="${horarioAtivo}"><a href="${paramVolta}/horario_de_aulas/horario_matutino.jsp"><i class="fa fa-calendar fa-fw">
                                         <div class="icon-bg bg-green"></div>
                                     </i><span class="menu-title">Horário de Aulas</span></a>
 
@@ -133,12 +133,7 @@
                             <li class="${ptcAtivo}"><a href="${paramVolta}/proposta_de_tc/proposta_trabalho_curso.jsp"><i class="fa fa-book fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Proposta de Trabalho de Curso</span></a>
-
-                                </li>
-                                <li class="${horAtivo}"><a href="${paramVolta}/horario_de_aulas/teste.jsp"><i class="fa fa-th-list fa-fw">
-                                    <div class="icon-bg bg-blue"></div>
-                                </i><span class="menu-title">Aulas - Teste</span></a>
-                                      
+    
                                 </li>
                                 <!--
                                 <li><a href="DataGrid.html"><i class="fa fa-database fa-fw">

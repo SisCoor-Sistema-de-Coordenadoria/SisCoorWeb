@@ -20,8 +20,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Tarcisio
  */
-@WebServlet(name = "PreVisualizarServlet", urlPatterns = {"/PreVisualizarServlet"})
-public class PreVisualizarServlet extends HttpServlet {
+@WebServlet(name = "HorarioAulaServlet", urlPatterns = {"/HorarioAulaServlet"})
+public class HorarioAulaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -305,7 +305,7 @@ public class PreVisualizarServlet extends HttpServlet {
         session.setAttribute("param_volta_servlet","../SisCoorWeb");
         session.setAttribute("olho_servlet_horario", "ok");
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("horario_de_aulas/teste.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("horario_de_aulas/horario_matutino.jsp");
         dispatcher.forward(request, response);
         
         

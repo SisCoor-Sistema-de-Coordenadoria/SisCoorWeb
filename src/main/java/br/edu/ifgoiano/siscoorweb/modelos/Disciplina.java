@@ -24,9 +24,8 @@ public class Disciplina {
     public Disciplina() {
     }
 
-    public Disciplina(String nome, int cod, String responsavel, String cargaHora, String semestre) {
+    public Disciplina(String nome, String responsavel, String cargaHora, String semestre) {
         this.nome = nome;
-        this.idDisciplina = cod;
         this.responsavel = responsavel;
         this.cargaHora = cargaHora;
         this.semestre = semestre;
