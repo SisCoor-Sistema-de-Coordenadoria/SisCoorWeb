@@ -8,6 +8,7 @@
 <%@attribute name="labAtivo" required="false"%>
 <%@attribute name="testeAtivo" required="false"%>
 <%@attribute name="paramVolta" required="true" %>
+<%@attribute name="horAtivo" required="false" %>
 
 <!DOCTYPE html>
 <html>
@@ -134,12 +135,12 @@
                                     </i><span class="menu-title">Proposta de Trabalho de Curso</span></a>
 
                                 </li>
-                                <li class="${testeAtivo}"><a href="${paramVolta}/testeModulo/teste.jsp"><i class="fa fa-th-list fa-fw">
+                                <li class="${horAtivo}"><a href="${paramVolta}/horario_de_aulas/teste.jsp"><i class="fa fa-th-list fa-fw">
                                     <div class="icon-bg bg-blue"></div>
-                                </i><span class="menu-title">Página de Teste</span></a>
+                                </i><span class="menu-title">Aulas - Teste</span></a>
                                       
-                                <!--
                                 </li>
+                                <!--
                                 <li><a href="DataGrid.html"><i class="fa fa-database fa-fw">
                                     <div class="icon-bg bg-red"></div>
                                 </i><span class="menu-title">Data Grids</span></a>

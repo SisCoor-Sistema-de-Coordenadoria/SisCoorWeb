@@ -114,11 +114,11 @@
                                         </div>
                                     </i><span class="menu-title">Início</span></a></li>
 
-                                    <li><a href="uso_laboratorio/uso_laboratorio_criar.jsp"><i class="fa fa-desktop fa-fw">
+                            <li><a href="uso_laboratorio/uso_laboratorio_criar.jsp"><i class="fa fa-desktop fa-fw">
                                         <div class="icon-bg bg-pink"></div>
                                     </i><span class="menu-title">Uso de Laboratório</span></a></li>
 
-                                    <li><a href="horario_de_aulas/horario_matutino_criar.jsp"><i class="fa fa-calendar fa-fw">
+                            <li><a href="horario_de_aulas/horario_matutino_criar.jsp"><i class="fa fa-calendar fa-fw">
                                         <div class="icon-bg bg-green"></div>
                                     </i><span class="menu-title">Horário de Aulas</span></a>
 
@@ -127,47 +127,52 @@
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Proposta de Trabalho de Curso</span></a>
 
-                                <!--
-                                </li>
-                                <li><a href="Tables.html"><i class="fa fa-th-list fa-fw">
-                                    <div class="icon-bg bg-blue"></div>
-                                </i><span class="menu-title">Tables</span></a>
-                                      
-                                </li>
-                                <li><a href="DataGrid.html"><i class="fa fa-database fa-fw">
-                                    <div class="icon-bg bg-red"></div>
-                                </i><span class="menu-title">Data Grids</span></a>
+                            <li><a href="horario_de_aulas/teste.jsp"><i class="fa fa-th-list fa-fw">
+                                        <div class="icon-bg bg-blue"></div>
+                                    </i><span class="menu-title">Aulas - Teste</span></a>
+
+                            </li>
+                            <!--
+                            </li>
+                            <li><a href="Tables.html"><i class="fa fa-th-list fa-fw">
+                                <div class="icon-bg bg-blue"></div>
+                            </i><span class="menu-title">Tables</span></a>
                                   
-                                </li>
-                                <li><a href="Pages.html"><i class="fa fa-file-o fa-fw">
-                                    <div class="icon-bg bg-yellow"></div>
-                                </i><span class="menu-title">Pages</span></a>
-                                   
-                                </li>
-                                <li><a href="Extras.html"><i class="fa fa-gift fa-fw">
-                                    <div class="icon-bg bg-grey"></div>
-                                </i><span class="menu-title">Extras</span></a>
-                                  
-                                </li>
-                                <li><a href="Dropdown.html"><i class="fa fa-sitemap fa-fw">
-                                    <div class="icon-bg bg-dark"></div>
-                                </i><span class="menu-title">Multi-Level Dropdown</span></a>
-                                  
-                                </li>
-                                <li><a href="Email.html"><i class="fa fa-envelope-o">
-                                    <div class="icon-bg bg-primary"></div>
-                                </i><span class="menu-title">Email</span></a>
-                                  
-                                </li>
-                                <li><a href="Charts.html"><i class="fa fa-bar-chart-o fa-fw">
-                                    <div class="icon-bg bg-orange"></div>
-                                </i><span class="menu-title">Charts</span></a>
-                                   
-                                </li>
-                                <li><a href="Animation.html"><i class="fa fa-slack fa-fw">
-                                    <div class="icon-bg bg-green"></div>
-                                </i><span class="menu-title">Animations</span></a></li>
-                                -->
+                            </li>
+                            <li><a href="DataGrid.html"><i class="fa fa-database fa-fw">
+                                <div class="icon-bg bg-red"></div>
+                            </i><span class="menu-title">Data Grids</span></a>
+                              
+                            </li>
+                            <li><a href="Pages.html"><i class="fa fa-file-o fa-fw">
+                                <div class="icon-bg bg-yellow"></div>
+                            </i><span class="menu-title">Pages</span></a>
+                               
+                            </li>
+                            <li><a href="Extras.html"><i class="fa fa-gift fa-fw">
+                                <div class="icon-bg bg-grey"></div>
+                            </i><span class="menu-title">Extras</span></a>
+                              
+                            </li>
+                            <li><a href="Dropdown.html"><i class="fa fa-sitemap fa-fw">
+                                <div class="icon-bg bg-dark"></div>
+                            </i><span class="menu-title">Multi-Level Dropdown</span></a>
+                              
+                            </li>
+                            <li><a href="Email.html"><i class="fa fa-envelope-o">
+                                <div class="icon-bg bg-primary"></div>
+                            </i><span class="menu-title">Email</span></a>
+                              
+                            </li>
+                            <li><a href="Charts.html"><i class="fa fa-bar-chart-o fa-fw">
+                                <div class="icon-bg bg-orange"></div>
+                            </i><span class="menu-title">Charts</span></a>
+                               
+                            </li>
+                            <li><a href="Animation.html"><i class="fa fa-slack fa-fw">
+                                <div class="icon-bg bg-green"></div>
+                            </i><span class="menu-title">Animations</span></a></li>
+                            -->
                         </ul>
                     </div>
                 </nav>

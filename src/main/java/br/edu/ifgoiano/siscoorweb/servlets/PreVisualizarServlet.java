@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,7 +36,9 @@ public class PreVisualizarServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
         //--------------------------------------------------------------------------------------------------
+        
         
         if(request.getParameter("segunda1prof").equals("Em branco")){
             request.setAttribute("segunda1prof", "");
@@ -296,11 +299,16 @@ public class PreVisualizarServlet extends HttpServlet {
         }
         
         //--------------------------------------------------------------------------------------------------
+       
+        HttpSession session = request.getSession();
+        session.setAttribute("caminho_servlet","resources");
+        session.setAttribute("param_volta_servlet","../SisCoorWeb");
+        session.setAttribute("olho_servlet_horario", "ok");
         
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("horario_de_aulas/horario_matutino_pre_visualizar.jsp");
-        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("horario_de_aulas/teste.jsp");
         dispatcher.forward(request, response);
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
