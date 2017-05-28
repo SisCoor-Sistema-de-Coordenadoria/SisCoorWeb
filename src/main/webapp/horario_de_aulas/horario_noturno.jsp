@@ -1,6 +1,6 @@
 <%-- 
-    Document   : horario_matutino
-    Created on : 27/05/2017, 16:00:00
+    Document   : horario_noturno
+    Created on : 28/05/2017, 08:46:11
     Author     : Tarcisio
 --%>
 
@@ -9,8 +9,8 @@
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
 <%String aux;%>
-<%Servidor[] professores = {new Servidor("Gabriel Vieira"), new Servidor("Monica Sakuray"), new Servidor("Patrícia Miziara"), new Servidor("Paulo Mansur")};%>
-<%Disciplina[] discips = {new Disciplina("ProjOO"), new Disciplina("IHC"), new Disciplina("PADS"), new Disciplina("WebII"), new Disciplina("Topicos I")};%>
+<%Servidor[] professores = {new Servidor("Carlos Gomes"), new Servidor("Aníbal Filho"), new Servidor("Rachel Carcute"), new Servidor("Paulo Mansur")};%>
+<%Disciplina[] discips = {new Disciplina("LTP II"), new Disciplina("Arquitetura"), new Disciplina("Governança de TI"), new Disciplina("Redes III")};%>
 
 <%if (session.getAttribute("olho_servlet_horario") == null) { //condição para verificar se a tela já passou por alguma servlet%>
 <tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo Horário de Aulas" usuario="Tarcísio R. Júnior" horarioAtivo="active"/>
@@ -54,7 +54,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:00h 07:55h</b></td>
+                                                <td><b>19:00h 19:55h</b></td>
                                                 <td>
                                                     <select name="segunda1prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -73,7 +73,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:55h 08:50h</b></td>
+                                                <td><b>19:55h 20:50h</b></td>
                                                 <td>
                                                     <select name="segunda2prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -92,7 +92,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>09:10h 10:05h</b></td>
+                                                <td><b>21:00h 21:55h</b></td>
                                                 <td>
                                                     <select name="segunda3prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -111,7 +111,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>10:05h 11:00h</b></td>
+                                                <td><b>21:55h 22:50h</b></td>
                                                 <td>
                                                     <select name="segunda4prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -152,7 +152,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:00h 07:55h</b></td>
+                                                <td><b>19:00h 19:55h</b></td>
                                                 <td>
                                                     <select name="terca1prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -171,7 +171,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:55h 08:50h</b></td>
+                                                <td><b>19:55h 20:50h</b></td>
                                                 <td>
                                                     <select name="terca2prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -190,7 +190,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>09:10h 10:05h</b></td>
+                                                <td><b>21:00h 21:55h</b></td>
                                                 <td>
                                                     <select name="terca3prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -209,7 +209,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>10:05h 11:00h</b></td>
+                                                <td><b>21:55h 22:50h</b></td>
                                                 <td>
                                                     <select name="terca4prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -250,7 +250,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:00h 07:55h</b></td>
+                                                <td><b>19:00h 19:55h</b></td>
                                                 <td>
                                                     <select name="quarta1prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -269,7 +269,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:55h 08:50h</b></td>
+                                                <td><b>19:55h 20:50h</b></td>
                                                 <td>
                                                     <select name="quarta2prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -288,7 +288,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>09:10h 10:05h</b></td>
+                                                <td><b>21:00h 21:55h</b></td>
                                                 <td>
                                                     <select name="quarta3prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -307,7 +307,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>10:05h 11:00h</b></td>
+                                                <td><b>21:55h 22:50h</b></td>
                                                 <td>
                                                     <select name="quarta4prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -348,7 +348,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:00h 07:55h</b></td>
+                                                <td><b>19:00h 19:55h</b></td>
                                                 <td>
                                                     <select name="quinta1prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -367,7 +367,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:55h 08:50h</b></td>
+                                                <td><b>19:55h 20:50h</b></td>
                                                 <td>
                                                     <select name="quinta2prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -386,7 +386,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>09:10h 10:05h</b></td>
+                                                <td><b>21:00h 21:55h</b></td>
                                                 <td>
                                                     <select name="quinta3prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -405,7 +405,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>10:05h 11:00h</b></td>
+                                                <td><b>21:55h 22:50h</b></td>
                                                 <td>
                                                     <select name="quinta4prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -446,7 +446,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:00h 07:55h</b></td>
+                                                <td><b>19:00h 19:55h</b></td>
                                                 <td>
                                                     <select name="sexta1prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -465,7 +465,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:55h 08:50h</b></td>
+                                                <td><b>19:55h 20:50h</b></td>
                                                 <td>
                                                     <select name="sexta2prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -484,7 +484,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>09:10h 10:05h</b></td>
+                                                <td><b>21:00h 21:55h</b></td>
                                                 <td>
                                                     <select name="sexta3prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -503,7 +503,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>10:05h 11:00h</b></td>
+                                                <td><b>21:55h 22:50h</b></td>
                                                 <td>
                                                     <select name="sexta4prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -562,7 +562,7 @@
                         <td><b>Disciplina</b></td>
                     </tr>
                     <tr>
-                        <td><b>07:00h 07:55h</b></td>
+                        <td><b>19:00h 19:55h</b></td>
                         <td><%=(String) request.getAttribute("segunda1prof")%></td>
                         <td><%=(String) request.getAttribute("segunda1disc")%></td>
                         <td><%=(String) request.getAttribute("terca1prof")%></td>
@@ -575,7 +575,7 @@
                         <td><%=(String) request.getAttribute("sexta1disc")%></td>
                     </tr>
                     <tr>
-                        <td><b>07:55h 08:50h</b></td>
+                        <td><b>19:55h 20:50h</b></td>
                         <td><%=(String) request.getAttribute("segunda2prof")%></td>
                         <td><%=(String) request.getAttribute("segunda2disc")%></td>
                         <td><%=(String) request.getAttribute("terca2prof")%></td>
@@ -588,7 +588,7 @@
                         <td><%=(String) request.getAttribute("sexta2disc")%></td>
                     </tr>
                     <tr>
-                        <td><b>09:10h 10:05h</b></td>
+                        <td><b>21:00h 21:55h</b></td>
                         <td><%=(String) request.getAttribute("segunda3prof")%></td>
                         <td><%=(String) request.getAttribute("segunda3disc")%></td>
                         <td><%=(String) request.getAttribute("terca3prof")%></td>
@@ -601,7 +601,7 @@
                         <td><%=(String) request.getAttribute("sexta3disc")%></td>
                     </tr>
                     <tr>
-                        <td><b>10:05h 11:00h</b></td>
+                        <td><b>21:55h 22:50h</b></td>
                         <td><%=(String) request.getAttribute("segunda4prof")%></td>
                         <td><%=(String) request.getAttribute("segunda4disc")%></td>
                         <td><%=(String) request.getAttribute("terca4prof")%></td>

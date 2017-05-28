@@ -1,6 +1,6 @@
 <%-- 
-    Document   : horario_matutino
-    Created on : 27/05/2017, 16:00:00
+    Document   : horario_integral_ves_not
+    Created on : 28/05/2017, 12:32:51
     Author     : Tarcisio
 --%>
 
@@ -9,8 +9,8 @@
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
 <%String aux;%>
-<%Servidor[] professores = {new Servidor("Gabriel Vieira"), new Servidor("Monica Sakuray"), new Servidor("Patrícia Miziara"), new Servidor("Paulo Mansur")};%>
-<%Disciplina[] discips = {new Disciplina("ProjOO"), new Disciplina("IHC"), new Disciplina("PADS"), new Disciplina("WebII"), new Disciplina("Topicos I")};%>
+<%Servidor[] professores = {new Servidor("Carlos Gomes"), new Servidor("Patrícia Miziara"), new Servidor("Rachel Carcute"), new Servidor("Jorcivan Ramos")};%>
+<%Disciplina[] discips = {new Disciplina("Redes"), new Disciplina("IHC"), new Disciplina("LP"), new Disciplina("Tóp. I")};%>
 
 <%if (session.getAttribute("olho_servlet_horario") == null) { //condição para verificar se a tela já passou por alguma servlet%>
 <tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo Horário de Aulas" usuario="Tarcísio R. Júnior" horarioAtivo="active"/>
@@ -54,7 +54,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:00h 07:55h</b></td>
+                                                <td><b>13:00h 13:55h</b></td>
                                                 <td>
                                                     <select name="segunda1prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -73,7 +73,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:55h 08:50h</b></td>
+                                                <td><b>13:55h 14:50h</b></td>
                                                 <td>
                                                     <select name="segunda2prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -92,7 +92,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>09:10h 10:05h</b></td>
+                                                <td><b>15:10h 16:05h</b></td>
                                                 <td>
                                                     <select name="segunda3prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -111,7 +111,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>10:05h 11:00h</b></td>
+                                                <td><b>16:05h 17:00h</b></td>
                                                 <td>
                                                     <select name="segunda4prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -121,6 +121,82 @@
                                                     </select>
                                                 </td>
                                                 <td><select name="segunda4disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><b>19:00h 19:55h</b></td>
+                                                <td>
+                                                    <select name="segunda5prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="segunda5disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>19:55h 20:50h</b></td>
+                                                <td>
+                                                    <select name="segunda6prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="segunda6disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>21:00h 21:55h</b></td>
+                                                <td>
+                                                    <select name="segunda7prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="segunda7disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>21:55h 22:50h</b></td>
+                                                <td>
+                                                    <select name="segunda8prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="segunda8disc" class="col-md-12">
                                                         <option>Em branco</option>
                                                         <%for (int i = 0; i < discips.length; i++) {%>
                                                         <option><%= discips[i].getNome()%></option>
@@ -152,7 +228,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:00h 07:55h</b></td>
+                                                <td><b>13:00h 13:55h</b></td>
                                                 <td>
                                                     <select name="terca1prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -171,7 +247,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:55h 08:50h</b></td>
+                                                <td><b>13:55h 14:50h</b></td>
                                                 <td>
                                                     <select name="terca2prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -190,7 +266,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>09:10h 10:05h</b></td>
+                                                <td><b>15:10h 16:05h</b></td>
                                                 <td>
                                                     <select name="terca3prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -209,7 +285,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>10:05h 11:00h</b></td>
+                                                <td><b>16:05h 17:00h</b></td>
                                                 <td>
                                                     <select name="terca4prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -219,6 +295,82 @@
                                                     </select>
                                                 </td>
                                                 <td><select name="terca4disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><b>19:00h 19:55h</b></td>
+                                                <td>
+                                                    <select name="terca5prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="terca5disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>19:55h 20:50h</b></td>
+                                                <td>
+                                                    <select name="terca6prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="terca6disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>21:00h 21:55h</b></td>
+                                                <td>
+                                                    <select name="terca7prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="terca7disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>21:55h 22:50h</b></td>
+                                                <td>
+                                                    <select name="terca8prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="terca8disc" class="col-md-12">
                                                         <option>Em branco</option>
                                                         <%for (int i = 0; i < discips.length; i++) {%>
                                                         <option><%= discips[i].getNome()%></option>
@@ -250,7 +402,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:00h 07:55h</b></td>
+                                                <td><b>13:00h 13:55h</b></td>
                                                 <td>
                                                     <select name="quarta1prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -269,7 +421,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:55h 08:50h</b></td>
+                                                <td><b>13:55h 14:50h</b></td>
                                                 <td>
                                                     <select name="quarta2prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -288,7 +440,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>09:10h 10:05h</b></td>
+                                                <td><b>15:10h 16:05h</b></td>
                                                 <td>
                                                     <select name="quarta3prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -307,7 +459,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>10:05h 11:00h</b></td>
+                                                <td><b>16:05h 17:00h</b></td>
                                                 <td>
                                                     <select name="quarta4prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -317,6 +469,82 @@
                                                     </select>
                                                 </td>
                                                 <td><select name="quarta4disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>19:00h 19:55h</b></td>
+                                                <td>
+                                                    <select name="quarta5prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="quarta5disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>19:55h 20:50h</b></td>
+                                                <td>
+                                                    <select name="quarta6prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="quarta6disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>21:00h 21:55h</b></td>
+                                                <td>
+                                                    <select name="quarta7prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="quarta7disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>21:55h 22:50h</b></td>
+                                                <td>
+                                                    <select name="quarta8prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="quarta8disc" class="col-md-12">
                                                         <option>Em branco</option>
                                                         <%for (int i = 0; i < discips.length; i++) {%>
                                                         <option><%= discips[i].getNome()%></option>
@@ -348,7 +576,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:00h 07:55h</b></td>
+                                                <td><b>13:00h 13:55h</b></td>
                                                 <td>
                                                     <select name="quinta1prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -367,7 +595,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:55h 08:50h</b></td>
+                                                <td><b>13:55h 14:50h</b></td>
                                                 <td>
                                                     <select name="quinta2prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -386,7 +614,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>09:10h 10:05h</b></td>
+                                                <td><b>15:10h 16:05h</b></td>
                                                 <td>
                                                     <select name="quinta3prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -405,7 +633,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>10:05h 11:00h</b></td>
+                                                <td><b>16:05h 17:00h</b></td>
                                                 <td>
                                                     <select name="quinta4prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -415,6 +643,82 @@
                                                     </select>
                                                 </td>
                                                 <td><select name="quinta4disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>19:00h 19:55h</b></td>
+                                                <td>
+                                                    <select name="quinta5prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="quinta5disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>19:55h 20:50h</b></td>
+                                                <td>
+                                                    <select name="quinta6prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="quinta6disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>21:00h 21:55h</b></td>
+                                                <td>
+                                                    <select name="quinta7prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="quinta7disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>21:55h 22:50h</b></td>
+                                                <td>
+                                                    <select name="quinta8prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="quinta8disc" class="col-md-12">
                                                         <option>Em branco</option>
                                                         <%for (int i = 0; i < discips.length; i++) {%>
                                                         <option><%= discips[i].getNome()%></option>
@@ -446,7 +750,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:00h 07:55h</b></td>
+                                                <td><b>13:00h 13:55h</b></td>
                                                 <td>
                                                     <select name="sexta1prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -465,7 +769,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>07:55h 08:50h</b></td>
+                                                <td><b>13:55h 14:50h</b></td>
                                                 <td>
                                                     <select name="sexta2prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -484,7 +788,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>09:10h 10:05h</b></td>
+                                                <td><b>15:10h 16:05h</b></td>
                                                 <td>
                                                     <select name="sexta3prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -503,7 +807,7 @@
                                             </tr>
 
                                             <tr>
-                                                <td><b>10:05h 11:00h</b></td>
+                                                <td><b>16:05h 17:00h</b></td>
                                                 <td>
                                                     <select name="sexta4prof" class="col-md-12">
                                                         <option>Em branco</option>
@@ -513,6 +817,82 @@
                                                     </select>
                                                 </td>
                                                 <td><select name="sexta4disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><b>19:00h 19:55h</b></td>
+                                                <td>
+                                                    <select name="sexta5prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="sexta5disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>19:55h 20:50h</b></td>
+                                                <td>
+                                                    <select name="sexta6prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="sexta6disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>21:00h 21:55h</b></td>
+                                                <td>
+                                                    <select name="sexta7prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="sexta7disc" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < discips.length; i++) {%>
+                                                        <option><%= discips[i].getNome()%></option>
+                                                        <% }%>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>21:55h 22:50h</b></td>
+                                                <td>
+                                                    <select name="sexta8prof" class="col-md-12">
+                                                        <option>Em branco</option>
+                                                        <%for (int i = 0; i < professores.length; i++) {%>
+                                                        <option><%= professores[i].getNome()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </td>
+                                                <td><select name="sexta8disc" class="col-md-12">
                                                         <option>Em branco</option>
                                                         <%for (int i = 0; i < discips.length; i++) {%>
                                                         <option><%= discips[i].getNome()%></option>
@@ -532,7 +912,7 @@
         </div>
     </div>
     <div class="form-actions text-right pal">
-        <input type="submit" class="btn btn-primary" value="Validar dados"/>
+        <button type="submit" class="btn btn-primary" value="Validar dados"/>
     </div>                                      
 </form>
 <%} else {%>
@@ -562,7 +942,7 @@
                         <td><b>Disciplina</b></td>
                     </tr>
                     <tr>
-                        <td><b>07:00h 07:55h</b></td>
+                        <td><b>13:00h 13:55h</b></td>
                         <td><%=(String) request.getAttribute("segunda1prof")%></td>
                         <td><%=(String) request.getAttribute("segunda1disc")%></td>
                         <td><%=(String) request.getAttribute("terca1prof")%></td>
@@ -575,7 +955,7 @@
                         <td><%=(String) request.getAttribute("sexta1disc")%></td>
                     </tr>
                     <tr>
-                        <td><b>07:55h 08:50h</b></td>
+                        <td><b>13:55h 14:50h</b></td>
                         <td><%=(String) request.getAttribute("segunda2prof")%></td>
                         <td><%=(String) request.getAttribute("segunda2disc")%></td>
                         <td><%=(String) request.getAttribute("terca2prof")%></td>
@@ -588,7 +968,7 @@
                         <td><%=(String) request.getAttribute("sexta2disc")%></td>
                     </tr>
                     <tr>
-                        <td><b>09:10h 10:05h</b></td>
+                        <td><b>15:10h 16:05h</b></td>
                         <td><%=(String) request.getAttribute("segunda3prof")%></td>
                         <td><%=(String) request.getAttribute("segunda3disc")%></td>
                         <td><%=(String) request.getAttribute("terca3prof")%></td>
@@ -612,6 +992,59 @@
                         <td><%=(String) request.getAttribute("quinta4disc")%></td>
                         <td><%=(String) request.getAttribute("sexta4prof")%></td>
                         <td><%=(String) request.getAttribute("sexta4disc")%></td>
+                    </tr>
+                    <tr>
+                        <td><b>19:00h 19:55h</b></td>
+                        <td><%=(String) request.getAttribute("segunda5prof")%></td>
+                        <td><%=(String) request.getAttribute("segunda5disc")%></td>
+                        <td><%=(String) request.getAttribute("terca5prof")%></td>
+                        <td><%=(String) request.getAttribute("terca5disc")%></td>
+                        <td><%=(String) request.getAttribute("quarta5prof")%></td>
+                        <td><%=(String) request.getAttribute("quarta5disc")%></td>
+                        <td><%=(String) request.getAttribute("quinta5prof")%></td>
+                        <td><%=(String) request.getAttribute("quinta5disc")%></td>
+                        <td><%=(String) request.getAttribute("sexta5prof")%></td>
+                        <td><%=(String) request.getAttribute("sexta5disc")%></td>
+                    </tr>
+                    <tr>
+                        <td><b>19:55h 20:50h</b></td>
+                        <td><%=(String) request.getAttribute("segunda6prof")%></td>
+                        <td><%=(String) request.getAttribute("segunda6disc")%></td>
+                        <td><%=(String) request.getAttribute("terca6prof")%></td>
+                        <td><%=(String) request.getAttribute("terca6disc")%></td>
+                        <td><%=(String) request.getAttribute("quarta6prof")%></td>
+                        <td><%=(String) request.getAttribute("quarta6disc")%></td>
+                        <td><%=(String) request.getAttribute("quinta6prof")%></td>
+                        <td><%=(String) request.getAttribute("quinta6disc")%></td>
+                        <td><%=(String) request.getAttribute("sexta6prof")%></td>
+                        <td><%=(String) request.getAttribute("sexta6disc")%></td>
+                    </tr>
+                    <tr>
+                        <td><b>21:00h 21:55h</b></td>
+                        <td><%=(String) request.getAttribute("segunda7prof")%></td>
+                        <td><%=(String) request.getAttribute("segunda7disc")%></td>
+                        <td><%=(String) request.getAttribute("terca7prof")%></td>
+                        <td><%=(String) request.getAttribute("terca7disc")%></td>
+                        <td><%=(String) request.getAttribute("quarta7prof")%></td>
+                        <td><%=(String) request.getAttribute("quarta7disc")%></td>
+                        <td><%=(String) request.getAttribute("quinta7prof")%></td>
+                        <td><%=(String) request.getAttribute("quinta7disc")%></td>
+                        <td><%=(String) request.getAttribute("sexta7prof")%></td>
+                        <td><%=(String) request.getAttribute("sexta7disc")%></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><b>21:00h 21:55h</b></td>
+                        <td><%=(String) request.getAttribute("segunda8prof")%></td>
+                        <td><%=(String) request.getAttribute("segunda8disc")%></td>
+                        <td><%=(String) request.getAttribute("terca8prof")%></td>
+                        <td><%=(String) request.getAttribute("terca8disc")%></td>
+                        <td><%=(String) request.getAttribute("quarta8prof")%></td>
+                        <td><%=(String) request.getAttribute("quarta8disc")%></td>
+                        <td><%=(String) request.getAttribute("quinta8prof")%></td>
+                        <td><%=(String) request.getAttribute("quinta8disc")%></td>
+                        <td><%=(String) request.getAttribute("sexta8prof")%></td>
+                        <td><%=(String) request.getAttribute("sexta8disc")%></td>
                     </tr>
                     </tbody>
             </table>
