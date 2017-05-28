@@ -25,6 +25,11 @@ public class Servidor {
     public Servidor(String nome){
         this.nome = nome;
     }
+
+    public Servidor(int idServidor, String nome) {
+        this.idServidor = idServidor;
+        this.nome = nome;
+    }
     
     public Servidor(){
     }
@@ -111,6 +116,7 @@ public class Servidor {
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+    
     
     
 }

@@ -9,7 +9,6 @@ import br.edu.ifgoiano.siscoorweb.utilitarios.UploadPTC;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,28 +35,13 @@ public class UploadServletPTC extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
-        
-        HttpSession session = request.getSession();
-        
+
         UploadPTC up = new UploadPTC();
         up.setFolderUpload("uploadsPTC");
 
-        String appPath = request.getServletContext().getRealPath("");
-        // constructs path of the directory to save uploaded file
-        String savePath = appPath + File.separator + up.getFolderUpload();
-
-        // creates the save directory if it does not exists
-        File fileSaveDir = new File(savePath);
-        if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdir();
-        }
-        if (up.formProcess(getServletContext(), request)) {
-            session.setAttribute("msg", "Trabalho submetido com sucesso");
-            response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
-        } else {
-            //out.println(caminho + "<br>");
-        }
+        uploadArquivo(request, response, up);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -99,4 +83,77 @@ public class UploadServletPTC extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public void uploadArquivo(HttpServletRequest request, HttpServletResponse response, UploadPTC up)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        String appPath = request.getServletContext().getRealPath("");
+        // constructs path of the directory to save uploaded file
+        String savePath = appPath + File.separator + up.getFolderUpload();
+
+        // creates the save directory if it does not exists
+        File fileSaveDir = new File(savePath);
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdir();
+        }
+
+        if (up.formProcess(getServletContext(), request)) {
+            if (String.valueOf(up.getForm().get("btn_propostaSubmit")).equals("Voltar")) {
+                String tentar_pegar = null;
+                try {
+                    tentar_pegar = up.getFiles().get(0);
+                } catch (IndexOutOfBoundsException ex) {
+                    tentar_pegar = "";
+                }
+                if (!tentar_pegar.isEmpty()) {
+                    try {
+                        File fileApaga = new File(savePath + File.separator + up.getFiles().get(0));
+                        fileApaga.delete();
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    } finally {
+                        btnVoltar(request, response);
+                    }
+                } else if (tentar_pegar.isEmpty()) {
+                    btnVoltar(request, response);
+                }
+            } else {
+                String tentar_pegar = null;
+                try {
+                    tentar_pegar = up.getFiles().get(0);
+                } catch (IndexOutOfBoundsException ex) {
+                    tentar_pegar = "";
+                }
+                session.setAttribute("msg", null);
+                session.setAttribute("tipo_msg", null);
+                if (tentar_pegar.isEmpty()
+                        || String.valueOf(up.getForm().get("tituloPTC")).isEmpty()
+                        || String.valueOf(up.getForm().get("aluno01")).isEmpty()
+                        || String.valueOf(up.getForm().get("idOrientador")).isEmpty()) {
+
+                    try {
+                        File fileApaga = new File(savePath + File.separator + up.getFiles().get(0));
+                        fileApaga.delete();
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    } finally {
+                        session.setAttribute("msg", "Por favor, preencha todos os campos obrigatórios.");
+                        session.setAttribute("tipo_msg", "danger");
+                        response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
+                    }
+                } else {
+                    session.setAttribute("msg", "Trabalho submetido com sucesso");
+                    session.setAttribute("tipo_msg", "success");
+                    response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
+                }
+            }
+        } else {
+            //out.println(caminho + "<br>");
+        }
+    }
+
+    public void btnVoltar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect("proposta_de_tc/menu_ptc.jsp");
+    }
 }
