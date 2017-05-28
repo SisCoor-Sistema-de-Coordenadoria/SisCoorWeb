@@ -5,7 +5,6 @@
  */
 package br.edu.ifgoiano.siscoorweb.modelos;
 
-import br.edu.ifgoiano.siscoorweb.utilitarios.UploadPTC;
 import java.util.Date;
 
 /**
