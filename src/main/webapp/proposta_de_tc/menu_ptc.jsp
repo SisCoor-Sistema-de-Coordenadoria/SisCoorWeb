@@ -66,9 +66,9 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
     <div class="col-sm-0 col-md-0">
     </div>
     <div class="col-sm-6 col-md-6">
-        <div class="panel profit db mbm">
-            <a href="proposta_trabalho_curso.jsp">
-               <div class="panel-body">
+        <a href="proposta_trabalho_curso.jsp">
+            <div class="panel profit db mbm">
+                <div class="panel-body">
                     <p class="icon">
                         <i class="icon fa fa-file-pdf-o"></i>
                     </p>
@@ -80,8 +80,8 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
                         Submeta uma nova proposta de trabalho de curso
                     </p>
                 </div>
-            </a>
-        </div>
+            </div>
+        </a>
     </div>
     <div class="col-sm-6 col-md-6">
         <div class="panel profit db mbm">

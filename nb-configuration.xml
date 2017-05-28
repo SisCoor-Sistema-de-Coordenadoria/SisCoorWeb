@@ -23,5 +23,17 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-css-prep.sass_2e_mappings>/scss:/css</org-netbeans-modules-css-prep.sass_2e_mappings>
         <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
         <org-netbeans-modules-web-clientproject-api.js_2e_libs_2e_folder>js/libs</org-netbeans-modules-web-clientproject-api.js_2e_libs_2e_folder>
+        <org-netbeans-modules-whitelist.whitelist-oracle>false</org-netbeans-modules-whitelist.whitelist-oracle>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.SaveActionModifiedLinesOnly>false</de-markiewb-netbeans-plugins-eclipse-formatter.SaveActionModifiedLinesOnly>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.preserveBreakPoints>true</de-markiewb-netbeans-plugins-eclipse-formatter.preserveBreakPoints>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.linefeed/>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.eclipseFormatterActiveProfile/>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.useProjectPref>true</de-markiewb-netbeans-plugins-eclipse-formatter.useProjectPref>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.eclipseFormatterLocation/>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.showNotifications>true</de-markiewb-netbeans-plugins-eclipse-formatter.showNotifications>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.eclipseFormatterEnabled>false</de-markiewb-netbeans-plugins-eclipse-formatter.eclipseFormatterEnabled>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.enableFormatAsSaveAction>false</de-markiewb-netbeans-plugins-eclipse-formatter.enableFormatAsSaveAction>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.sourcelevel/>
+        <de-markiewb-netbeans-plugins-eclipse-formatter.useProjectSettings>false</de-markiewb-netbeans-plugins-eclipse-formatter.useProjectSettings>
     </properties>
 </project-shared-configuration>
