@@ -35,7 +35,16 @@ public class DefesaTCServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
        
+        String botao = request.getParameter("botao");
+        if(botao.equals("Buscar")){
+            if(!request.getParameter("idTrabalho").isEmpty()){
+                
+            }else{
+                
+            }
+        }                                                                                                              
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
