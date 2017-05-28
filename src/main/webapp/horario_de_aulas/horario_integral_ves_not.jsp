@@ -13,7 +13,7 @@
 <%Disciplina[] discips = {new Disciplina("Redes"), new Disciplina("IHC"), new Disciplina("LP"), new Disciplina("Tóp. I")};%>
 
 <%if (session.getAttribute("olho_servlet_horario") == null) { //condição para verificar se a tela já passou por alguma servlet%>
-<tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo Horário de Aulas" usuario="Tarcísio R. Júnior" horarioAtivo="active"/>
+<tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo Horário de Aulas" usuario="<%=(String)session.getAttribute("nomeUsuario")%>" horarioAtivo="active"/>
 <%} else{%>
 <tag:header paramVolta="<%=(String) session.getAttribute("param_volta_servlet")%>" title="SisCoor | Módulo Hr. de Aula" caminho="<%=(String) session.getAttribute("caminho_servlet")%>" titlePage="Módulo Horário de Aulas" usuario="Tarcísio R. Júnior" horarioAtivo="active"/>
 <%}%>
@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8" style="text-align: center">
-                            <div class="panel panel-green">
+                            <div class="panel panel-grey">
                                 <div class="panel-body">
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -217,7 +217,7 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8" style="text-align: center">
-                            <div class="panel panel-green">
+                            <div class="panel panel-grey">
                                 <div class="panel-body">
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -391,7 +391,7 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8" style="text-align: center">
-                            <div class="panel panel-green">
+                            <div class="panel panel-grey">
                                 <div class="panel-body">
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -565,7 +565,7 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8" style="text-align: center">
-                            <div class="panel panel-green">
+                            <div class="panel panel-grey">
                                 <div class="panel-body">
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -739,7 +739,7 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8" style="text-align: center">
-                            <div class="panel panel-green">
+                            <div class="panel panel-grey">
                                 <div class="panel-body">
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -917,7 +917,7 @@
 </form>
 <%} else {%>
 <div class="col-lg-12" style="text-align: center">
-    <div class="panel panel-green">
+    <div class="panel panel-grey">
         <div class="panel-body">
             <table class="table table-hover table-bordered">
                 <thead>

@@ -17,14 +17,14 @@
 
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
-<tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo | Horário de Aulas" usuario="Tarcísio R. Júnior" horarioAtivo="active"/>
+<tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo | Horário de Aulas" usuario="<%=(String)session.getAttribute("nomeUsuario")%>" horarioAtivo="active"/>
 
 <tag:conteudoInicio/>
 
 <tag:open_coluna tamanho="12"/>
 <div class="col-md-3"></div>
 <div class="col-md-6" style="align-content: center">
-    <div class="panel panel-violet">
+    <div class="panel panel-grey">
         <div class="panel-heading">
             Selecione um curso</div>
         <div class="panel-body pan">

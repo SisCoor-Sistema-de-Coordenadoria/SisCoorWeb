@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,9 +37,10 @@ public class DefesaTCServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
        
         String botao = request.getParameter("botao");
+        HttpSession session = request.getSession();
         if(botao.equals("Buscar")){
             if(!request.getParameter("idTrabalho").isEmpty()){
-                
+                session.setAttribute("msg", "Preencha todos os campos com *.");
             }else{
                 
             }
