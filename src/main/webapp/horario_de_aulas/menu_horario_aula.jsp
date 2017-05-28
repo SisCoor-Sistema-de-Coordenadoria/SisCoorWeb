@@ -9,7 +9,7 @@
 
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
-<tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo Horário de Aulas" usuario="<%=(String)session.getAttribute("nomeUsuario")%>" horarioAtivo="active"/>
+<tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo Horário de Aulas" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" horarioAtivo="active"/>
 
 <tag:conteudoInicio/>
 
@@ -32,7 +32,25 @@
             </div>
         </a>
     </div>
+
+    <div class="col-sm-6 col-md-6">
+        <a href="horario_<%=curso.getTurno()%>_visualizar.jsp">
+            <div class="panel profit db mbm">
+                <div class="panel-body">
+                    <p class="icon">
+                        <i class="icon fa fa-eye"></i>
+                    </p>
+                    <h4 class="value">
+                        <span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0">
+                        </span><span>Visualizar horários</span></h4>
+                    <p class="description">
+                        Visualizar os horários cadastrados para o curso selecionado.</p>
+                </div>
+            </div>
+        </a>
+    </div>
 </div>
+
 
 <tag:close_coluna/>
 
