@@ -22,6 +22,31 @@ public class Aluno {
     private Date dataNascimento; 
     private int tipo;
 
+    public Aluno(String nome) {
+        this.nome = nome;
+    }
+    
+    public Aluno(String nome, int idAluno){
+        this.nome = nome;
+        this.idAluno = idAluno;
+    }
+
+    public Aluno(String senha, String matricula, int idAluno, String nome, String cpf, String email, String telefone, Date dataNascimento, int tipo) {
+        this.senha = senha;
+        this.matricula = matricula;
+        this.idAluno = idAluno;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.telefone = telefone;
+        this.dataNascimento = dataNascimento;
+        this.tipo = tipo;
+    }
+
+    public Aluno() {
+    }
+    
+    
     public String getSenha() {
         return senha;
     }
