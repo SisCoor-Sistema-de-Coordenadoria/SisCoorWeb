@@ -126,7 +126,10 @@
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Proposta de Trabalho de Curso</span></a></li>
                                     
-                            
+                            <li><a href="defesa_de_tc/defesa_de_tc.jsp"><i class="fa fa-book fa-fw">
+                                        <div class="icon-bg bg-violet"></div>
+                                    </i><span class="menu-title">Defesa de Trabalho de Curso</span></a></li>
+                                    
                             <!--
                             <li><a href="Tables.html"><i class="fa fa-th-list fa-fw">
                                 <div class="icon-bg bg-blue"></div>
