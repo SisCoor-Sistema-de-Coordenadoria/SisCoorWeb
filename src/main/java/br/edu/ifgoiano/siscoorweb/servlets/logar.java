@@ -38,9 +38,6 @@ public class logar extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         HttpSession session = request.getSession();
-        System.out.println(request.getParameter("idUsuario"));
-        System.out.println(request.getParameter("nomeUsuario"));
-        session.setAttribute("idUsuario", request.getParameter("idUsuario"));
         session.setAttribute("nomeUsuario", request.getParameter("nomeUsuario"));
         
         response.sendRedirect("../SisCoorWeb/logado.jsp");

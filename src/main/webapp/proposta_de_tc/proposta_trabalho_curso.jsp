@@ -4,36 +4,35 @@
     Author     : Jehymeson Gil
 --%>
 
+<%@page import="br.edu.ifgoiano.siscoorweb.modelos.Aluno"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Servidor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag" %>
 <tag:header title="SisCoor | Módulo PTC" titlePage="Módulo|Proposta de Trabalho
-            de Curso" caminho="../resources" paramVolta="../../SisCoorWeb" ptcAtivo="active" usuario="<%=(String)session.getAttribute("nomeUsuario")%>" />
+de Curso" caminho="../resources" paramVolta="../../SisCoorWeb" ptcAtivo="active" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" />
 
-<%Servidor[] professores = {new Servidor("Gabriel"), new Servidor("Monica"), new Servidor("Patrícia"), new Servidor("Paulo")};%>
-<%String[] alunos = {new String("Jehymison Gil Alves Oliveira"), new String("Naiane Maria de Sousa"), new String("Tarcísio Ribeiro Junior")};%>
+<%Servidor[] professores = {new Servidor(001, "Gabriel"), new Servidor(002, "Monica"), new Servidor(003, "Patrícia"), new Servidor(004, "Paulo")};%>
+<%Aluno[] alunos = {new Aluno("Jehymison Gil", 001), new Aluno("Naiane Maria", 002), new Aluno("Tarcísio Ribeiro", 003)};%>
 
 
 <!-- Escondendo Mensagem Sucess-->
 <script language="JavaScript">
     function fecha_banner()
     {
-        var banner_obj = document.getElementById('alert');
-        banner_obj.style.display = 'none';
+    var banner_obj = document.getElementById('alert');
+            banner_obj.style.display = 'none';
     }
-    setTimeout('fecha_banner()', 5000);
-</script>
+    setTimeout('fecha_banner()', 5000);</script>
 <!-- Fim do JavaScript -->
 
 <!-- Escondendo Mensagem Danger-->
 <script language="JavaScript">
-    function fecha_banner_danger()
-    {
-        var banner_obj = document.getElementById('alert_danger');
-        banner_obj.style.display = 'none';
-    }
-    setTimeout('fecha_banner_danger()', 5000000);
-</script>
+            function fecha_banner_danger()
+            {
+            var banner_obj = document.getElementById('alert_danger');
+                    banner_obj.style.display = 'none';
+            }
+    setTimeout('fecha_banner_danger()', 5000000);</script>
 <!-- Fim do JavaScript -->
 
 
@@ -42,21 +41,22 @@
 <% if (session.getAttribute("msg") != null) {
         String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
         if (tipo_msg.equals("danger")) {%>
-            <div id="alert_danger" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
-                style="text-align: center">
-            <strong><%= session.getAttribute("msg")%></strong>
-            </div>
-            <%session.setAttribute("msg", null);
+<div id="alert_danger" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
+     style="text-align: center">
+    <strong><%= session.getAttribute("msg")%></strong>
+</div>
+<%session.setAttribute("msg", null);
+    session.setAttribute("tipo_msg", null);
+} else if (tipo_msg.equals("success")) {%>
+<div id="alert" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
+     style="text-align: center">
+    <strong><%= session.getAttribute("msg")%>
+    </strong>
+</div>
+<%session.setAttribute("msg", null);
             session.setAttribute("tipo_msg", null);
-        }else if(tipo_msg.equals("success")){%>
-            <div id="alert" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
-            style="text-align: center">
-            <strong><%= session.getAttribute("msg")%>
-            </strong>
-            </div>
-            <%session.setAttribute("msg", null);
-            session.setAttribute("tipo_msg", null);
-        }} else {
+        }
+    } else {
         session.setAttribute("msg", null);
         session.setAttribute("tipo_msg", null);
     }%>
@@ -89,6 +89,25 @@
                             </div>
                         </div>
 
+                        <!-- ID Aluno01 -->
+                        <div class="col-md-12" hidden="enable">
+                            <div class="form-group">
+                                <div class="input-icon right">
+                                    <i class="fa fa-pencil"></i>
+                                    <% int idAluno01;
+                                        for (int i = 0; i < alunos.length; i++) {%>
+                                    <%if (alunos[i].getNome().equals(
+                                                (String) session.getAttribute("nomeUsuario"))) {%>
+                                    <%idAluno01 = alunos[i].getIdAluno();%>
+                                    <input value="<%=idAluno01%>" type="text" id="idAluno01" class="form-control" name="idAluno01">
+                                    <%
+                                            }
+                                        }
+                                    %>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Aluno 01 -->
                         <div class="col-md-6">
                             <div class="form-group">
@@ -97,12 +116,8 @@
                                 </label>
                                 <div class="input-icon right">
                                     <i class="fa fa-user"></i>
-                                    <select id="inputAluno01" class="form-control" name="aluno01">
-                                        <option> </option>
-                                        <%for (int i = 0; i < alunos.length; i++) {%>
-                                        <option><%= alunos[i].toString()%></option>
-                                        <% }%>
-                                    </select>
+                                    <input value="<%=(String) session.getAttribute("nomeUsuario")%>" 
+                                           disabled="true" type="text" id="aluno01" class="form-control" name="aluno01">
                                 </div>
                             </div>
                         </div>
@@ -118,7 +133,7 @@
                                     <select id="inputAluno02" class="form-control" name="aluno02">
                                         <option> </option>
                                         <%for (int i = 0; i < alunos.length; i++) {%>
-                                        <option><%= alunos[i].toString()%></option>
+                                        <option value="<%=alunos[i].getIdAluno()%>"><%= alunos[i].getNome()%></option>
                                         <% }%>
                                     </select>
                                 </div>
@@ -136,9 +151,9 @@
                                     <select id="inputOrientador" class="form-control" name="idOrientador">
                                         <option> </option>
                                         <%for (int i = 0; i < professores.length; i++) {%>
-                                        <option><%= professores[i].getNome()%></option>
-                                        <% }%>
-                                    </select>
+                                        <option value="<%=professores[i].getIdServidor()%>"><%= professores[i].getNome()%></option>
+                                        <%}%>                                       
+                                    </select>                                        
                                 </div>
                             </div>
                         </div>
@@ -154,7 +169,7 @@
                                     <select id="inputCoorientador" class="form-control" name="idCoorientador">
                                         <option> </option>
                                         <%for (int i = 0; i < professores.length; i++) {%>
-                                        <option><%= professores[i].getNome()%></option>
+                                        <option value="<%=professores[i].getIdServidor()%>"><%= professores[i].getNome()%></option>
                                         <% }%>
                                     </select>
                                 </div>
@@ -176,8 +191,14 @@
                         </div>
 
                         <!-- Botão de Envio -->
-                        <div class="col-md-12" style="text-align: right">
-                            <input type="submit" class="btn btn-blue" value="Submeter Proposta"/>
+                        <div class="col-lg-12" style="text-align: justify">
+                            <div class="col-sm-4 col-md-2 col-lg-4" style="text-align: justify">
+                                <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn_propostaSubmit"/>
+                            </div>
+                            <div class="col-sm-4 col-md-7 col-lg-4"></div>
+                            <div class="col-sm-4 col-md-2 col-lg-3">
+                                <input type="submit" class="btn btn-blue" value="Submeter Proposta" name="btn_propostaSubmit"/>
+                            </div>
                         </div>
 
                     </div>

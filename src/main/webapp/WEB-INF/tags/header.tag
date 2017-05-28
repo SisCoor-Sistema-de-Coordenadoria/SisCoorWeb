@@ -128,7 +128,7 @@
                                     </i><span class="menu-title">Horário de Aulas</span></a>
 
                             </li>
-                            <li class="${ptcAtivo}"><a href="${paramVolta}/proposta_de_tc/proposta_trabalho_curso.jsp"><i class="fa fa-file-text-o fa-fw">
+                            <li class="${ptcAtivo}"><a href="${paramVolta}/proposta_de_tc/menu_ptc.jsp"><i class="fa fa-file-text-o fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Proposta de Trabalho de Curso</span></a>
     

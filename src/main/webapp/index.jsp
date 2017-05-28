@@ -14,11 +14,8 @@
     <body>
         <form action="logar" method="post">
         <h1>Login</h1><br><br><hr>
-        <p>Id Usuario: </p>
-        <input name="idUsuario"/><br>
         <p>Nome: </p>
         <input name="nomeUsuario"/><br><br>
-        
             <button name="login" value="Logar">Logar</button>
         </form>
     </body>
