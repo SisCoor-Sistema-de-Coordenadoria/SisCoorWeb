@@ -108,10 +108,8 @@
                         <ul id="side-menu" class="nav">
 
                             <div class="clearfix"></div>
-                            <li class="active"><a href="../SisCoorWeb/"><i class="fa fa-tachometer fa-fw">
-                                        <div class="icon-bg bg-orange">
-                                            testes
-                                        </div>
+                            <li class="active"><a href="../SisCoorWeb/logado.jsp"><i class="fa fa-tachometer fa-fw">
+                                        <div class="icon-bg bg-orange"></div>
                                     </i><span class="menu-title">Início</span></a></li>
 
                             <li><a href="uso_laboratorio/uso_laboratorio_criar.jsp"><i class="fa fa-desktop fa-fw">
@@ -122,7 +120,7 @@
                                         <div class="icon-bg bg-green"></div>
                                     </i><span class="menu-title">Horário de Aulas</span></a></li>
                             
-                            <li><a href="proposta_de_tc/proposta_trabalho_curso.jsp"><i class="fa fa-book fa-fw">
+                            <li><a href="proposta_de_tc/proposta_trabalho_curso.jsp"><i class="fa fa-file-text-o fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Proposta de Trabalho de Curso</span></a></li>
                                     

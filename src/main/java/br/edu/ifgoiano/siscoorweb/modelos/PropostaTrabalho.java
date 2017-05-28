@@ -5,13 +5,20 @@
  */
 package br.edu.ifgoiano.siscoorweb.modelos;
 
+import br.edu.ifgoiano.siscoorweb.utilitarios.UploadPTC;
+import java.util.Date;
+
 /**
  * @author Jehymeson Gil
  */
 public class PropostaTrabalho {
-    private int idProposta, idAluno01, idOrientador,
-            idCoorientador, idAluno2;
-    private String titulo, caminhoArquivo,dataEnvio;
+    private Aluno aluno1 = new Aluno();
+    private Aluno aluno2;
+    private Servidor orientador = new Servidor();
+    private Servidor coorientador;
+    private Date dataEnvio, horaEnvio;
+    private int idProposta;
+    private String tituloPTC, caminhoArquivo;
     private boolean aceite;
 
     public int getIdProposta() {
@@ -22,44 +29,12 @@ public class PropostaTrabalho {
         this.idProposta = idProposta;
     }
 
-    public int getIdAluno01() {
-        return idAluno01;
+    public String getTituloPTC() {
+        return tituloPTC;
     }
 
-    public void setIdAluno01(int idAluno01) {
-        this.idAluno01 = idAluno01;
-    }
-
-    public int getIdOrientador() {
-        return idOrientador;
-    }
-
-    public void setIdOrientador(int idOrientador) {
-        this.idOrientador = idOrientador;
-    }
-
-    public int getIdCoorientador() {
-        return idCoorientador;
-    }
-
-    public void setIdCoorientador(int idCoorientador) {
-        this.idCoorientador = idCoorientador;
-    }
-
-    public int getIdAluno2() {
-        return idAluno2;
-    }
-
-    public void setIdAluno2(int idAluno2) {
-        this.idAluno2 = idAluno2;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTitulo(String tituloPTC) {
+        this.tituloPTC = tituloPTC;
     }
 
     public String getCaminhoArquivo() {
@@ -70,11 +45,11 @@ public class PropostaTrabalho {
         this.caminhoArquivo = caminhoArquivo;
     }
 
-    public String getDataEnvio() {
+    public Date getDataEnvio() {
         return dataEnvio;
     }
 
-    public void setDataEnvio(String dataEnvio) {
+    public void setDataEnvio(Date dataEnvio) {
         this.dataEnvio = dataEnvio;
     }
 
@@ -85,16 +60,44 @@ public class PropostaTrabalho {
     public void setAceite(boolean aceite) {
         this.aceite = aceite;
     }
-    
-    public  void submeterProposta(){
-        
+
+    public Aluno getAluno1() {
+        return aluno1;
     }
-    
-    public void gerarFichaAceite(){
-        
+
+    public void setAluno1(Aluno aluno1) {
+        this.aluno1 = aluno1;
     }
-    
-    public void avaliarProposta(){
-        
+
+    public Aluno getAluno2() {
+        return aluno2;
+    }
+
+    public void setAluno2(Aluno aluno2) {
+        this.aluno2 = aluno2;
+    }
+
+    public Servidor getOrientador() {
+        return orientador;
+    }
+
+    public void setOrientador(Servidor orientador) {
+        this.orientador = orientador;
+    }
+
+    public Servidor getCoorientador() {
+        return coorientador;
+    }
+
+    public void setCoorientador(Servidor coorientador) {
+        this.coorientador = coorientador;
+    }
+
+    public Date getHoraEnvio() {
+        return horaEnvio;
+    }
+
+    public void setHoraEnvio(Date horaEnvio) {
+        this.horaEnvio = horaEnvio;
     }
 }
