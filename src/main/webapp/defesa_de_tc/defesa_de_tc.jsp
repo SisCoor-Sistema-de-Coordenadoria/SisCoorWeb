@@ -4,12 +4,12 @@
     Author     : IFgoiano
 --%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags/"%>
-<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Módulo Defesa de Trabalho de Curso" usuario="Naiane"/>
+<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Módulo | Defesa de Trabalho de Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>"/>
 <tag:conteudoInicio/>
 
 <tag:open_coluna tamanho="12"/>
         <div id="sum_box" class="row mbl">
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-6 col-md-4 col-lg-4">
                                 <a href="agendar_defesa_tc.jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
@@ -24,7 +24,7 @@
                                 </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-6 col-md-4 col-lg-4">
                                 <a href="quadro_de_defesas.jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
@@ -39,7 +39,7 @@
                                 </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-6 col-md-4 col-lg-4">
                                 <a href="agendar_defesa_tc.jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
@@ -54,7 +54,7 @@
                                 </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-6 col-md-4 col-lg-4">
                                 <a href="agendar_defesa_tc.jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
@@ -69,7 +69,7 @@
                                 </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-6 col-md-4 col-lg-4">
                                 <a href="agendar_defesa_tc.jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
@@ -84,7 +84,7 @@
                                 </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-6 col-md-4 col-lg-4">
                                 <a href="agendar_defesa_tc.jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">

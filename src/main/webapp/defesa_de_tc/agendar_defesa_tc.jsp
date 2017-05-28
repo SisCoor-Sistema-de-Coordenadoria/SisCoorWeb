@@ -7,7 +7,7 @@
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho"%>
 <%@page import="java.util.ArrayList"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags/"%>
-<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Defesa de Trabalho de Curso" usuario="Naiane"/>
+<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Defesa de Trabalho de Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>"/>
 
 <!-- Escondendo Mensagem Danger-->
 <script language="JavaScript">
@@ -24,6 +24,30 @@
 <tag:open_coluna tamanho="2"/>
 <tag:close_coluna/>
 <tag:open_coluna tamanho="8"/>
+
+<% if (session.getAttribute("msg") != null) {
+        String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
+        if (tipo_msg.equals("danger")) {%>
+<div id="alert_danger" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
+     style="text-align: center">
+    <strong><%= session.getAttribute("msg")%></strong>
+</div>
+<%session.setAttribute("msg", null);
+    session.setAttribute("tipo_msg", null);
+} else if (tipo_msg.equals("success")) {%>
+<div id="alert" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
+     style="text-align: center">
+    <strong><%= session.getAttribute("msg")%>
+    </strong>
+</div>
+<%session.setAttribute("msg", null);
+            session.setAttribute("tipo_msg", null);
+        }
+    } else {
+        session.setAttribute("msg", null);
+        session.setAttribute("tipo_msg", null);
+    }%>
+
 <!-- Inicializando Lista de Trabalhos -->
 <% ArrayList<PropostaTrabalho> lista = new ArrayList();%>
 <% /*lista = (ArrayList<PropostaTrabalho>) request.getAttribute("lista");*/%>
@@ -35,7 +59,8 @@
     ptc.setAluno2(aluno);
     ptc.setTitulo("Nome");
     lista.add(ptc);%>
-    <div class="panel panel-green" onpageshow="center">
+    
+    <div class="panel panel-grey" onpageshow="center">
     <div class="panel-heading">
         Agendar Defesa de Trabalho de Curso
     </div>
@@ -43,7 +68,6 @@
         <form action="../DefesaServlet" method="POST">
             <div class="form-body pal">
                 <div class="row">
-                       
                     <div class="col-md-12">
                         <!-- Conteudo do formulário -->
                         
@@ -75,7 +99,6 @@
                                     <strong>*</strong>Aluno 01
                                 </label>
                                 <div class="input-icon right">
-                                    
                                     <input class="form-control" type="text" value="<%=ptc.getAluno1().getNome()%>" name="aluno1" disabled/>
                                 </div>
                             </div>
@@ -88,7 +111,6 @@
                                     Aluno 02
                                 </label>
                                 <div class="input-icon right">
-                                    
                                     <input class="form-control" type="text" value="<%=ptc.getAluno1().getNome()%>" name="aluno2" disabled/>
                                 </div>
                             </div>
@@ -101,7 +123,6 @@
                                     <strong>*</strong>Orientador
                                 </label>
                                 <div class="input-icon right">
-                                    
                                     <input class="form-control" type="text" value="" name="orientador" disabled/>
                                 </div>
                             </div>
@@ -122,21 +143,21 @@
                         <!-- Data da Defesa -->
                         <div class="col-md-3">
                         <div class="form-group">
-                            <label for="data" class="col-2 col-form-label">Data da Defesa</label>
+                            <label for="data" class="col-2 col-form-label"><span>*</span>Data da Defesa</label>
                             <input class="form-control" type="date" value="28/05/2017" name="data">
                             </div>
                         </div>
                         <!-- Horario da Defesa -->
                         <div class="col-md-3">
                         <div class="form-group">
-                            <label for="horario" class="col-2 col-form-label">Horário de Início</label>
+                            <label for="horario" class="col-2 col-form-label"><span>*</span>Horário de Início</label>
                                 <input class="form-control" type="time" value="09:00:00" name="horario">
                             </div>
                         </div>
                         <!-- Local da Defesa -->
                         <div class="col-md-6">
                         <div class="form-group">
-                            <label for="local" class="col-2 col-form-label">Local</label>
+                            <label for="local" class="col-2 col-form-label"><span>*</span>Local</label>
                                 <input class="form-control" type="text" value="" name="local">
                             </div>
                         </div>

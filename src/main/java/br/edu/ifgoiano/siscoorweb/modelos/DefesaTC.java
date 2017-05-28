@@ -12,11 +12,13 @@ import java.util.Calendar;
  * @author IFgoiano
  */
 public class DefesaTC {
-    PropostaTrabalho proposta;
-    String local;
-    Calendar data;
-    String horario;
-    Banca banca;
+    private PropostaTrabalho proposta;
+    private String local;
+    private Calendar data;
+    private String horario;
+    private Banca banca;
+    private int id;
+    private TrabalhoMonografico trabalho;
 
     public PropostaTrabalho getProposta() {
         return proposta;
@@ -57,5 +59,22 @@ public class DefesaTC {
     public void setBanca(Banca banca) {
         this.banca = banca;
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public TrabalhoMonografico getTrabalho() {
+        return trabalho;
+    }
+
+    public void setTrabalho(TrabalhoMonografico trabalho) {
+        this.trabalho = trabalho;
+    }
+
+        
 }
