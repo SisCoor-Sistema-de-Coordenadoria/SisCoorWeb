@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8" style="text-align: center">
-                            <div class="panel panel-green">
+                            <div class="panel panel-grey">
                                 <div class="panel-body">
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -141,7 +141,7 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8" style="text-align: center">
-                            <div class="panel panel-green">
+                            <div class="panel panel-grey">
                                 <div class="panel-body">
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -239,7 +239,7 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8" style="text-align: center">
-                            <div class="panel panel-green">
+                            <div class="panel panel-grey">
                                 <div class="panel-body">
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -337,7 +337,7 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8" style="text-align: center">
-                            <div class="panel panel-green">
+                            <div class="panel panel-grey">
                                 <div class="panel-body">
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -435,7 +435,7 @@
                     <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8" style="text-align: center">
-                            <div class="panel panel-green">
+                            <div class="panel panel-grey">
                                 <div class="panel-body">
                                     <table class="table table-hover table-bordered">
                                         <thead>
@@ -537,7 +537,7 @@
 </form>
 <%} else {%>
 <div class="col-lg-12" style="text-align: center">
-    <div class="panel panel-green">
+    <div class="panel panel-grey">
         <div class="panel-body">
             <table class="table table-hover table-bordered">
                 <thead>
