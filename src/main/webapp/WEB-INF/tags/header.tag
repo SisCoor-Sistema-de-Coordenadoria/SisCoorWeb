@@ -14,7 +14,7 @@
 <html>
     <head>
         <title>${title}</title>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="${caminho}/img/icons/favicon.ico">
@@ -123,7 +123,7 @@
                                         <div class="icon-bg bg-pink"></div>
                                     </i><span class="menu-title">Uso de Laboratório</span></a></li>
 
-                                    <li class="${horarioAtivo}"><a href="${paramVolta}/horario_de_aulas/horario_matutino.jsp"><i class="fa fa-calendar fa-fw">
+                                    <li class="${horarioAtivo}"><a href="${paramVolta}/horario_de_aulas/selecao_de_curso.jsp"><i class="fa fa-calendar fa-fw">
                                         <div class="icon-bg bg-green"></div>
                                     </i><span class="menu-title">Horário de Aulas</span></a>
 
