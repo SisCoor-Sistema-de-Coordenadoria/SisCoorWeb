@@ -5,10 +5,17 @@
  */
 package br.edu.ifgoiano.siscoorweb.servlets;
 
+import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
+import br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho;
+import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import br.edu.ifgoiano.siscoorweb.utilitarios.UploadPTC;
+import br.edu.ifgoiano.siscoorweb.persistencia.PropostaDAO;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -137,14 +144,28 @@ public class UploadServletPTC extends HttpServlet {
                     } catch (Exception e) {
                         System.out.println(e);
                     } finally {
+                        //Erro
                         session.setAttribute("msg", "Por favor, preencha todos os campos obrigatórios.");
                         session.setAttribute("tipo_msg", "danger");
                         response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
                     }
                 } else {
-                    session.setAttribute("msg", "Trabalho submetido com sucesso");
-                    session.setAttribute("tipo_msg", "success");
-                    response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
+                    //Enviar para o BD
+                    String caminho = savePath + File.separator + up.getFiles().get(0);
+                    PropostaTrabalho novaProposta = new PropostaTrabalho();
+                    PropostaDAO enviarProposta = new PropostaDAO();
+
+                    novaProposta = setProposta(novaProposta, up, caminho);
+
+                    if (enviarProposta.insereDados(novaProposta)) {
+                        session.setAttribute("msg", "Trabalho submetido com sucesso");
+                        session.setAttribute("tipo_msg", "success");
+                        response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
+                    }else{
+                        session.setAttribute("msg", "Erro ao inserir no banco de dados");
+                        session.setAttribute("tipo_msg", "danger");
+                        response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
+                    }
                 }
             }
         } else {
@@ -156,4 +177,64 @@ public class UploadServletPTC extends HttpServlet {
             throws ServletException, IOException {
         response.sendRedirect("proposta_de_tc/menu_ptc.jsp");
     }
+
+    public PropostaTrabalho setProposta(PropostaTrabalho proposta, UploadPTC up, String caminho) {
+        String[] pegaDataHora;
+        pegaDataHora = getDataHora(1);
+
+        Aluno novoAluno1 = new Aluno();//Mudar para pegar da sessão
+        Aluno novoAluno2;
+        Servidor orientador = new Servidor();
+        Servidor coorientador;
+
+        if (up.getForm().get("idAluno") != null) {
+            novoAluno2 = new Aluno();
+            novoAluno2.setIdAluno(Integer.parseInt(String.valueOf(up.getForm().get("idAluno02"))));
+            proposta.setAluno2(novoAluno2);
+        }
+
+        if (up.getForm().get("idCoorientador") != null) {
+            coorientador = new Servidor();
+            coorientador.setIdServidor(Integer.parseInt(String.valueOf(up.getForm().get("idCoorientador"))));
+            proposta.setCoorientador(coorientador);
+        }
+
+        novoAluno1.setIdAluno(Integer.parseInt(String.valueOf(up.getForm().get("idAluno01"))));
+        orientador.setIdServidor(Integer.parseInt(String.valueOf(up.getForm().get("idOrientador"))));
+        proposta.setTitulo(String.valueOf(up.getForm().get("tituloPTC")));
+        proposta.setAluno1(novoAluno1);
+        proposta.setOrientador(orientador);
+        proposta.setCaminhoArquivo(caminho);
+        proposta.setDataEnvio(pegaDataHora[0]);
+        proposta.setHoraEnvio(pegaDataHora[1]);
+
+        return proposta;
+
+    }
+
+    public static String[] getDataHora(int tipo) {
+
+        if (tipo == 1) {
+            Date agora = new Date();
+            SimpleDateFormat dF = new SimpleDateFormat("yyyy/MM/dd");
+
+            String dataHoraSistema;
+            dataHoraSistema = dF.format(agora) + ";" + agora.getHours() + ":"
+                    + "" + agora.getMinutes() + ":" + agora.getSeconds();
+
+            String[] horaData = dataHoraSistema.split(";|;\\s");
+            return horaData;
+        } else {
+            Date agora = new Date();
+            SimpleDateFormat dF = new SimpleDateFormat("dd/MM/yyyy");
+
+            String dataHoraSistema;
+            dataHoraSistema = dF.format(agora) + ";" + agora.getHours() + ":"
+                    + "" + agora.getMinutes() + ":" + agora.getSeconds();
+
+            String[] horaData = dataHoraSistema.split(";|;\\s");
+            return horaData;
+        }
+    }
+
 }

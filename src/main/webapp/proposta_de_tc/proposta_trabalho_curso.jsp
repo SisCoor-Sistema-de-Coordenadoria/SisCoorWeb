@@ -65,7 +65,7 @@ de Curso" caminho="../resources" paramVolta="../../SisCoorWeb" ptcAtivo="active"
 
 <tag:open_coluna tamanho="6"/>
 
-<div class="panel panel-green">
+<div class="panel panel-grey">
     <div class="panel-heading">
         Submeter Proposta
     </div>

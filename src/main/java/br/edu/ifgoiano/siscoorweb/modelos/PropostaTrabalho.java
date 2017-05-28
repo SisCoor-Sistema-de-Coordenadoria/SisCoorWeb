@@ -15,7 +15,7 @@ public class PropostaTrabalho {
     private Aluno aluno2;
     private Servidor orientador = new Servidor();
     private Servidor coorientador;
-    private Date dataEnvio, horaEnvio;
+    private String dataEnvio, horaEnvio;
     private int idProposta;
     private String tituloPTC, caminhoArquivo;
     private boolean aceite;
@@ -44,11 +44,11 @@ public class PropostaTrabalho {
         this.caminhoArquivo = caminhoArquivo;
     }
 
-    public Date getDataEnvio() {
+    public String getDataEnvio() {
         return dataEnvio;
     }
 
-    public void setDataEnvio(Date dataEnvio) {
+    public void setDataEnvio(String dataEnvio) {
         this.dataEnvio = dataEnvio;
     }
 
@@ -92,11 +92,11 @@ public class PropostaTrabalho {
         this.coorientador = coorientador;
     }
 
-    public Date getHoraEnvio() {
+    public String getHoraEnvio() {
         return horaEnvio;
     }
 
-    public void setHoraEnvio(Date horaEnvio) {
+    public void setHoraEnvio(String horaEnvio) {
         this.horaEnvio = horaEnvio;
     }
 }

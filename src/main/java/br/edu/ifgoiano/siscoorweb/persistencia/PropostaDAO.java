@@ -6,28 +6,26 @@
 package br.edu.ifgoiano.siscoorweb.persistencia;
 
 import br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho;
-import br.edu.ifgoiano.siscoorweb.servlets.UploadServletPTC;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
  * @author Jehymeson Gil
  */
-public class ProspostaDAO {
+public class PropostaDAO {
     
     Connection connection;
     private PropostaTrabalho proposta;
     
-    public ProspostaDAO(PropostaTrabalho proposta){
+    public PropostaDAO(PropostaTrabalho proposta){
         this.connection = new ConnectionFactory().getConnectionFactory();
         proposta = new PropostaTrabalho();
     }
 
-    public ProspostaDAO() {
+    public PropostaDAO() {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
 
@@ -43,7 +41,7 @@ public class ProspostaDAO {
      * Inserção de dados na tabela Proposta de TC
      * @return 
      */
-    public boolean insereDados(){
+    public boolean insereDados(PropostaTrabalho proposta){
         
         String sql = "INSERT INTO proposta("
                 + "titulo, "
@@ -52,8 +50,9 @@ public class ProspostaDAO {
                 + "id_Orientador_1, "
                 + "id_Orientador_2, "
                 + "data_Envio, "
+                + "hora_envio"
                 + "aceite, "
-                + "caminho) VALUES (?,?,?,?,?,?,?,?)";
+                + "caminho) VALUES (?,?,?,?,?,?,?,?,?)";
         
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -62,9 +61,10 @@ public class ProspostaDAO {
             stmt.setInt(3, proposta.getAluno2().getIdAluno());
             stmt.setInt(4, proposta.getOrientador().getIdServidor());
             stmt.setInt(5, proposta.getCoorientador().getIdServidor());
-            stmt.setDate(6, (Date) proposta.getDataEnvio());
-            stmt.setInt(7, 0);
-            stmt.setString(8, proposta.getCaminhoArquivo());
+            stmt.setString(6, proposta.getDataEnvio());
+            stmt.setString(7, proposta.getHoraEnvio());
+            stmt.setInt(8, 0);
+            stmt.setString(9, proposta.getCaminhoArquivo());
             stmt.executeUpdate();
             stmt.close();
             connection.close();
