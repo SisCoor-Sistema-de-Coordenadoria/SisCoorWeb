@@ -24,7 +24,7 @@
 <tag:open_coluna tamanho="12"/>
 <div class="col-md-3"></div>
 <div class="col-md-6" style="align-content: center">
-    <div class="panel panel-violet">
+    <div class="panel panel-green">
         <div class="panel-heading">
             Selecione um curso</div>
         <div class="panel-body pan">
