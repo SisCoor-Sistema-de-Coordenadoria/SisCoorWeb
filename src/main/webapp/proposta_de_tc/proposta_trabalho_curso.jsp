@@ -8,37 +8,58 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag" %>
 <tag:header title="SisCoor | Módulo PTC" titlePage="Módulo|Proposta de Trabalho
-            de Curso" caminho="../resources" paramVolta="../../SisCoorWeb" ptcAtivo="active" usuario="Jehymison Gil" />
+            de Curso" caminho="../resources" paramVolta="../../SisCoorWeb" ptcAtivo="active" usuario="<%=(String)session.getAttribute("nomeUsuario")%>" />
 
 <%Servidor[] professores = {new Servidor("Gabriel"), new Servidor("Monica"), new Servidor("Patrícia"), new Servidor("Paulo")};%>
 <%String[] alunos = {new String("Jehymison Gil Alves Oliveira"), new String("Naiane Maria de Sousa"), new String("Tarcísio Ribeiro Junior")};%>
 
 
-<!-- Escondendo Mensagem -->
+<!-- Escondendo Mensagem Sucess-->
 <script language="JavaScript">
     function fecha_banner()
     {
         var banner_obj = document.getElementById('alert');
-        banner_obj.style.display = 'none';        
+        banner_obj.style.display = 'none';
     }
     setTimeout('fecha_banner()', 5000);
 </script>
 <!-- Fim do JavaScript -->
 
+<!-- Escondendo Mensagem Danger-->
+<script language="JavaScript">
+    function fecha_banner_danger()
+    {
+        var banner_obj = document.getElementById('alert_danger');
+        banner_obj.style.display = 'none';
+    }
+    setTimeout('fecha_banner_danger()', 5000000);
+</script>
+<!-- Fim do JavaScript -->
 
-<tag:conteudoInicio />
-<% if(session.getAttribute("msg") != null){%>
+
 <!--Início do Conteudo-->
-<div id="alert" class="alert alert-success col-lg-12" role="alert" ng-hide="delay_scroll."
-     style="text-align: center">
-    <strong><%= session.getAttribute("msg")%>
-    </strong>
-</div>
-<%
-session.setAttribute("msg", null);
-}else{
-session.setAttribute("msg", null);
-}%>
+<tag:conteudoInicio />
+<% if (session.getAttribute("msg") != null) {
+        String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
+        if (tipo_msg.equals("danger")) {%>
+            <div id="alert_danger" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
+                style="text-align: center">
+            <strong><%= session.getAttribute("msg")%></strong>
+            </div>
+            <%session.setAttribute("msg", null);
+            session.setAttribute("tipo_msg", null);
+        }else if(tipo_msg.equals("success")){%>
+            <div id="alert" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
+            style="text-align: center">
+            <strong><%= session.getAttribute("msg")%>
+            </strong>
+            </div>
+            <%session.setAttribute("msg", null);
+            session.setAttribute("tipo_msg", null);
+        }} else {
+        session.setAttribute("msg", null);
+        session.setAttribute("tipo_msg", null);
+    }%>
 <tag:open_coluna tamanho="3" />
 <tag:close_coluna />
 
@@ -59,7 +80,7 @@ session.setAttribute("msg", null);
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="inputTitlePTC" class="control-label">
-                                    Título do Trabalho
+                                    <strong>*</strong>Título do Trabalho
                                 </label>
                                 <div class="input-icon right">
                                     <i class="fa fa-pencil"></i>
@@ -72,7 +93,7 @@ session.setAttribute("msg", null);
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="inputAluno01" class="control-label">
-                                    Aluno 01
+                                    <strong>*</strong>Aluno 01
                                 </label>
                                 <div class="input-icon right">
                                     <i class="fa fa-user"></i>
@@ -108,7 +129,7 @@ session.setAttribute("msg", null);
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="inputOrientador" class="control-label">
-                                    Orientador
+                                    <strong>*</strong>Orientador
                                 </label>
                                 <div class="input-icon right">
                                     <i class="fa fa-user"></i>
@@ -144,13 +165,14 @@ session.setAttribute("msg", null);
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="inputFile" class="control-label">
-                                    Selecione o Trabalho
+                                    <strong>*</strong>Selecione o Trabalho
                                 </label>
                                 <div class="input-icon right">
                                     <i class="fa fa-file"></i>
                                     <input type="file" id="inputFile" class="form-control" name="file" accept=".pdf"/>
                                 </div>
                             </div>
+                            <strong><h6><b>Obs.: Campos compostos de '*' são obrigatórios.</b></h6></strong>
                         </div>
 
                         <!-- Botão de Envio -->
