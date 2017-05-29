@@ -56,20 +56,6 @@ CREATE TABLE Restricao_do_Professor (
       ON UPDATE NO ACTION
 );
 
-CREATE TABLE Restricao_de_Aula_do_Professor (
-  id_Restricao_de_Aula_do_Professor INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  hora_Inicial VARCHAR(10) NULL,
-  hora_Final VARCHAR(10) NULL,
-  id_do_Professor INTEGER UNSIGNED NULL,
-  dia VARCHAR(20) NULL,
-  PRIMARY KEY(id_Restricao_de_Aula_do_Professor),
-  INDEX Restricao_de_Aula_do_Professor_FKIndex1(id_do_Professor),
-  FOREIGN KEY(id_do_Professor)
-    REFERENCES Servidor(id_Servidor)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
-);
-
 CREATE TABLE Curso (
   id_Curso INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   nome VARCHAR(50) NULL,
@@ -84,39 +70,43 @@ CREATE TABLE Curso (
       ON UPDATE NO ACTION
 );
 
-CREATE TABLE Turma (
-  id_Turma INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  periodo INTEGER UNSIGNED NULL,
-  ano INTEGER UNSIGNED NULL,
-  semestre INTEGER UNSIGNED NULL,
-  id_Curso INTEGER UNSIGNED NULL,
-  PRIMARY KEY(id_Turma),
-  INDEX Turma_FKIndex1(id_Curso),
-  FOREIGN KEY(id_Curso)
-    REFERENCES Curso(id_Curso)
+CREATE TABLE Restricao_de_Aula_do_Professor (
+  id_Restricao_de_Aula_do_Professor INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  hora_Inicial VARCHAR(10) NULL,
+  hora_Final VARCHAR(10) NULL,
+  id_do_Professor INTEGER UNSIGNED NULL,
+  dia VARCHAR(20) NULL,
+  PRIMARY KEY(id_Restricao_de_Aula_do_Professor),
+  INDEX Restricao_de_Aula_do_Professor_FKIndex1(id_do_Professor),
+  FOREIGN KEY(id_do_Professor)
+    REFERENCES Servidor(id_Servidor)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
 
-CREATE TABLE Horario_de_Aula (
-  id_Turma INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  hora_Inicial VARCHAR(10) NULL,
-  hora_Final VARCHAR(10) NULL,
-  dia VARCHAR(20) NULL,
-  id_Professor INTEGER UNSIGNED NULL,
-  id_Disciplina INTEGER UNSIGNED NULL,
-  INDEX Horario_de_Aula_FKIndex1(id_Turma),
-  INDEX Horario_de_Aula_FKIndex2(id_Professor),
-  INDEX Horario_de_Aula_FKIndex3(id_Disciplina),
-  FOREIGN KEY(id_Turma)
-    REFERENCES Turma(id_Turma)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
-  FOREIGN KEY(id_Disciplina)
+CREATE TABLE Monitoria (
+  id_monitoria INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  id_aluno INTEGER UNSIGNED NULL,
+  id_disciplina INTEGER UNSIGNED NULL,
+  id_orientador INTEGER UNSIGNED NULL,
+  carga_horaria_semanal INTEGER UNSIGNED NULL,
+  categoria VARCHAR(20) NULL,
+  ano_letivo INTEGER UNSIGNED NULL,
+  data_inicio DATE NULL,
+  data_final DATE NULL,
+  PRIMARY KEY(id_monitoria),
+  INDEX Monitoria_FKIndex1(id_disciplina),
+  INDEX Monitoria_FKIndex2(id_aluno),
+  INDEX Monitoria_FKIndex3(id_orientador),
+  FOREIGN KEY(id_disciplina)
     REFERENCES Disciplinas(id_Disciplina)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
-  FOREIGN KEY(id_Professor)
+  FOREIGN KEY(id_aluno)
+    REFERENCES Aluno(id_Aluno)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(id_orientador)
     REFERENCES Servidor(id_Servidor)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
@@ -151,7 +141,7 @@ CREATE TABLE Reserva_de_Laboratorio (
 
 CREATE TABLE Proposta (
   id_Proposta INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  titulo VARCHAR(60) NULL,
+  titulo VARCHAR(60) NOT NULL,
   data_Envio DATE NULL,
   hora_Envio TIME NULL,
   aceite TINYINT UNSIGNED NULL,
@@ -190,7 +180,6 @@ CREATE TABLE Trabalho_Monografico (
   id_orientador_2 INTEGER UNSIGNED NULL,
   titulo TEXT NULL,
   aprovacao TINYINT UNSIGNED NULL,
-  caminho TEXT NULL,
   PRIMARY KEY(id_trabalho_monografico),
   INDEX Trabalho_Monografico_FKIndex1(id_aluno_1),
   INDEX Trabalho_Monografico_FKIndex2(id_aluno_2),
@@ -219,6 +208,55 @@ CREATE TABLE Trabalho_Monografico (
       ON UPDATE NO ACTION
 );
 
+CREATE TABLE Quadro_de_atendimento_monitoria (
+  id_quadro_de_atendimento_monitoria INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  id_monitoria INTEGER UNSIGNED NULL,
+  laboratorio TEXT NULL,
+  observacoes TEXT NULL,
+  PRIMARY KEY(id_quadro_de_atendimento_monitoria),
+  INDEX Quadro_de_atendimento_monitoria_FKIndex1(id_monitoria),
+  FOREIGN KEY(id_monitoria)
+    REFERENCES Monitoria(id_monitoria)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+CREATE TABLE Turma (
+  id_Turma INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  periodo INTEGER UNSIGNED NULL,
+  ano INTEGER UNSIGNED NULL,
+  semestre INTEGER UNSIGNED NULL,
+  id_Curso INTEGER UNSIGNED NULL,
+  PRIMARY KEY(id_Turma),
+  INDEX Turma_FKIndex1(id_Curso),
+  FOREIGN KEY(id_Curso)
+    REFERENCES Curso(id_Curso)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+CREATE TABLE Conteudo_da_Monitoria (
+  id_quadro_de_atendimento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  conteudo TEXT NULL,
+  metodo VARCHAR(20) NULL,
+  INDEX Conteudo_da_Monitoria_FKIndex1(id_quadro_de_atendimento),
+  FOREIGN KEY(id_quadro_de_atendimento)
+    REFERENCES Quadro_de_atendimento_monitoria(id_quadro_de_atendimento_monitoria)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+CREATE TABLE Dias_de_Atendimento (
+  id_quadro_de_atendimento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  dia_da_semana VARCHAR(25) NULL,
+  data_do_atendimento DATE NULL,
+  INDEX Dias_de_Atendimento_FKIndex1(id_quadro_de_atendimento),
+  FOREIGN KEY(id_quadro_de_atendimento)
+    REFERENCES Quadro_de_atendimento_monitoria(id_quadro_de_atendimento_monitoria)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
 CREATE TABLE Agendar_Defesa (
   id_agendar_defesa INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   local_da_defesa TEXT NULL,
@@ -234,6 +272,30 @@ CREATE TABLE Agendar_Defesa (
       ON UPDATE NO ACTION,
   FOREIGN KEY(id_Proposta)
     REFERENCES Proposta(id_Proposta)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+CREATE TABLE Horario_de_Aula (
+  id_Turma INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  hora_Inicial VARCHAR(10) NULL,
+  hora_Final VARCHAR(10) NULL,
+  dia VARCHAR(20) NULL,
+  id_Professor INTEGER UNSIGNED NULL,
+  id_Disciplina INTEGER UNSIGNED NULL,
+  INDEX Horario_de_Aula_FKIndex1(id_Turma),
+  INDEX Horario_de_Aula_FKIndex2(id_Professor),
+  INDEX Horario_de_Aula_FKIndex3(id_Disciplina),
+  FOREIGN KEY(id_Turma)
+    REFERENCES Turma(id_Turma)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(id_Disciplina)
+    REFERENCES Disciplinas(id_Disciplina)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(id_Professor)
+    REFERENCES Servidor(id_Servidor)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
