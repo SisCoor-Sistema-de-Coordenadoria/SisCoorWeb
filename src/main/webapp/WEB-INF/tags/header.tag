@@ -4,6 +4,7 @@
 <%@attribute name="caminho" required="true"%>
 <%@attribute name="homeAtivo" required="false"%>
 <%@attribute name="ptcAtivo" required="false"%>
+<%@attribute name="defesaAtivo" required="false"%>
 <%@attribute name="horarioAtivo" required="false"%>
 <%@attribute name="labAtivo" required="false"%>
 <%@attribute name="testeAtivo" required="false"%>

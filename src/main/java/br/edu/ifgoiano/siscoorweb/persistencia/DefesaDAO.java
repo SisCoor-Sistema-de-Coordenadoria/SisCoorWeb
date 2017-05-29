@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class DefesaDAO {
     Connection connection;
 
-    public DefesaDAO(Connection connection) {
+    public DefesaDAO() {
         this.connection = connection;
     }
    
@@ -99,8 +99,8 @@ public class DefesaDAO {
      * Deletar de dados na tabela agendarDefesa
      * @return 
      */
-   public boolean buscar(DefesaTC defesa){
-       return true;
+   public DefesaTC buscar(DefesaTC defesa){
+       return defesa;
    }
    
    /**

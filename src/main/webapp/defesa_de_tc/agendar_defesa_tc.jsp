@@ -7,7 +7,7 @@
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho"%>
 <%@page import="java.util.ArrayList"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags/"%>
-<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Defesa de Trabalho de Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>"/>
+<tag:header defesaAtivo="active" caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Defesa de Trabalho de Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>"/>
 
 <!-- Escondendo Mensagem Danger-->
 <script language="JavaScript">
@@ -51,14 +51,6 @@
 <!-- Inicializando Lista de Trabalhos -->
 <% ArrayList<PropostaTrabalho> lista = new ArrayList();%>
 <% /*lista = (ArrayList<PropostaTrabalho>) request.getAttribute("lista");*/%>
-<% PropostaTrabalho ptc = new PropostaTrabalho();
-    Aluno aluno = new Aluno();
-    aluno.setNome("naiane Maria de OSus");
-    ptc.setIdProposta(1);
-    ptc.setAluno1(aluno);
-    ptc.setAluno2(aluno);
-    ptc.setTitulo("Nome");
-    lista.add(ptc);%>
     
     <div class="panel panel-grey" onpageshow="center">
     <div class="panel-heading">
@@ -79,7 +71,7 @@
                                 </label>
                                 <div class="input-icon right">
                                     <select id="titulo" class="form-control" name="idTrabalho">
-                                        <option> </option>
+                                        
                                         <%for (int i = 0; i < lista.size(); i++) {%>
                                         <option value=<%=lista.get(i).getIdProposta()%>><%= lista.get(i).getTituloPTC()%></option>
                                         <% }%>
@@ -99,7 +91,7 @@
                                     <strong>*</strong>Aluno 01
                                 </label>
                                 <div class="input-icon right">
-                                    <input class="form-control" type="text" value="<%=ptc.getAluno1().getNome()%>" name="aluno1" disabled/>
+                                    <input class="form-control" type="text" value="" name="aluno1"/>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +103,7 @@
                                     Aluno 02
                                 </label>
                                 <div class="input-icon right">
-                                    <input class="form-control" type="text" value="<%=ptc.getAluno1().getNome()%>" name="aluno2" disabled/>
+                                    <input class="form-control" type="text" value="" name="aluno2"/>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +115,7 @@
                                     <strong>*</strong>Orientador
                                 </label>
                                 <div class="input-icon right">
-                                    <input class="form-control" type="text" value="" name="orientador" disabled/>
+                                    <input class="form-control" type="text" value="" name="orientador"/>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +127,43 @@
                                     Coorientador
                                 </label>
                                 <div class="input-icon right">
-                                    <input class="form-control" type="text" value="" name="coorientador" disabled/>
+                                    <input class="form-control" type="text" value="" name="coorientador" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <!-- Membro 1 da banca -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputBanca1" class="control-label">
+                                    <strong>*</strong>Membro da Banca
+                                </label>
+                                <div class="input-icon right">
+                                    <input class="form-control" type="text" value="" name="membro1" />
+                                </div>
+                            </div>
+                        </div>
+                         
+                         <!-- Membro 1 da banca -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputBanca2" class="control-label">
+                                    <strong>*</strong>Membro da Banca
+                                </label>
+                                <div class="input-icon right">
+                                    <input class="form-control" type="text" value="" name="membro2" />
+                                </div>
+                            </div>
+                        </div>
+                         
+                         <!-- Membro 1 da banca -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputBanca3" class="control-label">
+                                    <strong>*</strong>Membro da Banca
+                                </label>
+                                <div class="input-icon right">
+                                    <input class="form-control" type="text" value="" name="membro3" />
                                 </div>
                             </div>
                         </div>
