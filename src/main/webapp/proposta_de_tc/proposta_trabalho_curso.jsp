@@ -130,8 +130,8 @@ de Curso" caminho="../resources" paramVolta="../../SisCoorWeb" ptcAtivo="active"
                                 </label>
                                 <div class="input-icon right">
                                     <i class="fa fa-user"></i>
-                                    <select id="inputAluno02" class="form-control" name="aluno02">
-                                        <option> </option>
+                                    <select id="inputAluno02" class="form-control" name="idAluno02">
+                                        <option value="0"> </option>
                                         <%for (int i = 0; i < alunos.length; i++) {%>
                                         <option value="<%=alunos[i].getIdAluno()%>"><%= alunos[i].getNome()%></option>
                                         <% }%>
@@ -167,7 +167,7 @@ de Curso" caminho="../resources" paramVolta="../../SisCoorWeb" ptcAtivo="active"
                                 <div class="input-icon right">
                                     <i class="fa fa-user"></i>
                                     <select id="inputCoorientador" class="form-control" name="idCoorientador">
-                                        <option> </option>
+                                        <option value="0"> </option>
                                         <%for (int i = 0; i < professores.length; i++) {%>
                                         <option value="<%=professores[i].getIdServidor()%>"><%= professores[i].getNome()%></option>
                                         <% }%>

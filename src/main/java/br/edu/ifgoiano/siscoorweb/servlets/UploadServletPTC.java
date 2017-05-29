@@ -13,7 +13,6 @@ import br.edu.ifgoiano.siscoorweb.persistencia.PropostaDAO;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -183,21 +182,28 @@ public class UploadServletPTC extends HttpServlet {
         pegaDataHora = getDataHora(1);
 
         Aluno novoAluno1 = new Aluno();//Mudar para pegar da sessão
-        Aluno novoAluno2;
+        Aluno novoAluno2 = new Aluno();
         Servidor orientador = new Servidor();
-        Servidor coorientador;
+        Servidor coorientador = new Servidor();
 
-        if (up.getForm().get("idAluno") != null) {
-            novoAluno2 = new Aluno();
-            novoAluno2.setIdAluno(Integer.parseInt(String.valueOf(up.getForm().get("idAluno02"))));
+        if (String.valueOf(up.getForm().get("idAluno02")).equals("0")) {
+            novoAluno2.setIdAluno(0);
             proposta.setAluno2(novoAluno2);
+            System.out.println("Aluno 2 ID: "+novoAluno2.getIdAluno());
+        }else{
+            novoAluno2.setIdAluno(Integer.parseInt(String.valueOf(up.getForm().get("idAluno02"))));
+            proposta.setAluno2(novoAluno2);            
         }
 
-        if (up.getForm().get("idCoorientador") != null) {
-            coorientador = new Servidor();
-            coorientador.setIdServidor(Integer.parseInt(String.valueOf(up.getForm().get("idCoorientador"))));
+        if (String.valueOf(up.getForm().get("idCoorientador")).equals("0")) {
+            coorientador.setIdServidor(0);
             proposta.setCoorientador(coorientador);
+            System.out.println("Coorientador ID: "+coorientador.getIdServidor());
+        }else{
+            coorientador.setIdServidor(Integer.parseInt(String.valueOf(up.getForm().get("idCoorientador"))));
+            proposta.setCoorientador(coorientador);            
         }
+        
 
         novoAluno1.setIdAluno(Integer.parseInt(String.valueOf(up.getForm().get("idAluno01"))));
         orientador.setIdServidor(Integer.parseInt(String.valueOf(up.getForm().get("idOrientador"))));
@@ -216,7 +222,7 @@ public class UploadServletPTC extends HttpServlet {
 
         if (tipo == 1) {
             Date agora = new Date();
-            SimpleDateFormat dF = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat dF = new SimpleDateFormat("yyyy-MM-dd");
 
             String dataHoraSistema;
             dataHoraSistema = dF.format(agora) + ";" + agora.getHours() + ":"
@@ -226,7 +232,7 @@ public class UploadServletPTC extends HttpServlet {
             return horaData;
         } else {
             Date agora = new Date();
-            SimpleDateFormat dF = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dF = new SimpleDateFormat("dd-MM-yyyy");
 
             String dataHoraSistema;
             dataHoraSistema = dF.format(agora) + ";" + agora.getHours() + ":"
