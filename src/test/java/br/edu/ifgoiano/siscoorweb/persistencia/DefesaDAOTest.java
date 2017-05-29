@@ -44,13 +44,12 @@ public class DefesaDAOTest {
     @Test
     public void testAgendar() {
         System.out.println("agendar");
-        DefesaTC defesa = null;
-        DefesaDAO instance = null;
-        boolean expResult = false;
-        boolean result = instance.agendar(defesa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       DefesaTC d = new DefesaTC();
+       DefesaDAO dao= new DefesaDAO();
+       d.setId(2);
+       d.setLocal("if");
+       d.setHorario("14:30");
+       dao.agendar(d);
     }
 
     /**
@@ -59,13 +58,9 @@ public class DefesaDAOTest {
     @Test
     public void testAlterar() {
         System.out.println("alterar");
-        DefesaTC defesa = null;
-        DefesaDAO instance = null;
-        boolean expResult = false;
-        boolean result = instance.alterar(defesa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+         DefesaTC d = new DefesaTC();
+       DefesaDAO dao= new DefesaDAO();
+       
     }
 
     /**
@@ -74,13 +69,7 @@ public class DefesaDAOTest {
     @Test
     public void testDeletar() {
         System.out.println("deletar");
-        DefesaTC defesa = null;
-        DefesaDAO instance = null;
-        boolean expResult = false;
-        boolean result = instance.deletar(defesa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+      
     }
 
     /**
@@ -89,13 +78,7 @@ public class DefesaDAOTest {
     @Test
     public void testListar() {
         System.out.println("listar");
-        DefesaTC defesa = null;
-        DefesaDAO instance = null;
-        boolean expResult = false;
-        boolean result = instance.listar(defesa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+     
     }
 
     /**
@@ -104,13 +87,7 @@ public class DefesaDAOTest {
     @Test
     public void testBuscar() {
         System.out.println("buscar");
-        DefesaTC defesa = null;
-        DefesaDAO instance = null;
-        boolean expResult = false;
-        boolean result = instance.buscar(defesa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+      
     }
 
     /**
@@ -119,13 +96,7 @@ public class DefesaDAOTest {
     @Test
     public void testEntregar() {
         System.out.println("entregar");
-        DefesaTC defesa = null;
-        DefesaDAO instance = null;
-        boolean expResult = false;
-        boolean result = instance.entregar(defesa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
     
 }
