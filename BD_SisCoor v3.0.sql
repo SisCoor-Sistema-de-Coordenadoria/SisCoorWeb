@@ -183,7 +183,6 @@ CREATE TABLE Trabalho_Monografico (
   id_orientador_2 INTEGER UNSIGNED NULL,
   titulo TEXT NULL,
   aprovacao TINYINT UNSIGNED NULL,
-  caminho TEXT NULL,
   PRIMARY KEY(id_trabalho_monografico),
   INDEX Trabalho_Monografico_FKIndex1(id_aluno_1),
   INDEX Trabalho_Monografico_FKIndex2(id_aluno_2),
