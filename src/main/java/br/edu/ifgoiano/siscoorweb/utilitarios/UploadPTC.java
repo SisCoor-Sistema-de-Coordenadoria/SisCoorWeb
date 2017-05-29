@@ -6,7 +6,6 @@
 package br.edu.ifgoiano.siscoorweb.utilitarios;
 
 import java.io.File;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;

@@ -1,8 +1,5 @@
-
 DROP DATABASE IF EXISTS siscoorweb;
-
 CREATE DATABASE siscoorweb;
-
 use siscoorweb;
 
 CREATE TABLE Disciplinas (
@@ -318,4 +315,5 @@ CREATE TABLE Banca (
       ON UPDATE NO ACTION
 );
 
-
+INSERT INTO proposta(titulo, id_aluno_1, id_aluno_2, id_Orientador_1, id_Orientador_2, data_Envio, hora_envio, aceite, caminho) 
+VALUES ("Teste", 1, 2, 1, 3, '2017-05-29', '10:25:19', 0, 'somente teste');
