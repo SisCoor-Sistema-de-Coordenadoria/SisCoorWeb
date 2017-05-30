@@ -314,3 +314,18 @@ CREATE TABLE Banca (
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
+
+INSERT INTO aluno(nome) VALUES("Jehymison Gil");
+INSERT INTO aluno(nome) VALUES("Naiane Maria");
+INSERT INTO aluno(nome) VALUES("Tarcísio Ribeiro");
+INSERT INTO aluno(nome) VALUES("Diego Fonseca");
+INSERT INTO aluno(nome) VALUES("Joésio Barsanulfo");
+
+INSERT INTO servidor(nome) VALUES("Gabriel da Silva Vieira");
+INSERT INTO servidor(nome) VALUES("Mônica Sakuray Paes");
+INSERT INTO servidor(nome) VALUES("Paulo Henrique Garcia Mansur");
+INSERT INTO servidor(nome) VALUES("Júlio Cesar de Almeida");
+INSERT INTO servidor(nome) VALUES("Jorcivan da Silva Ramos");
+
+SELECT id_Proposta, titulo, data_Envio, hora_Envio, id_aluno_1, id_aluno_2, id_Orientador_1, id_Orientador_2
+FROM proposta;

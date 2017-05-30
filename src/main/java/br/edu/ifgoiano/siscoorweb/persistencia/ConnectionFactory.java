@@ -18,7 +18,7 @@ public class ConnectionFactory {
     public Connection getConnectionFactory(){
         try {
             
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/siscoorweb", "root", "joesio360");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/siscoorweb", "root", "");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
