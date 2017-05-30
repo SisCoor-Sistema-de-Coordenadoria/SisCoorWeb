@@ -5,6 +5,8 @@
  */
 package br.edu.ifgoiano.siscoorweb.servlets;
 
+import br.edu.ifgoiano.siscoorweb.modelos.DefesaTC;
+import br.edu.ifgoiano.siscoorweb.persistencia.DefesaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -35,14 +37,27 @@ public class DefesaTCServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
-       
+        DefesaTC def = new DefesaTC();
+        DefesaDAO dao = new DefesaDAO();
         String botao = request.getParameter("botao");
         HttpSession session = request.getSession();
+        
         if(botao.equals("Buscar")){
             if(!request.getParameter("idTrabalho").isEmpty()){
                 session.setAttribute("msg", "Preencha todos os campos com *.");
             }else{
-                
+                def.setId(Integer.parseInt(request.getParameter("idTrabalho")));
+                def = dao.buscar(def);
+                if(def!=null){
+                    session.setAttribute("aluno1", "Naiane Maria de Sousa");
+                    session.setAttribute("aluno2", "Jehymison Gil Alves Oliveira");
+                    session.setAttribute("orientador", "Gabriel da Silva Vieira");
+                    session.setAttribute("coorientador", "Júlio Cesar");
+                    session.setAttribute("banca1", "Gabriel");
+                    session.setAttribute("banca2", "Jorcivan");
+                    session.setAttribute("banca3", "Mônica");
+                    
+                }
             }
         }                                                                                                              
     }

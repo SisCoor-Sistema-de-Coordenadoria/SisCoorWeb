@@ -4,7 +4,7 @@
     Author     : IFgoiano
 --%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags/"%>
-<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Módulo | Defesa de Trabalho de Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>"/>
+<tag:header defesaAtivo="active" caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Módulo | Defesa de Trabalho de Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>"/>
 <tag:conteudoInicio/>
 
 <tag:open_coluna tamanho="12"/>
@@ -55,7 +55,7 @@
                                 </a>
                             </div>
                             <div class="col-sm-6 col-md-4 col-lg-4">
-                                <a href="agendar_defesa_tc.jsp">
+                                <a href=".jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
@@ -70,7 +70,7 @@
                                 </a>
                             </div>
                             <div class="col-sm-6 col-md-4 col-lg-4">
-                                <a href="agendar_defesa_tc.jsp">
+                                <a href=".jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
@@ -85,7 +85,7 @@
                                 </a>
                             </div>
                             <div class="col-sm-6 col-md-4 col-lg-4">
-                                <a href="agendar_defesa_tc.jsp">
+                                <a href=".jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">

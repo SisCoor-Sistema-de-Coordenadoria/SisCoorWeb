@@ -4,7 +4,7 @@ use siscoorweb;
 
 CREATE TABLE Disciplinas (
   id_Disciplina INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  nome_da_Disciplina VARCHAR(50) NULL,
+  nome_da_Disciplina TEXT NULL,
   carga_Horaria INTEGER UNSIGNED NULL,
   PRIMARY KEY(id_Disciplina)
 );
@@ -58,7 +58,7 @@ CREATE TABLE Restricao_do_Professor (
 
 CREATE TABLE Curso (
   id_Curso INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  nome VARCHAR(50) NULL,
+  nome TEXT NULL,
   turno VARCHAR(30) NULL,
   professor_Coordenador INTEGER UNSIGNED NULL,
   numero_de_Periodos INTEGER UNSIGNED NULL,
@@ -141,7 +141,7 @@ CREATE TABLE Reserva_de_Laboratorio (
 
 CREATE TABLE Proposta (
   id_Proposta INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  titulo VARCHAR(60) NOT NULL,
+  titulo TEXT NOT NULL,
   data_Envio DATE NULL,
   hora_Envio TIME NULL,
   aceite TINYINT UNSIGNED NULL,
@@ -314,6 +314,3 @@ CREATE TABLE Banca (
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
-
-INSERT INTO proposta(titulo, id_aluno_1, id_aluno_2, id_Orientador_1, id_Orientador_2, data_Envio, hora_envio, aceite, caminho) 
-VALUES ("Teste", 1, 2, 1, 3, '2017-05-29', '10:25:19', 0, 'somente teste');
