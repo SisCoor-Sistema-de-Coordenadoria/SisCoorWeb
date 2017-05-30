@@ -50,7 +50,7 @@ public class ServidorDao {
     return servidorretorno;
 }
      public void adiciona(Servidor servidor) {
-        String sql = "insert into servidor"
+        String sql = "insert into Servidor"
                 + "(id,nome,cpf,email,suap,,senha,telefone,tipo,data_de_Nascimento)"
                 + "values(?,?,?,?,?,?,?,?,?)";
         try {

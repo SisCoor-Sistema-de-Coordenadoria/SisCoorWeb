@@ -43,7 +43,7 @@ public class PropostaDAO {
      * @return
      */
     public boolean insereDados(PropostaTrabalho proposta) {
-        String sql = "INSERT INTO proposta(titulo, id_aluno_1, "
+        String sql = "INSERT INTO Proposta(titulo, id_aluno_1, "
                 + (proposta.getAluno2().getIdAluno() == 0 ? "" : "id_aluno_2,")
                 + "id_Orientador_1, "
                 + (proposta.getCoorientador().getIdServidor() == 0 ? "" : "id_Orientador_2,")
