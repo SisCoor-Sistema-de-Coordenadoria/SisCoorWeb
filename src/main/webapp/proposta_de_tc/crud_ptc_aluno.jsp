@@ -46,8 +46,7 @@ fecha scriplet>'
             paramVolta="../../SisCoorWeb" 
             title="SisCoor | Módulo PTC"
             titlePage="Módulo | Proposta de Trabalho de Curso"
-usuario="<%=(String) session.getAttribute("nomeUsuario")%>"
-            ptcAtivo="active"/>
+            usuario="<%= (String) session.getAttribute("nomeUsuario")%>"/>
 
 
 <!------------ ATENÇÃO | ABERTURA DA ENTRADA DE CONTEÚDO | ATENÇÃO -------------
@@ -57,56 +56,8 @@ Não coloque fora disso.
 ------------------------------------------------------------------------------->
 <tag:conteudoInicio />
 <!------------ ATENÇÃO | TODO CONTEÚDO DA PÁGINA VEM AQUI | ATENÇÃO ------------
-AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI 
+  AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI 
 ------------------------------------------------------------------------------->
-<tag:open_coluna tamanho="12"/>
-
-<div id="sum_box" class="row mbl">
-
-    <div class="col-sm-0 col-md-0">
-    </div>
-    <div class="col-sm-6 col-md-6">
-        <a href="proposta_trabalho_curso.jsp">
-            <div class="panel profit db mbm">
-                <div class="panel-body">
-                    <p class="icon">
-                        <i class="icon fa fa-file-pdf-o"></i>
-                    </p>
-                    <h4 class="value">
-                        <span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0">
-                        </span><span>Submeter Proposta</span></h4>
-                    <p class="description">
-                        <br>
-                        Submeta uma nova proposta de trabalho de curso
-                    </p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="col-sm-6 col-md-6">
-        <a href="crud_ptc_aluno.jsp">
-        <div class="panel profit db mbm">
-            <div class="panel-body">
-                <p class="icon">
-                    <i class="icon fa fa-code-fork"></i>
-                </p>
-                <h4 class="value">
-                    <span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0">
-                    </span><span>Checar Propostas</span></h4>
-                <p class="description">
-                    <br>
-                    Verifique, Edite e Apague suas propostas submetidas.
-                </p>
-            </div>
-        </div>
-        </a>
-    </div>
-    <div class="col-sm-0 col-md-0">
-    </div>
-
-</div>
-
-<tag:close_coluna />
 <tag:conteudoFim />
 
 
