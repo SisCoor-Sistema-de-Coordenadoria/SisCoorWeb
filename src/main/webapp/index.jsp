@@ -1,22 +1,21 @@
-<%-- 
-    Document   : login
-    Created on : 27/05/2017, 21:57:17
-    Author     : Jehymeson Gil
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login Page</title>
+        <title>Tela de Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <form action="logar" method="post">
-        <h1>Login</h1><br><br><hr>
-        <p>Nome: </p>
-        <input name="nomeUsuario"/><br><br>
-            <button name="login" value="Logar">Logar</button>
-        </form>
+        <h1>Tela de Login
+            
+        </h1>
+        <a href="login_siscoor/LoginAluno.jsp">Aluno</a>
+        <br>
+        <a href="login_siscoor/LoginServidor.jsp">Professor</a>
     </body>
 </html>

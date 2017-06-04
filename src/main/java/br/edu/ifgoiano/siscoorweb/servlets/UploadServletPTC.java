@@ -42,6 +42,7 @@ public class UploadServletPTC extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
 
         UploadPTC up = new UploadPTC();
@@ -106,6 +107,7 @@ public class UploadServletPTC extends HttpServlet {
         String appPath = request.getServletContext().getRealPath("");
         // constructs path of the directory to save uploaded file
         String savePath = appPath + File.separator + up.getFolderUpload();
+        System.out.println(savePath);
 
         // creates the save directory if it does not exists
         File fileSaveDir = new File(savePath);
@@ -144,7 +146,7 @@ public class UploadServletPTC extends HttpServlet {
                 session.setAttribute("tipo_msg", null);
                 if (tentar_pegar.isEmpty()
                         || String.valueOf(up.getForm().get("tituloPTC")).isEmpty()
-                        || String.valueOf(up.getForm().get("aluno01")).isEmpty()
+                        || String.valueOf(up.getForm().get("idAluno01")).isEmpty()
                         || String.valueOf(up.getForm().get("idOrientador")).isEmpty()) {
 
                     try {
@@ -159,11 +161,18 @@ public class UploadServletPTC extends HttpServlet {
                         response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
                     }
                 } else if (getTipoArquivo(up) == 0) {
-                    //Erro
+                    try {
+                        File fileApaga = new File(savePath + File.separator + up.getFiles().get(0));
+                        fileApaga.delete();
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    } finally {
+                        //Erro
                         session.setAttribute("msg", "Por favor, o arquivo para "
                                 + "submissão deve ser do tipo Adobe Acrobat Document (pdf).");
                         session.setAttribute("tipo_msg", "danger");
                         response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
+                    }
                 } else {
                     //Enviar para o BD
                     String caminho = savePath + File.separator + up.getFiles().get(0);
@@ -230,7 +239,6 @@ public class UploadServletPTC extends HttpServlet {
         if (String.valueOf(up.getForm().get("idCoorientador")).equals("0")) {
             coorientador.setIdServidor(0);
             proposta.setCoorientador(coorientador);
-            System.out.println("Coorientador ID: " + coorientador.getIdServidor());
         } else {
             coorientador.setIdServidor(Integer.parseInt(String.valueOf(up.getForm().get("idCoorientador"))));
             proposta.setCoorientador(coorientador);

@@ -5,11 +5,17 @@
  */
 package br.edu.ifgoiano.siscoorweb.persistencia;
 
+import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho;
+import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -123,7 +129,35 @@ public class PropostaDAO {
      *
      * @return
      */
-    public boolean buscaDados() {
-        return false;
+    public ArrayList<PropostaTrabalho> getLista() {
+        
+        String sql = "SELECT * FROM proposta";
+
+        try {
+            ArrayList<PropostaTrabalho> proposta_retorno = new ArrayList();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                PropostaTrabalho trabalho = new PropostaTrabalho();
+                trabalho.setTitulo(rs.getString("titulo"));
+                trabalho.setAluno1(new Aluno(rs.getInt("id_aluno_1")));
+                trabalho.setAluno2(new Aluno(rs.getInt("id_aluno_2")));
+                trabalho.setOrientador(new Servidor(rs.getInt("id_Orientador_1")));
+                trabalho.setCoorientador(new Servidor(rs.getInt("id_Orientador_2")));
+                trabalho.setDataEnvio(rs.getString("data_Envio"));
+                trabalho.setHoraEnvio(rs.getString("hora_Envio"));
+                trabalho.setCaminhoArquivo(rs.getString("caminho"));
+                trabalho.setAceite(rs.getBoolean("aceite"));
+                trabalho.setIdProposta(rs.getInt("id_Proposta"));
+                proposta_retorno.add(trabalho);
+            }
+            rs.close();
+            stmt.close();
+            return proposta_retorno;
+        } catch (SQLException ex) {
+            Logger.getLogger(PropostaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 }

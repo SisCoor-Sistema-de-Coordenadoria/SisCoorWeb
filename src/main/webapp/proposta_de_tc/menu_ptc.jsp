@@ -46,7 +46,6 @@ fecha scriplet>'
             paramVolta="../../SisCoorWeb" 
             title="SisCoor | Módulo PTC"
             titlePage="Módulo | Proposta de Trabalho de Curso"
-usuario="<%=(String) session.getAttribute("nomeUsuario")%>"
             ptcAtivo="active"/>
 
 
@@ -84,7 +83,7 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
         </a>
     </div>
     <div class="col-sm-6 col-md-6">
-        <a href="crud_ptc_aluno.jsp">
+        <a href="crud_ptc.jsp">
         <div class="panel profit db mbm">
             <div class="panel-body">
                 <p class="icon">

@@ -1,6 +1,5 @@
 <%@attribute name="title" required="true" %>
 <%@attribute name="titlePage" required="true" %>
-<%@attribute name="usuario" required="true" %>
 <%@attribute name="caminho" required="true"%>
 
 <!DOCTYPE html>
@@ -49,7 +48,7 @@
                             <li class="dropdown topbar-user">
                                 <a data-hover="dropdown" href="#" class="dropdown-toggle">
                                     <img src="${caminho}/img/avatar/48.jpg" alt="" class="img-responsive img-circle"/>&nbsp;
-                                    <span class="hidden-xs">${usuario}</span>&nbsp;
+                                    <span class="hidden-xs"><%=(String) session.getAttribute("nomeUsuario")%></span>&nbsp;
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user pull-right">
@@ -59,7 +58,12 @@
                                     <li><a href="#"><i class="fa fa-tasks"></i>My Tasks<span class="badge badge-success">7</span></a></li>
                                     <li class="divider"></li>
                                     <li><a href="#"><i class="fa fa-lock"></i>Lock Screen</a></li>
-                                    <li><a href="Login.html"><i class="fa fa-key"></i>Log Out</a></li>
+                                    <li>
+                                        <a href="index.jsp">
+                                            <i class="fa fa-key"></i>
+                                            Sair
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -108,7 +112,7 @@
                         <ul id="side-menu" class="nav">
 
                             <div class="clearfix"></div>
-                            <li class="active"><a href="../SisCoorWeb/logado.jsp"><i class="fa fa-tachometer fa-fw">
+                            <li class="active"><a href="../SisCoorWeb/pag_principal.jsp"><i class="fa fa-tachometer fa-fw">
                                         <div class="icon-bg bg-orange"></div>
                                     </i><span class="menu-title">Início</span></a></li>
 
@@ -119,15 +123,15 @@
                             <li><a href="horario_de_aulas/selecao_de_curso.jsp"><i class="fa fa-calendar fa-fw">
                                         <div class="icon-bg bg-green"></div>
                                     </i><span class="menu-title">Horário de Aulas</span></a></li>
-                            
+
                             <li><a href="proposta_de_tc/menu_ptc.jsp"><i class="fa fa-file-text-o fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Proposta de Trabalho de Curso</span></a></li>
-                                    
+
                             <li><a href="defesa_de_tc/defesa_de_tc.jsp"><i class="fa fa-book fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Defesa de Trabalho de Curso</span></a></li>
-                                    
+
                             <!--
                             <li><a href="Tables.html"><i class="fa fa-th-list fa-fw">
                                 <div class="icon-bg bg-blue"></div>
@@ -181,7 +185,7 @@
                             <div class="page-title">${titlePage}</div>
                         </div>
                         <ol class="breadcrumb page-breadcrumb pull-right">
-                            <li><i class="fa fa-home"></i>&nbsp;<a href="../SisCoorWeb/logado.jsp">Início</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                            <li><i class="fa fa-home"></i>&nbsp;<a href="../SisCoorWeb/pag_principal.jsp">Início</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
                             <li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
                             <li class="active">${titlePage}</li>
                         </ol>

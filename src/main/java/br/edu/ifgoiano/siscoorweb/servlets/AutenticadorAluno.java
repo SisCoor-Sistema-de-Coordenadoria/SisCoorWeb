@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -48,11 +49,20 @@ public class AutenticadorAluno extends HttpServlet {
           a.setMatricula(smatricula);
           a.setSenha(ssenha);
           
-          Aluno aautenticado = adao.auntenticacao(a);
-          if(aautenticado != null){
-              request.getRequestDispatcher("index.html").forward(request,response);
-              
-              
+          Aluno a_autenticado = adao.auntenticacao(a);
+          if(a_autenticado != null){
+              HttpSession session = request.getSession();
+              session.setAttribute("idUsuario", a_autenticado.getIdAluno());
+              session.setAttribute("nomeUsuario", a_autenticado.getNome());
+              session.setAttribute("senhaUsuario", a_autenticado.getSenha());
+              session.setAttribute("emailUsuario", a_autenticado.getEmail());
+              session.setAttribute("cpfUsuario", a_autenticado.getCpf());
+              session.setAttribute("telefoneUsuario", a_autenticado.getTelefone());
+              session.setAttribute("tipoUsuario", a_autenticado.getTipo());
+              session.setAttribute("matriculaUsuario", a_autenticado.getMatricula());
+              session.setAttribute("dataNascimentoUsu", a_autenticado.getDataNascimento());
+              response.sendRedirect("../SisCoorWeb/pag_principal.jsp");
+             
           }else{
               response.sendRedirect("tela_login/ErroLoginAluno.jsp");
           }
@@ -98,5 +108,5 @@ public class AutenticadorAluno extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }

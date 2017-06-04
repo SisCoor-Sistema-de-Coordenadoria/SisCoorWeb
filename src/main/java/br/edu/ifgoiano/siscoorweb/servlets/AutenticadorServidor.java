@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -43,13 +44,21 @@ public class AutenticadorServidor extends HttpServlet {
           a.setSiape(ssuap);
           a.setSenha(ssenha);
           ServidorDao adao = new ServidorDao();
-          Servidor aautenticado = adao.auntenticacao(a);
-          if(aautenticado != null){
-              request.getRequestDispatcher("index.jsp").forward(request,response);
-              
-              
+          Servidor a_autenticado = adao.autenticacao(a);
+          if(a_autenticado != null){
+              HttpSession session = request.getSession();
+              session.setAttribute("idUsuario", a_autenticado.getIdServidor());
+              session.setAttribute("nomeUsuario", a_autenticado.getNome());
+              session.setAttribute("senhaUsuario", a_autenticado.getSenha());
+              session.setAttribute("emailUsuario", a_autenticado.getEmail());
+              session.setAttribute("cpfUsuario", a_autenticado.getCpf());
+              session.setAttribute("telefoneUsuario", a_autenticado.getTelefone());
+              session.setAttribute("tipoUsuario", a_autenticado.getTipo());
+              session.setAttribute("siapUsuario", a_autenticado.getSiape());
+              session.setAttribute("dataNascimentoUsu", a_autenticado.getDataNascimento());
+              response.sendRedirect("../SisCoorWeb/pag_principal.jsp");              
           }else{
-              response.sendRedirect("tela_login/ErrorLoginServidor.jsp");
+              response.sendRedirect("login_siscoor/ErrorLoginServidor.jsp");
           }
         
     }

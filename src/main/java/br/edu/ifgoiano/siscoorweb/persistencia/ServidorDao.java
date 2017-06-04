@@ -28,9 +28,14 @@ public class ServidorDao {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
 
-    public Servidor auntenticacao(Servidor servidor) {
-        Servidor servidorretorno = null;
-        String sql = "select * FROM servidor where suap=? and senha=?";
+    /**
+     * Autentica servidor do banco de dados
+     * @param servidor
+     * @return 
+     */
+    public Servidor autenticacao(Servidor servidor) {
+        Servidor servidor_retorno = null;
+        String sql = "SELECT * FROM Servidor WHERE suap = ? AND senha = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, servidor.getSiape());
@@ -38,21 +43,30 @@ public class ServidorDao {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                servidorretorno = new Servidor();
-                servidorretorno.setSiape(rs.getString("Suap"));
-                servidorretorno.setSenha(rs.getString("senha"));
-
+                servidor_retorno = new Servidor();
+                servidor_retorno.setIdServidor(rs.getInt("id_Servidor"));
+              servidor_retorno.setNome(rs.getString("nome"));
+              servidor_retorno.setSenha(rs.getString("senha"));
+              servidor_retorno.setEmail(rs.getString("email"));
+              servidor_retorno.setCpf(rs.getString("cpf"));
+              servidor_retorno.setTelefone(rs.getString("telefone"));
+              servidor_retorno.setTipo(rs.getInt("tipo"));
+              servidor_retorno.setSiape(rs.getString("suap"));
+              servidor_retorno.setDataNascimento(rs.getDate("data_nascimento"));
+              
             }
-            System.out.println("logado com sucesso");
+              return servidor_retorno;            
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException("Falha a buscar em ServidorDao", ex);
-
+            Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return servidorretorno;
     }
 
+    /**
+     * Adiciona Servidor ao banco de dados
+     * @param servidor 
+     */
     public void adiciona(Servidor servidor) {
         String sql = "insert into Servidor"
                 + "(id,nome,cpf,email,suap,,senha,telefone,tipo,data_de_Nascimento)"
@@ -80,6 +94,10 @@ public class ServidorDao {
         }
     }
     
+    /**
+     * Retorna Lista de Servidores Cadastrados
+     * @return 
+     */
     public ArrayList<Servidor> getLista(){
         String sql = "SELECT * FROM Servidor";
         

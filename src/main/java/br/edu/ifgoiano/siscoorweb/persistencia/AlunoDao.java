@@ -5,7 +5,6 @@
  */
 package br.edu.ifgoiano.siscoorweb.persistencia;
 
-import br.edu.ifgoiano.siscoorweb.persistencia.ConnectionFactory;
 import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,8 +26,14 @@ public class AlunoDao {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
 
+    /**
+     * Autentica aluno do banco de dados
+     *
+     * @param aluno
+     * @return
+     */
     public Aluno auntenticacao(Aluno aluno) {
-        Aluno alunoretorno = null;
+        Aluno aluno_retorno = null;
         String sql = "select * FROM aluno where matricula=? and senha=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -37,19 +42,23 @@ public class AlunoDao {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                alunoretorno = new Aluno();
-                alunoretorno.setMatricula(rs.getString("Matricula"));
-                alunoretorno.setSenha(rs.getString("senha"));
-
+                aluno_retorno = new Aluno();
+                aluno_retorno.setIdAluno(rs.getInt("id_Aluno"));
+                aluno_retorno.setNome(rs.getString("nome"));
+                aluno_retorno.setCpf(rs.getString("cpf"));
+                aluno_retorno.setEmail(rs.getString("email"));
+                aluno_retorno.setSenha(rs.getString("senha"));
+                aluno_retorno.setTelefone(rs.getString("telefone"));
+                aluno_retorno.setTipo(rs.getInt("tipo"));
+                aluno_retorno.setMatricula(rs.getString("matricula"));
+                aluno_retorno.setDataNascimento(rs.getDate("data_de_Nascimento"));
             }
-            System.out.println("logado com sucesso");
+            return aluno_retorno;
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException("Falha a buscar em AlunoDao", ex);
-
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return alunoretorno;
     }
 
     public void adiciona(Aluno aluno) {
@@ -79,9 +88,14 @@ public class AlunoDao {
         }
     }
 
-    public ArrayList<Aluno> getLista(){        
+    /**
+     * Retorna Lista de Alunos do banco de dados
+     *
+     * @return
+     */
+    public ArrayList<Aluno> getLista() {
         String sql = "SELECT * FROM aluno";
-        
+
         try {
             ArrayList<Aluno> alunos = new ArrayList();
             PreparedStatement stmt = connection.prepareStatement(sql);

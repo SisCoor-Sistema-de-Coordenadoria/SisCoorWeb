@@ -25,6 +25,10 @@ public class Servidor {
     public Servidor(String nome){
         this.nome = nome;
     }
+    
+    public Servidor(int idServidor){
+        this.idServidor = idServidor;
+    }
 
     public Servidor(int idServidor, String nome) {
         this.idServidor = idServidor;
