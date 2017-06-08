@@ -128,7 +128,7 @@
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Defesa de Trabalho de Curso</span></a></li>
                                     
-                            <li><a href="crud_disciplina/menu_conteudo.jsp"><i class="fa fa-cogs fa-fw">
+                            <li><a href="gerenciar_conteudo/menu_conteudo.jsp"><i class="fa fa-cogs fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Gerenciar Conteúdo</span></a></li>
 
