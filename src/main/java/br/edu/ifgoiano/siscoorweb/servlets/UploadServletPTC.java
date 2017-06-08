@@ -89,6 +89,16 @@ public class UploadServletPTC extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    /**
+     * Método responsável pela chamada do upload do arquivo. Verificador de qual
+     * botão foi precionado na tela de upload.
+     *
+     * @param request
+     * @param response
+     * @param up
+     * @throws ServletException
+     * @throws IOException
+     */
     public void uploadArquivo(HttpServletRequest request, HttpServletResponse response, UploadPTC up)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -148,6 +158,12 @@ public class UploadServletPTC extends HttpServlet {
                         session.setAttribute("tipo_msg", "danger");
                         response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
                     }
+                } else if (getTipoArquivo(up) == 0) {
+                    //Erro
+                        session.setAttribute("msg", "Por favor, o arquivo para "
+                                + "submissão deve ser do tipo Adobe Acrobat Document (pdf).");
+                        session.setAttribute("tipo_msg", "danger");
+                        response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
                 } else {
                     //Enviar para o BD
                     String caminho = savePath + File.separator + up.getFiles().get(0);
@@ -160,7 +176,7 @@ public class UploadServletPTC extends HttpServlet {
                         session.setAttribute("msg", "Trabalho submetido com sucesso");
                         session.setAttribute("tipo_msg", "success");
                         response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
-                    }else{
+                    } else {
                         session.setAttribute("msg", "Erro ao inserir no banco de dados");
                         session.setAttribute("tipo_msg", "danger");
                         response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
@@ -172,11 +188,27 @@ public class UploadServletPTC extends HttpServlet {
         }
     }
 
+    /**
+     * Método responsável pela função do botão voltar.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void btnVoltar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.sendRedirect("proposta_de_tc/menu_ptc.jsp");
     }
 
+    /**
+     * Método responsável pela inserção de dados do objeto Proposta
+     *
+     * @param proposta
+     * @param up
+     * @param caminho
+     * @return
+     */
     public PropostaTrabalho setProposta(PropostaTrabalho proposta, UploadPTC up, String caminho) {
         String[] pegaDataHora;
         pegaDataHora = getDataHora(1);
@@ -189,21 +221,20 @@ public class UploadServletPTC extends HttpServlet {
         if (String.valueOf(up.getForm().get("idAluno02")).equals("0")) {
             novoAluno2.setIdAluno(0);
             proposta.setAluno2(novoAluno2);
-            System.out.println("Aluno 2 ID: "+novoAluno2.getIdAluno());
-        }else{
+            System.out.println("Aluno 2 ID: " + novoAluno2.getIdAluno());
+        } else {
             novoAluno2.setIdAluno(Integer.parseInt(String.valueOf(up.getForm().get("idAluno02"))));
-            proposta.setAluno2(novoAluno2);            
+            proposta.setAluno2(novoAluno2);
         }
 
         if (String.valueOf(up.getForm().get("idCoorientador")).equals("0")) {
             coorientador.setIdServidor(0);
             proposta.setCoorientador(coorientador);
-            System.out.println("Coorientador ID: "+coorientador.getIdServidor());
-        }else{
+            System.out.println("Coorientador ID: " + coorientador.getIdServidor());
+        } else {
             coorientador.setIdServidor(Integer.parseInt(String.valueOf(up.getForm().get("idCoorientador"))));
-            proposta.setCoorientador(coorientador);            
+            proposta.setCoorientador(coorientador);
         }
-        
 
         novoAluno1.setIdAluno(Integer.parseInt(String.valueOf(up.getForm().get("idAluno01"))));
         orientador.setIdServidor(Integer.parseInt(String.valueOf(up.getForm().get("idOrientador"))));
@@ -218,6 +249,14 @@ public class UploadServletPTC extends HttpServlet {
 
     }
 
+    /**
+     * Método responsável pela manipulação da data para inserção no banco de
+     * dados. Utilize: 1 para datas no formato Ano-Mês-Dia 0 para datas no
+     * formato Dia-Mês-Ano
+     *
+     * @param tipo
+     * @return
+     */
     public static String[] getDataHora(int tipo) {
 
         if (tipo == 1) {
@@ -243,4 +282,17 @@ public class UploadServletPTC extends HttpServlet {
         }
     }
 
+    /**
+     * Método responsável pela verificação da tipagem do arquivo
+     *
+     * @param up
+     * @return
+     */
+    public static int getTipoArquivo(UploadPTC up) {
+        String arquivo = up.getFiles().get(0);
+        if (arquivo.endsWith(".pdf")) {
+            return 1;
+        }
+        return 0;
+    }
 }

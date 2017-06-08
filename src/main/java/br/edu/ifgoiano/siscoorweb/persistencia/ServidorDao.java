@@ -12,44 +12,48 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author joesi
  */
 public class ServidorDao {
+
     private Connection connection;
 
     public ServidorDao() {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
-     public Servidor auntenticacao(Servidor servidor){
-        Servidor servidorretorno =null;
-         String sql = "select * FROM servidor where suap=? and senha=?";
-   try{
-     PreparedStatement stmt = connection.prepareStatement(sql);
-   stmt.setString(1,servidor.getSiape());
-   stmt.setString(2,servidor.getSenha());
-    ResultSet  rs =stmt.executeQuery();
-    
-    if (rs.next()){
-    servidorretorno = new Servidor();
-   servidorretorno.setSiape(rs.getString("Suap"));
-   servidorretorno.setSenha(rs.getString("senha"));
-    
 
-    
-    }System.out.println("logado com sucesso");
-    
-   }catch(SQLException ex){
-    java.util.logging.Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
-    throw new RuntimeException("Falha a buscar em ServidorDao",ex);
-    
-}
-    return servidorretorno;
-}
-     public void adiciona(Servidor servidor) {
+    public Servidor auntenticacao(Servidor servidor) {
+        Servidor servidorretorno = null;
+        String sql = "select * FROM servidor where suap=? and senha=?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, servidor.getSiape());
+            stmt.setString(2, servidor.getSenha());
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                servidorretorno = new Servidor();
+                servidorretorno.setSiape(rs.getString("Suap"));
+                servidorretorno.setSenha(rs.getString("senha"));
+
+            }
+            System.out.println("logado com sucesso");
+
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Falha a buscar em ServidorDao", ex);
+
+        }
+        return servidorretorno;
+    }
+
+    public void adiciona(Servidor servidor) {
         String sql = "insert into Servidor"
                 + "(id,nome,cpf,email,suap,,senha,telefone,tipo,data_de_Nascimento)"
                 + "values(?,?,?,?,?,?,?,?,?)";
@@ -66,15 +70,43 @@ public class ServidorDao {
             stmt.setString(7, servidor.getTelefone());
             stmt.setInt(8, servidor.getTipo());
             stmt.setDate(9, servidor.getDataNascimento());
-            
-            
-           
+
             //executa
             stmt.execute();
             stmt.close();
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException("Falha a inserir em ServidorDao",ex);
+            throw new RuntimeException("Falha a inserir em ServidorDao", ex);
+        }
+    }
+    
+    public ArrayList<Servidor> getLista(){
+        String sql = "SELECT * FROM Servidor";
+        
+        try {
+            ArrayList<Servidor> servidores = new ArrayList();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Servidor servidor = new Servidor();
+                servidor.setIdServidor(rs.getInt("id_Servidor"));
+                servidor.setNome(rs.getString("nome"));
+                servidor.setCpf(rs.getString("cpf"));
+                servidor.setEmail(rs.getString("email"));
+                servidor.setSenha(rs.getString("senha"));
+                servidor.setTelefone(rs.getString("telefone"));
+                servidor.setTipo(rs.getInt("tipo"));
+                servidor.setSiape(rs.getString("suap"));
+                servidor.setDataNascimento(rs.getDate("data_nascimento"));
+                servidores.add(servidor);
+            }
+            rs.close();
+            stmt.close();
+            return servidores;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 }
