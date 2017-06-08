@@ -10,6 +10,7 @@
 <%@attribute name="testeAtivo" required="false"%>
 <%@attribute name="paramVolta" required="true" %>
 <%@attribute name="horAtivo" required="false" %>
+<%@attribute name="crudMenuConteudoAtivo" required="false"%>
 
 <!DOCTYPE html>
 <html>
@@ -137,6 +138,11 @@
                                 <li class="${defesaAtivo}"><a href="${paramVolta}/defesa_de_tc/defesa_de_tc.jsp"><i class="fa fa-book fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Defesa de Trabalho de Curso</span></a>
+    
+                                </li>
+                                <li class="${crudMenuConteudoAtivo}"><a href="${paramVolta}/crud_disciplina/menu_conteudo.jsp"><i class="fa fa-cogs fa-fw">
+                                        <div class="icon-bg bg-violet"></div>
+                                    </i><span class="menu-title">Gerenciar Conteúdo</span></a>
     
                                 </li>
                                 <!--

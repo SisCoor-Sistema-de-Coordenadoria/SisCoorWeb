@@ -11,7 +11,7 @@
 <tag:header title="SisCoor | Módulo PTC" titlePage="Módulo|Proposta de Trabalho
 de Curso" caminho="../resources" paramVolta="../../SisCoorWeb" ptcAtivo="active" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" />
 
-<%Servidor[] professores = {new Servidor(001, "Gabriel"), new Servidor(002, "Monica"), new Servidor(003, "Patrícia"), new Servidor(004, "Paulo")};%>
+<%Servidor[] professores = {new Servidor(001, "Gabriel Vieira da Silva"), new Servidor(002, "Monica"), new Servidor(003, "Patrícia"), new Servidor(004, "Paulo")};%>
 <%Aluno[] alunos = {new Aluno("Jehymison Gil", 001), new Aluno("Naiane Maria", 002), new Aluno("Tarcísio Ribeiro", 003)};%>
 
 

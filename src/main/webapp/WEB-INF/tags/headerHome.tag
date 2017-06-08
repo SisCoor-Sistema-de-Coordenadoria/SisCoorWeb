@@ -119,15 +119,19 @@
                             <li><a href="horario_de_aulas/selecao_de_curso.jsp"><i class="fa fa-calendar fa-fw">
                                         <div class="icon-bg bg-green"></div>
                                     </i><span class="menu-title">Horário de Aulas</span></a></li>
-                            
+
                             <li><a href="proposta_de_tc/menu_ptc.jsp"><i class="fa fa-file-text-o fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Proposta de Trabalho de Curso</span></a></li>
-                                    
+
                             <li><a href="defesa_de_tc/defesa_de_tc.jsp"><i class="fa fa-book fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Defesa de Trabalho de Curso</span></a></li>
                                     
+                            <li><a href="crud_disciplina/menu_conteudo.jsp"><i class="fa fa-cogs fa-fw">
+                                        <div class="icon-bg bg-violet"></div>
+                                    </i><span class="menu-title">Gerenciar Conteúdo</span></a></li>
+
                             <!--
                             <li><a href="Tables.html"><i class="fa fa-th-list fa-fw">
                                 <div class="icon-bg bg-blue"></div>
