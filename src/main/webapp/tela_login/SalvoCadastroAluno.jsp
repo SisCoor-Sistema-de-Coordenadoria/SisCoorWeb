@@ -20,37 +20,29 @@
     <body>
         <%
             request.setCharacterEncoding("UTF-8");
-           
-            String sid=request.getParameter("id");
-            String snome=request.getParameter("nome");
-            String scpf=request.getParameter("cpf");
-            String semail=request.getParameter("email");
-            String ssenha=request.getParameter("senha");
-            String stelefone=request.getParameter("telefone");
-            String stipo=request.getParameter("tipo");
-            String smatricula=request.getParameter("matricula");
-            Date sdata=request.getParameter("data");
-            
-           
-Aluno a = new Aluno();
 
-a.setIdAluno(Integer.parseInt(sid));
-a.setNome(snome);
-a.setCpf(scpf);
-a.setEmail(semail);
-a.setSenha(ssenha);
-a.setTelefone(stelefone);
-a.setTipo(Integer.parseInt(stipo));
-a.setMatricula(smatricula);
-a.setDatadeNascimento(sdata);
+            String snome = request.getParameter("nome");
+            String scpf = request.getParameter("cpf");
+            String semail = request.getParameter("email");
+            String ssenha = request.getParameter("senha");
+            String stelefone = request.getParameter("telefone");
+            String smatricula = request.getParameter("matricula");
+            Date sdata = Date.valueOf(request.getParameter("data"));
+
+            Aluno a = new Aluno();
+
+            a.setNome(snome);
+            a.setCpf(scpf);
+            a.setEmail(semail);
+            a.setSenha(ssenha);
+            a.setTelefone(stelefone);
+            a.setMatricula(smatricula);
+            a.setDataNascimento(sdata);
+
+            AlunoDao adao = new AlunoDao();
+            adao.adiciona(a);
 
 
-AlunoDao adao = new AlunoDao();
-adao.adiciona(a);
-
-        
-        
-        
         %>
         <h1>Salvo com sucesso</h1>
     </body>

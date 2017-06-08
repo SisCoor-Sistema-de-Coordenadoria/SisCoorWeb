@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,6 +37,8 @@ public class AutenticadorAluno extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
       
+        HttpSession session = request.getSession();
+        
             AlunoDao adao = new AlunoDao();
             Aluno a = new Aluno();
             
@@ -50,9 +53,8 @@ public class AutenticadorAluno extends HttpServlet {
           
           Aluno aautenticado = adao.auntenticacao(a);
           if(aautenticado != null){
-              request.getRequestDispatcher("index.html").forward(request,response);
-              
-              
+              session.setAttribute("nomeUsuario", aautenticado.getNome());
+              response.sendRedirect("logado.jsp");
           }else{
               response.sendRedirect("tela_login/ErroLoginAluno.jsp");
           }

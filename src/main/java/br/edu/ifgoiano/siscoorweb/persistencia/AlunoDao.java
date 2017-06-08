@@ -29,7 +29,7 @@ public class AlunoDao {
 
     public Aluno auntenticacao(Aluno aluno) {
         Aluno alunoretorno = null;
-        String sql = "select * FROM aluno where matricula=? and senha=?";
+        String sql = "select * FROM Aluno where matricula=? and senha=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, aluno.getMatricula());
@@ -38,9 +38,9 @@ public class AlunoDao {
 
             if (rs.next()) {
                 alunoretorno = new Aluno();
-                alunoretorno.setMatricula(rs.getString("Matricula"));
+                alunoretorno.setMatricula(rs.getString("matricula"));
                 alunoretorno.setSenha(rs.getString("senha"));
-
+                alunoretorno.setNome(rs.getString("nome"));
             }
             System.out.println("logado com sucesso");
 
@@ -53,7 +53,7 @@ public class AlunoDao {
     }
 
     public void adiciona(Aluno aluno) {
-        String sql = "insert into aluno"
+        String sql = "insert into Aluno"
                 + "(id_Aluno,nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento)"
                 + "values(?,?,?,?,?,?,?,?,?)";
         try {
@@ -80,7 +80,7 @@ public class AlunoDao {
     }
 
     public ArrayList<Aluno> getLista(){        
-        String sql = "SELECT * FROM aluno";
+        String sql = "SELECT * FROM Aluno";
         
         try {
             ArrayList<Aluno> alunos = new ArrayList();
