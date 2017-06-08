@@ -83,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-
+<%-- Aqui começa o CRUD curso --%>
                 <div id="crud_curso" class="tab-pane fade">                   
                     <div id="sum_box" class="row mbl">
                         <div class="col-sm-6 col-md-4 col-lg-4">
