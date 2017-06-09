@@ -25,7 +25,7 @@ CREATE TABLE Servidor (
   suap VARCHAR(10) NULL,
   senha TEXT NULL,
   telefone VARCHAR(11) NULL,
-  tipo INTEGER(1) UNSIGNED NULL,
+  tipo INTEGER(1) NULL,
   data_nascimento DATE NULL,
   PRIMARY KEY(id_Servidor)
 );
@@ -37,8 +37,8 @@ CREATE TABLE Aluno (
   email VARCHAR(40) NULL,
   senha TEXT NULL,
   telefone VARCHAR(11) NULL,
-  tipo INTEGER(1) UNSIGNED NULL,
-  matricula INTEGER(20) UNSIGNED NULL,
+  tipo INTEGER(1) NULL,
+  matricula TEXT NULL,
   data_de_Nascimento DATE NULL,
   PRIMARY KEY(id_Aluno)
 );
