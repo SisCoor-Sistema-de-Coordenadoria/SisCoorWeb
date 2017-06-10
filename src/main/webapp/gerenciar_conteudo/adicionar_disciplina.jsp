@@ -9,10 +9,34 @@
 <tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Nova Disciplina" title="SisCoor | Gerenciar Conteúdo | Nova Disciplina" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
-<tag:open_coluna tamanho="12"/>
-<div class="col-md-2"> </div>  
-    
-<div class="panel panel-grey col-md-8" onpageshow="center">
+<tag:open_coluna tamanho="2"/>
+<tag:close_coluna/>
+<tag:open_coluna tamanho="8"/>
+
+<% if (session.getAttribute("msg") != null) {
+        String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
+        if (tipo_msg.equals("danger")) {%>
+<div id="alert_danger" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
+     style="text-align: center">
+    <strong><%= session.getAttribute("msg")%></strong>
+</div>
+<%session.setAttribute("msg", null);
+    session.setAttribute("tipo_msg", null);
+} else if (tipo_msg.equals("success")) {%>
+<div id="alert" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
+     style="text-align: center">
+    <strong><%= session.getAttribute("msg")%>
+    </strong>
+</div>
+<%session.setAttribute("msg", null);
+            session.setAttribute("tipo_msg", null);
+        }
+    } else {
+        session.setAttribute("msg", null);
+        session.setAttribute("tipo_msg", null);
+    }%>
+ 
+<div class="panel panel-grey " onpageshow="center">
     <div class="panel-heading">
         Cadastrar uma Disciplina
     </div>
@@ -46,10 +70,10 @@
                             </div>
                         </div>
 
-                        <!-- Botão Agendar Defesa -->
+                        <!-- Botão Cadastrar Disciplina -->
                         
                         <div class="col-md-12" style="text-align: right">
-                            <input type="submit" class="btn btn-blue" value="Cadastrar"/>
+                            <input type="submit" class="btn btn-blue" value="Cadastrar" name="botao"/>
                         </div>
                         
                     </div>
@@ -60,9 +84,9 @@
     </div>
 
 </div>
-    
-<div class="col-md-2"> </div> 
 
+<tag:close_coluna/>
+<tag:open_coluna tamanho="2"/>
 <tag:close_coluna/>
 <tag:conteudoFim/>
 <tag:footer ano="2017" caminho="../resources" desenvolvedores="Diego F. Pereira" versao="1.0"/>

@@ -5,8 +5,12 @@
  */
 package br.edu.ifgoiano.siscoorweb.servlets;
 
+import br.edu.ifgoiano.siscoorweb.modelos.Curso;
 import br.edu.ifgoiano.siscoorweb.modelos.Disciplina;
+import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
+import br.edu.ifgoiano.siscoorweb.persistencia.CursoDAO;
 import br.edu.ifgoiano.siscoorweb.persistencia.DisciplinaDAO;
+import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,8 +24,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Diego
  */
-@WebServlet(name = "DisciplinaServlet", urlPatterns = {"/DisciplinaServlet"})
-public class DisciplinaServlet extends HttpServlet {
+@WebServlet(name = "CursoServlet", urlPatterns = {"/CursoServlet"})
+public class CursoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,26 +41,29 @@ public class DisciplinaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String botao = request.getParameter("botao");
-        Disciplina disciplina = new Disciplina();
-        Disciplina disciplinaRetorno = new Disciplina();
-        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+        Curso curso = new Curso();
+        Curso cursoRetorno = new Curso();
+        CursoDAO cursoDAO = new CursoDAO();
+        ServidorDao servidorDAO = new ServidorDao();
+        Servidor servidorRetorno = new Servidor();
+        Servidor servidor = new Servidor();
         
         HttpSession session = request.getSession();
         
         if(botao.equals("Cadastrar"))
         {
-            if(request.getParameter("nomeDisciplina").isEmpty() || request.getParameter("cargaHorariaDisciplina").isEmpty())
+            if(request.getParameter("nomeCurso").isEmpty() || request.getParameter("nomeTurno").isEmpty() || request.getParameter("numeroDePeriodos").isEmpty() || request.getParameter("nomeCoordenador").isEmpty())
             {
                 session.setAttribute("msg", "Preencha todos os campos com *.");
                 session.setAttribute("tipo_msg", "danger");
-                response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
+                response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
             }
             
             else
             {
                 try
                 {
-                    Integer.parseInt(request.getParameter("cargaHorariaDisciplina"));
+                    Integer.parseInt(request.getParameter("numeroDePeriodos"));
                 }
                 catch (Exception e)
                 {
@@ -64,26 +71,30 @@ public class DisciplinaServlet extends HttpServlet {
                     {
                         session.setAttribute("msg", "Preencha corretamente os campos.");
                         session.setAttribute("tipo_msg", "danger");
-                        response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
+                        response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
                     }
                 }
 
-                disciplina.setNome(request.getParameter("nomeDisciplina"));
-                disciplina.setCargaHora(Integer.parseInt((String)request.getParameter("cargaHorariaDisciplina")));
-                disciplinaRetorno=disciplinaDAO.jaExiste(disciplina);
+                curso.setNome(request.getParameter("nomeCurso"));
+                curso.setTurno(request.getParameter("NomeTurno"));
+                curso.setNumDePeriodos(Integer.parseInt((String)request.getParameter("numeroDePeriodos")));
+                servidor.setNome(request.getParameter("nomeCoordenador"));
+                servidorRetorno=servidorDAO.buscaPorNome(servidor);
+                curso.setIdProfessorCoordenador(servidorRetorno.getIdServidor());
+                cursoRetorno=cursoDAO.jaExiste(curso);
 
-                if(disciplina.getNome().equalsIgnoreCase(disciplinaRetorno.getNome()) && disciplina.getCargaHora()==disciplinaRetorno.getCargaHora())
+                if(curso.getNome().equalsIgnoreCase(cursoRetorno.getNome()) && curso.getTurno().equals(cursoRetorno.getTurno()) && curso.getIdProfessorCoordenador()==cursoRetorno.getIdProfessorCoordenador() && curso.getNumDePeriodos()==cursoRetorno.getIdProfessorCoordenador())
                 {
-                    session.setAttribute("msg", "Esta disciplina ja está cadastrada.");
+                    session.setAttribute("msg", "Esta curso ja está cadastrado.");
                     session.setAttribute("tipo_msg", "danger");
-                    response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
+                    response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
                 }
                 else
                 {
-                    disciplinaDAO.adicionar(disciplina);
-                    session.setAttribute("msg", "Disciplina cadastrada com sucesso.");
+                    cursoDAO.adicionar(curso);
+                    session.setAttribute("msg", "Curso cadastrado com sucesso.");
                     session.setAttribute("tipo_msg", "success");
-                    response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
+                    response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
                 }   
             }      
         }

@@ -13,7 +13,7 @@ package br.edu.ifgoiano.siscoorweb.modelos;
 public class Disciplina {
     private String nome;
     private int idDisciplina;
-    private String cargaHora;
+    private int cargaHora;
 
     public Disciplina(String nome) {
         this.nome = nome;
@@ -22,7 +22,7 @@ public class Disciplina {
     public Disciplina() {
     }
 
-    public Disciplina(String nome, String cargaHora) {
+    public Disciplina(String nome, int cargaHora) {
         this.nome = nome;
         this.cargaHora = cargaHora;
     }
@@ -43,11 +43,11 @@ public class Disciplina {
         this.idDisciplina = idDisciplina;
     }
 
-    public String getCargaHora() {
+    public int getCargaHora() {
         return cargaHora;
     }
 
-    public void setCargaHora(String cargaHora) {
+    public void setCargaHora(int cargaHora) {
         this.cargaHora = cargaHora;
     }
     

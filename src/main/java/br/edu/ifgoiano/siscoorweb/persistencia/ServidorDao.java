@@ -9,6 +9,7 @@ import br.edu.ifgoiano.siscoorweb.persistencia.ConnectionFactory;
 
 import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,6 +49,33 @@ public class ServidorDao {
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Falha a buscar em ServidorDao", ex);
+
+        }
+        return servidorretorno;
+    }
+    
+    public Servidor buscaPorNome(Servidor servidor) {
+        
+        Servidor servidorretorno = null;
+        String sql = "select * FROM servidor where nome=?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, servidor.getNome());
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                servidorretorno = new Servidor();
+                servidorretorno.setIdServidor(rs.getInt("id_Servidor"));
+                servidorretorno.setNome(rs.getString("nome"));
+                servidorretorno.setCpf(rs.getString("cpf"));               
+                servidorretorno.setEmail(rs.getString("email"));
+                servidorretorno.setSiape(rs.getString("suap"));
+                servidorretorno.setTelefone(rs.getString("telefone"));
+                servidorretorno.setTipo(rs.getInt("tipo"));
+            }
+
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
 
         }
         return servidorretorno;
