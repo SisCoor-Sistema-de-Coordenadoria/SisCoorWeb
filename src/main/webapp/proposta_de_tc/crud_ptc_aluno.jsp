@@ -3,10 +3,6 @@
     Created on : 28/05/2017, 11:04:36
     Author     : Jehymeson Gil
 --%>
-<%@page import="br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="br.edu.ifgoiano.siscoorweb.persistencia.PropostaDAO"%>
-<%@page import="br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho"%>
 <!---- ATENÇÃO | ATENÇÃO | ATENÇÃO | ATENÇÃO | ATENÇÃO | ATENÇÃO | ATENÇÃO -----
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -58,73 +54,9 @@ Todo o Conteúdo fica entre as tags de 'conteudoInicio' e 'conteudoFim'.
 Não coloque fora disso.
 ------------------------------------------------------------------------------->
 <tag:conteudoInicio />
-<%
-    PropostaDAO proposta = new PropostaDAO();
-    ArrayList<PropostaTrabalho> lista_trabalho = proposta.getLista();
-%>
 <!------------ ATENÇÃO | TODO CONTEÚDO DA PÁGINA VEM AQUI | ATENÇÃO ------------
-AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI 
+  AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI 
 ------------------------------------------------------------------------------->
-<tag:open_coluna tamanho="12"/>
-<div class="panel panel-grey">
-    <div class="panel-heading">Propostas Submetidas</div>
-    <div class="panel-body">
-        <form action="../PTCServlet" method="POST">
-            <table class="table table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th style="text-align: center">ID</th>
-                        <th style="text-align: center">Título</th>
-                        <th style="text-align: center">Aluno 01</th>
-                        <th class="hidden-xs hidden-sm" style="text-align: center">Aluno 02</th>
-                        <th style="text-align: center">Orientador</th>
-                        <th class="hidden-xs hidden-sm" style="text-align: center">Coorientador</th>
-                        <th style="text-align: center">Opções</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (int i = 0; i < lista_trabalho.size(); i++) {%>
-                    <tr>
-                        <td><%= lista_trabalho.get(i).getIdProposta()%></td>
-                        <td><%= lista_trabalho.get(i).getTituloPTC()%></td>
-                        <td><%= lista_trabalho.get(i).getAluno1().getNome()%></td>
-                        <td class="hidden-xs hidden-sm"><%= lista_trabalho.get(i).getAluno2().getNome()%></td>
-                        <td><%= lista_trabalho.get(i).getOrientador().getNome()%></td>
-                        <td class="hidden-xs hidden-sm"><%= lista_trabalho.get(i).getCoorientador().getNome()%></td>
-                        <td>
-                            <div class="todo-actions" style="text-align: center">
-                                <div class="col-md-4 col-sm-2">
-                                    <a href="#" class="todo-complete">
-                                        <i class="fa fa-download" style="color: darkcyan"></i>
-                                    </a>                                    
-                                </div>
-                                <div class="col-md-4 col-sm-2">
-                                    <a href="#" class="todo-edit">
-                                        <i class="fa fa-edit" style="color: darkgreen"></i>
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-sm-2">
-                                    <a href="#" class="todo-remove">
-                                        <input type="hidden" value="<%= lista_trabalho.get(i).getIdProposta()%>" name="btn"/>
-                                        <i class="fa fa-trash-o" style="color: red"></i>
-                                    </a>     
-                                </div>                               
-                            </div>
-                        </td>
-                    </tr>                
-                    <%}%>
-                </tbody>
-            </table>
-                <div class="col-lg-12">
-                    <div class="col-lg-12" style="text-align: right">
-                        <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn"/>
-                    </div>
-                </div>
-        </form>
-    </div>
-</div>
-<tag:close_coluna/>
-
 <tag:conteudoFim />
 
 

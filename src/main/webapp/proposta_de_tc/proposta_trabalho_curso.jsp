@@ -89,7 +89,7 @@
         Submeter Proposta
     </div>
     <div class="panel-body pan">
-        <form action="../UploadServletPTC" method="POST" enctype="multipart/form-data">
+        <form action="../UploadServlet" method="POST" enctype="multipart/form-data">
             <div class="form-body pal">
                 <div class="row">
                     <div class="col-md-12">
@@ -255,7 +255,7 @@
         Submeter Proposta
     </div>
     <div class="panel-body pan">
-        <form action="../UploadServletPTC" method="POST" enctype="multipart/form-data">
+        <form action="../UploadServlet" method="POST" enctype="multipart/form-data">
             <div class="form-body pal">
                 <div class="row">
                     <div class="col-md-12">
@@ -366,9 +366,7 @@
                                     <i class="fa fa-user"></i>
                                     <select id="inputCoorientador" class="form-control" name="idCoorientador">
                                         <option value="0"> </option>
-                                        <%for (int i = 0;
-                                                    i < listaServidor.size();
-                                                    i++) {%>
+                                        <%for (int i = 0;i < listaServidor.size();i++) {%>
                                         <option value="<%=listaServidor.get(i).getIdServidor()%>"><%= listaServidor.get(i).getNome()%></option>
                                         <%}%>
                                     </select>

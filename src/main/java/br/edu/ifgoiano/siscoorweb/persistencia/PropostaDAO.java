@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,9 +59,8 @@ public class PropostaDAO {
                 + "?,"
                 + (proposta.getCoorientador().getIdServidor() == 0 ? "" : "?,")
                 + "?,?,?,?)";
-        
-            System.out.println(sql);
-        
+
+        //System.out.println(sql);
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, proposta.getTituloPTC());
@@ -111,8 +111,22 @@ public class PropostaDAO {
      *
      * @return
      */
-    public boolean deletaDados() {
-        return false;
+    public boolean deletaDados(int id_Proposta) {
+        String sql = "DELETE FROM proposta WHERE id_Proposta = ?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id_Proposta);
+            System.out.println("|-----------------------------------------------|");
+            System.out.println(sql);
+            System.out.println("|-----------------------------------------------|");
+            //stmt.executeQuery();
+            stmt.close();
+
+            return true;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     /**
@@ -130,7 +144,6 @@ public class PropostaDAO {
      * @return
      */
     public ArrayList<PropostaTrabalho> getLista() {
-        
         String sql = "SELECT * FROM proposta";
 
         try {
@@ -140,11 +153,14 @@ public class PropostaDAO {
 
             while (rs.next()) {
                 PropostaTrabalho trabalho = new PropostaTrabalho();
+                AlunoDao p_aluno = new AlunoDao();
+                ServidorDao p_servidor = new ServidorDao();
+                
                 trabalho.setTitulo(rs.getString("titulo"));
-                trabalho.setAluno1(new Aluno(rs.getInt("id_aluno_1")));
-                trabalho.setAluno2(new Aluno(rs.getInt("id_aluno_2")));
-                trabalho.setOrientador(new Servidor(rs.getInt("id_Orientador_1")));
-                trabalho.setCoorientador(new Servidor(rs.getInt("id_Orientador_2")));
+                trabalho.setAluno1(p_aluno.getAluno(rs.getInt("id_aluno_1")));
+                trabalho.setAluno2(p_aluno.getAluno(rs.getInt("id_aluno_2")));
+                trabalho.setOrientador(p_servidor.getServidor(rs.getInt("id_Orientador_1")));
+                trabalho.setCoorientador(p_servidor.getServidor(rs.getInt("id_Orientador_2")));
                 trabalho.setDataEnvio(rs.getString("data_Envio"));
                 trabalho.setHoraEnvio(rs.getString("hora_Envio"));
                 trabalho.setCaminhoArquivo(rs.getString("caminho"));

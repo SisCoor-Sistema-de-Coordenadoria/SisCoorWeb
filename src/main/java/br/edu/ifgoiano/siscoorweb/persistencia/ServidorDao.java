@@ -127,4 +127,33 @@ public class ServidorDao {
             return null;
         }
     }
+    
+    public Servidor getServidor(int idServidor) {
+        Servidor servidor = new Servidor();
+        String sql = "SELECT * FROM servidor WHERE id_Servidor = ?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idServidor);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                servidor.setIdServidor(rs.getInt("id_Servidor"));
+                servidor.setNome(rs.getString("nome"));
+                servidor.setCpf(rs.getString("cpf"));
+                servidor.setEmail(rs.getString("email"));
+                servidor.setSenha(rs.getString("senha"));
+                servidor.setTelefone(rs.getString("telefone"));
+                servidor.setTipo(rs.getInt("tipo"));
+                servidor.setSiape(rs.getString("suap"));
+                servidor.setDataNascimento(rs.getDate("data_Nascimento"));
+            }
+            rs.close();
+            stmt.close();
+            return servidor;
+        } catch (SQLException ex) {
+            Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }

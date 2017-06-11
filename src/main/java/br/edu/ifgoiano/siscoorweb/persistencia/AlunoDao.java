@@ -122,4 +122,33 @@ public class AlunoDao {
             return null;
         }
     }
+
+    public Aluno getAluno(int idAluno) {
+        Aluno aluno = new Aluno();
+        String sql = "SELECT * FROM aluno WHERE id_Aluno = ?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idAluno);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                aluno.setIdAluno(rs.getInt("id_Aluno"));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setCpf(rs.getString("cpf"));
+                aluno.setEmail(rs.getString("email"));
+                aluno.setSenha(rs.getString("senha"));
+                aluno.setTelefone(rs.getString("telefone"));
+                aluno.setTipo(rs.getInt("tipo"));
+                aluno.setMatricula(rs.getString("matricula"));
+                aluno.setDataNascimento(rs.getDate("data_de_Nascimento"));
+            }
+            rs.close();
+            stmt.close();
+            return aluno;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }
