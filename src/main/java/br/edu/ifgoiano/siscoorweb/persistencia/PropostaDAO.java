@@ -117,10 +117,7 @@ public class PropostaDAO {
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, id_Proposta);
-            System.out.println("|-----------------------------------------------|");
-            System.out.println(sql);
-            System.out.println("|-----------------------------------------------|");
-            //stmt.executeQuery();
+            stmt.execute();
             stmt.close();
 
             return true;

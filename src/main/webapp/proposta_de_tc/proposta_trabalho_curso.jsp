@@ -227,11 +227,11 @@
                         <!-- Botão de Envio -->
                         <div class="col-lg-12" style="text-align: justify">
                             <div class="col-sm-4 col-md-2 col-lg-4" style="text-align: justify">
-                                <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn_propostaSubmit"/>
+                                <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn"/>
                             </div>
                             <div class="col-sm-4 col-md-7 col-lg-4"></div>
                             <div class="col-sm-4 col-md-2 col-lg-3">
-                                <input type="submit" class="btn btn-blue" value="Submeter Proposta" name="btn_propostaSubmit"/>
+                                <input type="submit" class="btn btn-blue" value="Submeter Proposta" name="btn"/>
                             </div>
                         </div>
 
@@ -391,11 +391,11 @@
                         <!-- Botão de Envio -->
                         <div class="col-lg-12" style="text-align: justify">
                             <div class="col-sm-4 col-md-2 col-lg-4" style="text-align: justify">
-                                <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn_propostaSubmit"/>
+                                <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn"/>
                             </div>
                             <div class="col-sm-4 col-md-7 col-lg-4"></div>
                             <div class="col-sm-4 col-md-2 col-lg-3">
-                                <input type="submit" class="btn btn-blue" value="Submeter Proposta" name="btn_propostaSubmit"/>
+                                <input type="submit" class="btn btn-blue" value="Submeter Proposta" name="btn"/>
                             </div>
                         </div>
 

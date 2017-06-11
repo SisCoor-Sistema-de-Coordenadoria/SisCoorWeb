@@ -57,7 +57,53 @@ fecha scriplet>'
 Todo o Conteúdo fica entre as tags de 'conteudoInicio' e 'conteudoFim'.
 Não coloque fora disso.
 ------------------------------------------------------------------------------->
+
+<!-- Escondendo Mensagem Sucess-->
+<script language="JavaScript">
+    function fecha_banner()
+    {
+    var banner_obj = document.getElementById('alert');
+    banner_obj.style.display = 'none';
+    }
+    setTimeout('fecha_banner()', 5000);</script>
+<!-- Fim do JavaScript -->
+
+<!-- Escondendo Mensagem Danger-->
+<script language="JavaScript">
+    function fecha_banner_danger()
+    {
+    var banner_obj = document.getElementById('alert_danger');
+    banner_obj.style.display = 'none';
+    }
+    setTimeout('fecha_banner_danger()', 5000000);</script>
+<!-- Fim do JavaScript -->
+
+
+<!--Início do Conteudo-->
 <tag:conteudoInicio />
+<% if (session.getAttribute("msg") != null) {
+        String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
+        if (tipo_msg.equals("danger")) {%>
+<div id="alert_danger" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
+     style="text-align: center">
+    <strong><%= session.getAttribute("msg")%></strong>
+</div>
+<%session.setAttribute("msg", null);
+    session.setAttribute("tipo_msg", null);
+} else if (tipo_msg.equals("success")) {%>
+<div id="alert" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
+     style="text-align: center">
+    <strong><%= session.getAttribute("msg")%>
+    </strong>
+</div>
+<%session.setAttribute("msg", null);
+            session.setAttribute("tipo_msg", null);
+        }
+    } else {
+        session.setAttribute("msg", null);
+        session.setAttribute("tipo_msg", null);
+    }%>
+
 <%
     PropostaDAO proposta = new PropostaDAO();
     ArrayList<PropostaTrabalho> lista_trabalho = proposta.getLista();
@@ -74,6 +120,7 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
                 <thead>
                     <tr>
                         <th style="text-align: center">ID</th>
+                        <th class="hidden">VALOR REAL</th>
                         <th style="text-align: center">Título</th>
                         <th style="text-align: center">Aluno 01</th>
                         <th class="hidden-xs hidden-sm" style="text-align: center">Aluno 02</th>
@@ -85,7 +132,8 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
                 <tbody>
                     <% for (int i = 0; i < lista_trabalho.size(); i++) {%>
                     <tr>
-                        <td><%= lista_trabalho.get(i).getIdProposta()%></td>
+                        <td><%= i + 1%></td>
+                        <td class="hidden"><%= lista_trabalho.get(i).getIdProposta()%></td>
                         <td><%= lista_trabalho.get(i).getTituloPTC()%></td>
                         <td><%= lista_trabalho.get(i).getAluno1().getNome()%></td>
                         <td class="hidden-xs hidden-sm"><%= lista_trabalho.get(i).getAluno2().getNome()%></td>
@@ -93,21 +141,25 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
                         <td class="hidden-xs hidden-sm"><%= lista_trabalho.get(i).getCoorientador().getNome()%></td>
                         <td>
                             <div class="todo-actions" style="text-align: center">
-                                <div class="col-md-4 col-sm-2">
-                                    <a href="#" class="todo-complete">
+                                <div class="col-lg-4 col-sm-2" style="text-align: right">
+                                    <a href="btnDownload" class="todo-edit">
                                         <i class="fa fa-download" style="color: darkcyan"></i>
-                                    </a>                                    
+                                    </a>
+                                    <input id="#btnDownload" type="submit" class="todo-complete hidden"
+                                           value="<%= lista_trabalho.get(i).getIdProposta()%>" name="btnDownload"/>
                                 </div>
                                 <div class="col-md-4 col-sm-2">
-                                    <a href="#" class="todo-edit">
+                                    <a href="btnEditar" class="todo-edit">
                                         <i class="fa fa-edit" style="color: darkgreen"></i>
                                     </a>
+                                    <input id="#btnEditar" type="submit" class="todo-complete hidden"
+                                           value="<%= lista_trabalho.get(i).getIdProposta()%>" name="btnEditar"/>
                                 </div>
                                 <div class="col-md-4 col-sm-2">
-                                    <a href="#" class="todo-remove">
-                                        <input type="hidden" value="<%= lista_trabalho.get(i).getIdProposta()%>" name="btn"/>
+                                    <button class="btn btn-square btn-xs" type="submit" 
+                                            value="excluir_<%= lista_trabalho.get(i).getIdProposta()%>" name="btn">  
                                         <i class="fa fa-trash-o" style="color: red"></i>
-                                    </a>     
+                                    </button>
                                 </div>                               
                             </div>
                         </td>
@@ -115,11 +167,11 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
                     <%}%>
                 </tbody>
             </table>
-                <div class="col-lg-12">
-                    <div class="col-lg-12" style="text-align: right">
-                        <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn"/>
-                    </div>
+            <div class="col-lg-12">
+                <div class="col-lg-12" style="text-align: right">
+                    <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn"/>
                 </div>
+            </div>
         </form>
     </div>
 </div>
