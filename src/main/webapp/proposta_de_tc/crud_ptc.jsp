@@ -7,6 +7,27 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.persistencia.PropostaDAO"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho"%>
+
+<!-- Escondendo Mensagem Sucess-->
+<script language="JavaScript">
+    function fecha_banner()
+    {
+    var banner_obj = document.getElementById('alert');
+    banner_obj.style.display = 'none';
+    }
+    setTimeout('fecha_banner()', 5000);</script>
+<!-- Fim do JavaScript -->
+
+<!-- Escondendo Mensagem Danger-->
+<script language="JavaScript">
+    function fecha_banner_danger()
+    {
+    var banner_obj = document.getElementById('alert_danger');
+    banner_obj.style.display = 'none';
+    }
+    setTimeout('fecha_banner_danger()', 5000000);</script>
+<!-- Fim do JavaScript -->
+
 <!---- ATENÇÃO | ATENÇÃO | ATENÇÃO | ATENÇÃO | ATENÇÃO | ATENÇÃO | ATENÇÃO -----
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -58,29 +79,15 @@ Todo o Conteúdo fica entre as tags de 'conteudoInicio' e 'conteudoFim'.
 Não coloque fora disso.
 ------------------------------------------------------------------------------->
 
-<!-- Escondendo Mensagem Sucess-->
-<script language="JavaScript">
-    function fecha_banner()
-    {
-    var banner_obj = document.getElementById('alert');
-    banner_obj.style.display = 'none';
-    }
-    setTimeout('fecha_banner()', 5000);</script>
-<!-- Fim do JavaScript -->
-
-<!-- Escondendo Mensagem Danger-->
-<script language="JavaScript">
-    function fecha_banner_danger()
-    {
-    var banner_obj = document.getElementById('alert_danger');
-    banner_obj.style.display = 'none';
-    }
-    setTimeout('fecha_banner_danger()', 5000000);</script>
-<!-- Fim do JavaScript -->
-
-
 <!--Início do Conteudo-->
 <tag:conteudoInicio />
+<%
+    PropostaDAO proposta = new PropostaDAO();
+    ArrayList<PropostaTrabalho> lista_trabalho = proposta.getLista();
+%>
+<!------------ ATENÇÃO | TODO CONTEÚDO DA PÁGINA VEM AQUI | ATENÇÃO ------------
+AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI 
+------------------------------------------------------------------------------->
 <% if (session.getAttribute("msg") != null) {
         String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
         if (tipo_msg.equals("danger")) {%>
@@ -104,14 +111,23 @@ Não coloque fora disso.
         session.setAttribute("tipo_msg", null);
     }%>
 
-<%
-    PropostaDAO proposta = new PropostaDAO();
-    ArrayList<PropostaTrabalho> lista_trabalho = proposta.getLista();
-%>
-<!------------ ATENÇÃO | TODO CONTEÚDO DA PÁGINA VEM AQUI | ATENÇÃO ------------
-AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI 
-------------------------------------------------------------------------------->
 <tag:open_coluna tamanho="12"/>
+<%if (lista_trabalho.isEmpty()) {%>
+<form method="POST" action="../PTCServlet">
+    <div class="col-md-12">
+        <div class="note note-info">
+            <h4 class="box-heading">Ops! Não há nada a ser visto aqui.</h4>
+            <p>Parece que você ainda não submeteu nenhum trabalho.<br>
+                Faça uma submissão e volte, assim teremos algo a lhe mostrar.</p>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-lg-12" style="text-align: right">
+                <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn"/>
+            </div>
+        </div>
+    </div>
+</form>
+<%} else {%>
 <div class="panel panel-grey">
     <div class="panel-heading">Propostas Submetidas</div>
     <div class="panel-body">
@@ -175,6 +191,7 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
         </form>
     </div>
 </div>
+<%}%>
 <tag:close_coluna/>
 
 <tag:conteudoFim />
@@ -192,9 +209,9 @@ houver mais de um desenvolvedor.
 --------------------------------------------------------------------------------
 versão -> Versão do módulo do Sistema em desenvolvimento.
 ------------------------------------------------------------------------------->
-<tag:footer ano="Ano da Criação do Sistema"
+<tag:footer ano="2017"
             caminho="../resources"
-            desenvolvedores="Nome dos Desenvolvedores"
-            versao="Versão do Sistema" />
+            desenvolvedores="Jehymison Gil Alves Oliveira"
+            versao="1.0" />
 <!--------------------- ATENÇÃO | FIM DA PÁGINA | ATENÇÃO ----------------------
 --------------------------------------------------------------------------------

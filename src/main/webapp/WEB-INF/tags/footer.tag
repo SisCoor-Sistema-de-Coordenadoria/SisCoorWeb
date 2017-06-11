@@ -6,7 +6,7 @@
 <!--BEGIN FOOTER-->
                 <div id="footer">
                     <div class="copyright">
-                        <a href="http://themifycloud.com">${ano} - SisCoor Web ${versao}- Desenvolvedores: ${desenvolvedores}</a></div>
+                        <a href="http://themifycloud.com">${ano} - SisCoor Web ${versao} - Desenvolvedores: ${desenvolvedores}</a></div>
                 </div>
                 <!--END FOOTER-->
             </div>

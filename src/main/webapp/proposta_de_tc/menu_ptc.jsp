@@ -121,9 +121,9 @@ houver mais de um desenvolvedor.
 --------------------------------------------------------------------------------
 versão -> Versão do módulo do Sistema em desenvolvimento.
 ------------------------------------------------------------------------------->
-<tag:footer ano="Ano da Criação do Sistema"
+<tag:footer ano="2017"
             caminho="../resources"
-            desenvolvedores="Nome dos Desenvolvedores"
-            versao="Versão do Sistema" />
+            desenvolvedores="Jehymison Gil Alves Oliveira"
+            versao="1.0" />
 <!--------------------- ATENÇÃO | FIM DA PÁGINA | ATENÇÃO ----------------------
 --------------------------------------------------------------------------------

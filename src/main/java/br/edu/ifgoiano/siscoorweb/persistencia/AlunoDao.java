@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class AlunoDao {
 
-    private Connection connection;
+    private final Connection connection;
 
     public AlunoDao() {
         this.connection = new ConnectionFactory().getConnectionFactory();
@@ -123,6 +123,11 @@ public class AlunoDao {
         }
     }
 
+    /**
+     * Retorna Busca por único Aluno
+     * @param idAluno
+     * @return 
+     */
     public Aluno getAluno(int idAluno) {
         Aluno aluno = new Aluno();
         String sql = "SELECT * FROM aluno WHERE id_Aluno = ?";

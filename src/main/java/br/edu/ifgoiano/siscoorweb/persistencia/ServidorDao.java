@@ -5,8 +5,6 @@
  */
 package br.edu.ifgoiano.siscoorweb.persistencia;
 
-import br.edu.ifgoiano.siscoorweb.persistencia.ConnectionFactory;
-
 import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class ServidorDao {
 
-    private Connection connection;
+    private final Connection connection;
 
     public ServidorDao() {
         this.connection = new ConnectionFactory().getConnectionFactory();
@@ -128,6 +126,11 @@ public class ServidorDao {
         }
     }
     
+    /**
+     * Retorna busca por servidor único
+     * @param idServidor
+     * @return 
+     */
     public Servidor getServidor(int idServidor) {
         Servidor servidor = new Servidor();
         String sql = "SELECT * FROM servidor WHERE id_Servidor = ?";

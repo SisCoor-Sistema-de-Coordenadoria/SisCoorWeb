@@ -143,8 +143,10 @@ public class PTCServlet extends HttpServlet {
     public void btnExcluir(HttpServletRequest request, HttpServletResponse response, int idProposta) throws IOException {
         HttpSession session = request.getSession();
         PropostaDAO ptxLixo = new PropostaDAO();
-        if (ptxLixo.deletaDados(idProposta)) {
-            if (apagarArquivo(ptxLixo, request, response, idProposta)) {
+        PropostaTrabalho propostaArquivo = ptxLixo.getProposta(idProposta);
+        
+        if (apagarArquivo(ptxLixo, propostaArquivo.getCaminhoArquivo(), request, response, idProposta)) {
+            if (ptxLixo.deletaDados(idProposta) == true) {
                 session.setAttribute("msg", "Proposta apagada com sucesso.");
                 session.setAttribute("tipo_msg", "sucess");
                 response.sendRedirect("proposta_de_tc/crud_ptc.jsp");
@@ -168,19 +170,9 @@ public class PTCServlet extends HttpServlet {
      * @param response
      * @return 
      */
-    public static boolean apagarArquivo(PropostaDAO ptxLixo, HttpServletRequest request, HttpServletResponse response, int idProposta) {
-        ArrayList<PropostaTrabalho> lista = ptxLixo.getLista();
-        File up;
-        
-        HttpSession session_aux = request.getSession();
-        
-        for(int i = 0; i < lista.size(); i++){
-            if(lista.get(i).getIdProposta() == idProposta){
-                session_aux.setAttribute("local", i);
-            }
-        }
-        
-        up = new File(ptxLixo.getLista().get(Integer.parseInt(String.valueOf(session_aux.getAttribute("local")))).getCaminhoArquivo());
+    public static boolean apagarArquivo(PropostaDAO ptxLixo, String caminho,HttpServletRequest request, HttpServletResponse response, int idProposta) {
+        System.out.println(caminho);
+        File up = new File(caminho);
         boolean tentar_pegar = false;
         try {
             tentar_pegar = up.isFile();
