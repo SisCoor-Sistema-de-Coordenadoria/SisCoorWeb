@@ -3,6 +3,10 @@
     Created on : 19/04/2017, 21:39:17
     Author     : Tarcisio & Jehymison
 --%>
+<%if(session.getAttribute("nomeUsuario") == null){
+    response.sendRedirect("");
+}%>
+
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Disciplina"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Servidor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

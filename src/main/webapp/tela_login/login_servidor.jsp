@@ -4,6 +4,10 @@
     Author     : joesi
 --%>
 
+<%if(session.getAttribute("nomeUsuario")!=null){
+    response.sendRedirect("../logado.jsp");
+}%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

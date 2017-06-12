@@ -1,6 +1,9 @@
 <%@attribute name="title" required="true" %>
 <%@attribute name="titlePage" required="true" %>
 <%@attribute name="caminho" required="true"%>
+<%@attribute name="paramVolta" required="true" %>
+<%@attribute name="alunoAtivo" required="false" %>
+<%@attribute name="servidorAtivo" required="false" %>
 
 <!DOCTYPE html>
 <html>
@@ -55,53 +58,48 @@
                         <ul id="side-menu" class="nav">
 
                             <div class="clearfix"></div>
-                            <li class="active"><a href="tela_login/LoginAluno.jsp"><i class="fa fa-tachometer fa-fw">
+                            <li class='${alunoAtivo}'><a href="${paramVolta}/tela_login/login_aluno.jsp"><i class="fa fa-user fa-fw">
                                         <div class="icon-bg bg-orange"></div>
                                     </i><span class="menu-title">Aluno</span></a></li>
 
-                            <li><a href="tela_login/LoginServidor.jsp"><i class="fa fa-desktop fa-fw">
+                                    <li class="${servidorAtivo}"><a href="${paramVolta}/tela_login/login_servidor.jsp"><i class="fa fa-university fa-fw">
                                         <div class="icon-bg bg-pink"></div>
                                     </i><span class="menu-title">Servidor</span></a></li>
-                            <!--
-                            <li><a href="Tables.html"><i class="fa fa-th-list fa-fw">
-                                <div class="icon-bg bg-blue"></div>
-                            </i><span class="menu-title">Tables</span></a>
+                                <!--
+                                <li><a href="DataGrid.html"><i class="fa fa-database fa-fw">
+                                    <div class="icon-bg bg-red"></div>
+                                </i><span class="menu-title">Data Grids</span></a>
                                   
-                            </li>
-                            <li><a href="DataGrid.html"><i class="fa fa-database fa-fw">
-                                <div class="icon-bg bg-red"></div>
-                            </i><span class="menu-title">Data Grids</span></a>
-                              
-                            </li>
-                            <li><a href="Pages.html"><i class="fa fa-file-o fa-fw">
-                                <div class="icon-bg bg-yellow"></div>
-                            </i><span class="menu-title">Pages</span></a>
-                               
-                            </li>
-                            <li><a href="Extras.html"><i class="fa fa-gift fa-fw">
-                                <div class="icon-bg bg-grey"></div>
-                            </i><span class="menu-title">Extras</span></a>
-                              
-                            </li>
-                            <li><a href="Dropdown.html"><i class="fa fa-sitemap fa-fw">
-                                <div class="icon-bg bg-dark"></div>
-                            </i><span class="menu-title">Multi-Level Dropdown</span></a>
-                              
-                            </li>
-                            <li><a href="Email.html"><i class="fa fa-envelope-o">
-                                <div class="icon-bg bg-primary"></div>
-                            </i><span class="menu-title">Email</span></a>
-                              
-                            </li>
-                            <li><a href="Charts.html"><i class="fa fa-bar-chart-o fa-fw">
-                                <div class="icon-bg bg-orange"></div>
-                            </i><span class="menu-title">Charts</span></a>
-                               
-                            </li>
-                            <li><a href="Animation.html"><i class="fa fa-slack fa-fw">
-                                <div class="icon-bg bg-green"></div>
-                            </i><span class="menu-title">Animations</span></a></li>
-                            -->
+                                </li>
+                                <li><a href="Pages.html"><i class="fa fa-file-o fa-fw">
+                                    <div class="icon-bg bg-yellow"></div>
+                                </i><span class="menu-title">Pages</span></a>
+                                   
+                                </li>
+                                <li><a href="Extras.html"><i class="fa fa-gift fa-fw">
+                                    <div class="icon-bg bg-grey"></div>
+                                </i><span class="menu-title">Extras</span></a>
+                                  
+                                </li>
+                                <li><a href="Dropdown.html"><i class="fa fa-sitemap fa-fw">
+                                    <div class="icon-bg bg-dark"></div>
+                                </i><span class="menu-title">Multi-Level Dropdown</span></a>
+                                  
+                                </li>
+                                <li><a href="Email.html"><i class="fa fa-envelope-o">
+                                    <div class="icon-bg bg-primary"></div>
+                                </i><span class="menu-title">Email</span></a>
+                                  
+                                </li>
+                                <li><a href="Charts.html"><i class="fa fa-bar-chart-o fa-fw">
+                                    <div class="icon-bg bg-orange"></div>
+                                </i><span class="menu-title">Charts</span></a>
+                                   
+                                </li>
+                                <li><a href="Animation.html"><i class="fa fa-slack fa-fw">
+                                    <div class="icon-bg bg-green"></div>
+                                </i><span class="menu-title">Animations</span></a></li>
+                                -->
                         </ul>
                     </div>
                 </nav>
@@ -115,7 +113,7 @@
                             <div class="page-title">${titlePage}</div>
                         </div>
                         <ol class="breadcrumb page-breadcrumb pull-right">
-                            <li><i class="fa fa-home"></i>&nbsp;<a href="../SisCoorWeb/logado.jsp">Início</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                            <li><i class="fa fa-home"></i>&nbsp;<a href="../../SisCoorWeb">Início</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
                             <li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
                             <li class="active">${titlePage}</li>
                         </ol>
