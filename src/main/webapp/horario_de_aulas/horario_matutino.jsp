@@ -55,7 +55,7 @@
                                             <tr>
                                                 <td><b>07:00h 07:55h</b></td>
                                                 <td>
-                                                    <select name="segunda1prof" class="col-md-12">
+                                                    <select name="segunda1prof" class="col-md-12 form-control">
                                                         <option>Em branco</option>
                                                         <%for (int i = 0; i < professores.length; i++) {%>
                                                         <option><%= professores[i].getNome()%></option>
