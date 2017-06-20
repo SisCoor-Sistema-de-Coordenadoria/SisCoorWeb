@@ -35,7 +35,6 @@ public class DisciplinaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         String botao = request.getParameter("botao");
         Disciplina disciplina = new Disciplina();
         Disciplina disciplinaRetorno = new Disciplina();
@@ -45,47 +44,42 @@ public class DisciplinaServlet extends HttpServlet {
         
         if(botao.equals("Cadastrar"))
         {
-            if(request.getParameter("nomeDisciplina").isEmpty() || request.getParameter("cargaHorariaDisciplina").isEmpty())
+            try
             {
-                session.setAttribute("msg", "Preencha todos os campos com *.");
-                session.setAttribute("tipo_msg", "danger");
-                response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
-            }
-            
-            else
-            {
-                try
+                if(request.getParameter("nomeDisciplina").isEmpty() || request.getParameter("cargaHorariaDisciplina").isEmpty())
                 {
-                    Integer.parseInt(request.getParameter("cargaHorariaDisciplina"));
-                }
-                catch (Exception e)
-                {
-                    if(e.equals("NumberFormatException"))
-                    {
-                        session.setAttribute("msg", "Preencha corretamente os campos.");
-                        session.setAttribute("tipo_msg", "danger");
-                        response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
-                    }
-                }
-
-                disciplina.setNome(request.getParameter("nomeDisciplina"));
-                disciplina.setCargaHora(Integer.parseInt((String)request.getParameter("cargaHorariaDisciplina")));
-                disciplinaRetorno=disciplinaDAO.jaExiste(disciplina);
-
-                if(disciplina.getNome().equalsIgnoreCase(disciplinaRetorno.getNome()) && disciplina.getCargaHora()==disciplinaRetorno.getCargaHora())
-                {
-                    session.setAttribute("msg", "Esta disciplina ja está cadastrada.");
+                    session.setAttribute("msg", "Preencha todos os campos com *.");
                     session.setAttribute("tipo_msg", "danger");
                     response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
                 }
+
                 else
                 {
-                    disciplinaDAO.adicionar(disciplina);
-                    session.setAttribute("msg", "Disciplina cadastrada com sucesso.");
-                    session.setAttribute("tipo_msg", "success");
-                    response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
-                }   
-            }      
+                    disciplina.setNome(request.getParameter("nomeDisciplina"));
+                    disciplina.setCargaHora(Integer.parseInt((String)request.getParameter("cargaHorariaDisciplina")));
+                    disciplinaRetorno=disciplinaDAO.jaExiste(disciplina);
+
+                    if(disciplina.getNome().equalsIgnoreCase(disciplinaRetorno.getNome()) && disciplina.getCargaHora()==disciplinaRetorno.getCargaHora())
+                    {
+                        session.setAttribute("msg", "Esta disciplina ja está cadastrada.");
+                        session.setAttribute("tipo_msg", "danger");
+                        response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
+                    }
+                    else
+                    {
+                        disciplinaDAO.adicionar(disciplina);
+                        session.setAttribute("msg", "Disciplina cadastrada com sucesso.");
+                        session.setAttribute("tipo_msg", "success");
+                        response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
+                    }   
+                } 
+            }
+            catch(NumberFormatException e)
+            {
+                session.setAttribute("msg", "Preencha corretamente os campos.");
+                session.setAttribute("tipo_msg", "danger");
+                response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
+            }
         }
     }
 

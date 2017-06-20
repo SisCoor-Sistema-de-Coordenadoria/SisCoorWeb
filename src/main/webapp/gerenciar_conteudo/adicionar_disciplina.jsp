@@ -9,9 +9,6 @@
 <tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Nova Disciplina" title="SisCoor | Gerenciar Conteúdo | Nova Disciplina" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
-<tag:open_coluna tamanho="2"/>
-<tag:close_coluna/>
-<tag:open_coluna tamanho="8"/>
 
 <% if (session.getAttribute("msg") != null) {
         String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
@@ -35,6 +32,10 @@
         session.setAttribute("msg", null);
         session.setAttribute("tipo_msg", null);
     }%>
+    
+<tag:open_coluna tamanho="2"/>
+<tag:close_coluna/>
+<tag:open_coluna tamanho="8"/>
  
 <div class="panel panel-grey " onpageshow="center">
     <div class="panel-heading">

@@ -66,7 +66,7 @@
                                 </div>
                             </a>
                         </div>
-
+                        <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
                             <a href="listar_disciplina.jsp">
                                 <div class="panel profit db mbm">
@@ -126,7 +126,7 @@
                                 </div>
                             </a>
                         </div>
-
+                        <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
                             <a href="listar_curso.jsp">
                                 <div class="panel profit db mbm">
@@ -186,7 +186,7 @@
                                 </div>
                             </a>
                         </div>
-
+                        <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
                             <a href="listar_aluno.jsp">
                                 <div class="panel profit db mbm">
@@ -246,7 +246,7 @@
                                 </div>
                             </a>
                         </div>
-
+                        <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
                             <a href="listar_servidor.jsp">
                                 <div class="panel profit db mbm">
@@ -260,10 +260,11 @@
                                 </div>
                             </a>
                         </div>
+                        
                     </div>                   
                 </div>
             </div>
-        </div>>
+        </div>
     </div>
             
     <div class="form-actions text-right pal"></div>                                      

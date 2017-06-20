@@ -39,7 +39,6 @@ public class CursoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         String botao = request.getParameter("botao");
         Curso curso = new Curso();
         Curso cursoRetorno = new Curso();
@@ -52,51 +51,46 @@ public class CursoServlet extends HttpServlet {
         
         if(botao.equals("Cadastrar"))
         {
-            if(request.getParameter("nomeCurso").isEmpty() || request.getParameter("nomeTurno").isEmpty() || request.getParameter("numeroDePeriodos").isEmpty() || request.getParameter("nomeCoordenador").isEmpty())
+            try
             {
-                session.setAttribute("msg", "Preencha todos os campos com *.");
-                session.setAttribute("tipo_msg", "danger");
-                response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
-            }
-            
-            else
-            {
-                try
+                if(request.getParameter("nomeCurso").isEmpty() || request.getParameter("nomeTurno").isEmpty() || request.getParameter("numeroDePeriodos").isEmpty() || request.getParameter("nomeCoordenador").isEmpty())
                 {
-                    Integer.parseInt(request.getParameter("numeroDePeriodos"));
-                }
-                catch (Exception e)
-                {
-                    if(e.equals("NumberFormatException"))
-                    {
-                        session.setAttribute("msg", "Preencha corretamente os campos.");
-                        session.setAttribute("tipo_msg", "danger");
-                        response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
-                    }
-                }
-
-                curso.setNome(request.getParameter("nomeCurso"));
-                curso.setTurno(request.getParameter("NomeTurno"));
-                curso.setNumDePeriodos(Integer.parseInt((String)request.getParameter("numeroDePeriodos")));
-                servidor.setNome(request.getParameter("nomeCoordenador"));
-                servidorRetorno=servidorDAO.buscaPorNome(servidor);
-                curso.setIdProfessorCoordenador(servidorRetorno.getIdServidor());
-                cursoRetorno=cursoDAO.jaExiste(curso);
-
-                if(curso.getNome().equalsIgnoreCase(cursoRetorno.getNome()) && curso.getTurno().equals(cursoRetorno.getTurno()) && curso.getIdProfessorCoordenador()==cursoRetorno.getIdProfessorCoordenador() && curso.getNumDePeriodos()==cursoRetorno.getIdProfessorCoordenador())
-                {
-                    session.setAttribute("msg", "Esta curso ja está cadastrado.");
+                    session.setAttribute("msg", "Preencha todos os campos com *.");
                     session.setAttribute("tipo_msg", "danger");
                     response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
                 }
+
                 else
                 {
-                    cursoDAO.adicionar(curso);
-                    session.setAttribute("msg", "Curso cadastrado com sucesso.");
-                    session.setAttribute("tipo_msg", "success");
-                    response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
-                }   
-            }      
+                    curso.setNome(request.getParameter("nomeCurso"));
+                    curso.setTurno(request.getParameter("nomeTurno"));
+                    curso.setNumDePeriodos(Integer.parseInt((String)request.getParameter("numeroDePeriodos")));
+                    servidor.setNome(request.getParameter("nomeCoordenador"));
+                    servidorRetorno=servidorDAO.buscaPorNome(servidor);
+                    curso.setIdProfessorCoordenador(servidorRetorno.getIdServidor());
+                    cursoRetorno=cursoDAO.jaExiste(curso);
+
+                    if(curso.getNome().equalsIgnoreCase(cursoRetorno.getNome()) && curso.getTurno().equals(cursoRetorno.getTurno()) && curso.getIdProfessorCoordenador()==cursoRetorno.getIdProfessorCoordenador() && curso.getNumDePeriodos()==cursoRetorno.getIdProfessorCoordenador())
+                    {
+                        session.setAttribute("msg", "Esta curso ja está cadastrado.");
+                        session.setAttribute("tipo_msg", "danger");
+                        response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
+                    }
+                    else
+                    {
+                        cursoDAO.adicionar(curso);
+                        session.setAttribute("msg", "Curso cadastrado com sucesso.");
+                        session.setAttribute("tipo_msg", "success");
+                        response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
+                    }   
+                } 
+            }
+            catch(NumberFormatException e)
+            {
+                session.setAttribute("msg", "Preencha corretamente os campos.");
+                session.setAttribute("tipo_msg", "danger");
+                response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
+            }
         }
     }
 

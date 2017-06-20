@@ -17,17 +17,6 @@
 <tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Novo Curso" title="SisCoor | Gerenciar Conteúdo | Novo Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
-<tag:open_coluna tamanho="2"/>
-<tag:close_coluna/>
-<tag:open_coluna tamanho="8"/>
-
-<%
-ServidorDao servidorDAO = new ServidorDao();
-ArrayList<Servidor> servidores = new ArrayList<Servidor>();
-
-servidores=servidorDAO.getLista();
-//Collections.sort(servidores);
-%>
 
 <% if (session.getAttribute("msg") != null) {
         String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
@@ -51,6 +40,18 @@ servidores=servidorDAO.getLista();
         session.setAttribute("msg", null);
         session.setAttribute("tipo_msg", null);
     }%>
+    
+<tag:open_coluna tamanho="2"/>
+<tag:close_coluna/>
+<tag:open_coluna tamanho="8"/>
+
+<%
+ServidorDao servidorDAO = new ServidorDao();
+ArrayList<Servidor> servidores = new ArrayList<Servidor>();
+
+servidores=servidorDAO.getLista();
+//Collections.sort(servidores);
+%>
  
 <div class="panel panel-grey " onpageshow="center">
     <div class="panel-heading">

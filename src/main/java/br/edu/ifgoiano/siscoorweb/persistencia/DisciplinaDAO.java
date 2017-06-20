@@ -25,7 +25,7 @@ public class DisciplinaDAO
     
     public DisciplinaDAO()
     {
-        this.connection = connection;
+        this.connection = new ConnectionFactory().getConnectionFactory();
     }
     
     public boolean adicionar(Disciplina disciplina){

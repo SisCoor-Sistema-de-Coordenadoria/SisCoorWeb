@@ -24,7 +24,7 @@ public class CursoDAO
     
     public CursoDAO()
     {
-        this.connection = connection;
+        this.connection = new ConnectionFactory().getConnectionFactory();
     }
     
     public boolean adicionar(Curso curso){
