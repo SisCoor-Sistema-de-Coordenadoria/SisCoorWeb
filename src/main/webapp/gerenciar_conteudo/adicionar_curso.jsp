@@ -70,6 +70,7 @@ servidores=servidorDAO.getLista();
                                     <strong>*</strong>Nome
                                 </label>
                                 <div class="input-icon right">
+                                    <i class="fa fa-graduation-cap"></i>
                                     <input class="form-control" type="text" value="" name="nomeCurso"/>
                                 </div>
                             </div>
@@ -81,15 +82,18 @@ servidores=servidorDAO.getLista();
                                 <label for="inputTurno" class="control-label">
                                     <strong>*</strong>Turno
                                 </label>
-                                <select class="form-control" name="nomeTurno">                
-                                    <option style="align-content: center" value="Matutino">Matutino</option>
-                                    <option style="align-content: center" value="Vespertino">Vespertino</option>
-                                    <option style="align-content: center" value="Noturno">Noturno</option>
-                                    <option style="align-content: center" value="Matutino-Vespertino">Matutino-Vespertino</option>
-                                    <option style="align-content: center" value="Matutino-Noturno">Matutino-Noturno</option>
-                                    <option style="align-content: center" value="Vespertino-Noturno">Vespertino-Noturno</option>
-                                    <option style="align-content: center" value="Matutino-Vespertino-Noturno">Matutino-Vespertino-Noturno</option>
-                                </select>
+                                <div class="input-icon right">
+                                    <i class="fa fa-clock-o"></i>
+                                    <select class="form-control" name="nomeTurno">                
+                                        <option style="align-content: center" value="Matutino">Matutino</option>
+                                        <option style="align-content: center" value="Vespertino">Vespertino</option>
+                                        <option style="align-content: center" value="Noturno">Noturno</option>
+                                        <option style="align-content: center" value="Matutino-Vespertino">Matutino-Vespertino</option>
+                                        <option style="align-content: center" value="Matutino-Noturno">Matutino-Noturno</option>
+                                        <option style="align-content: center" value="Vespertino-Noturno">Vespertino-Noturno</option>
+                                        <option style="align-content: center" value="Matutino-Vespertino-Noturno">Matutino-Vespertino-Noturno</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         
@@ -100,6 +104,7 @@ servidores=servidorDAO.getLista();
                                     <strong>*</strong>Nº de Periodos
                                 </label>
                                 <div class="input-icon right">
+                                    <i class="fa fa-calendar"></i>
                                     <input class="form-control" type="text" value="" name="numeroDePeriodos"/>
                                 </div>
                             </div>
@@ -110,12 +115,15 @@ servidores=servidorDAO.getLista();
                                 <label for="inputCoordenador" class="control-label">
                                     <strong>*</strong>Coordenador
                                 </label>
-                                <select class="form-control" name="nomeCoordenador">                
-                                    <option style="align-content: center" value="<%=(String) session.getAttribute("nomeUsuario")%>"><%=(String) session.getAttribute("nomeUsuario")%></option>
-                                    <%for (int i = 0; i < servidores.size(); i++) {%>
-                                    <option style="align-content: center" value="<%=servidores.get(i).getNome()%>"><%=servidores.get(i).getNome()%></option>
-                                    <%}%>
-                                </select>
+                                <div class="input-icon right">
+                                    <i class="fa fa-user"></i>
+                                    <select class="form-control" name="nomeCoordenador">                
+                                        <option style="align-content: center" value="<%=(String) session.getAttribute("nomeUsuario")%>"><%=(String) session.getAttribute("nomeUsuario")%></option>
+                                        <%for (int i = 0; i < servidores.size(); i++) {%>
+                                        <option style="align-content: center" value="<%=servidores.get(i).getNome()%>"><%=servidores.get(i).getNome()%></option>
+                                        <%}%>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         

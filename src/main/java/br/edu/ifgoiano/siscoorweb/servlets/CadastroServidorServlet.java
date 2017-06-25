@@ -21,10 +21,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Tarcisio
+ * @author Diego
  */
-@WebServlet(name = "CadastroAlunoServlet", urlPatterns = {"/CadastroAlunoServlet"})
-public class CadastroAlunoServlet extends HttpServlet {
+@WebServlet(name = "CadastroServidorServlet", urlPatterns = {"/CadastroServidorServlet"})
+public class CadastroServidorServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,7 +42,7 @@ public class CadastroAlunoServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (request.getParameter("bt_cad").equals("voltar")) {
-            response.sendRedirect("tela_login/login_aluno.jsp");
+            response.sendRedirect("tela_login/login_servidor.jsp");
         } 
         else if(request.getParameter("bt_cad").equals("cad"))
         {
@@ -51,32 +51,32 @@ public class CadastroAlunoServlet extends HttpServlet {
             String semail = request.getParameter("email");
             String ssenha = request.getParameter("senha");
             String stelefone = request.getParameter("telefone");
-            String smatricula = request.getParameter("matricula");
+            String ssuap = request.getParameter("suap");
             Date sdata = new Date(1);
             try {
                 sdata = Date.valueOf(request.getParameter("data"));
             } catch (IllegalArgumentException iae) {
                 session.setAttribute("erro_cadastro", "data");
             }
-            Aluno a = new Aluno();
+            Servidor a = new Servidor();
 
             a.setNome(snome);
             a.setCpf(scpf);
             a.setEmail(semail);
             a.setSenha(ssenha);
             a.setTelefone(stelefone);
-            a.setMatricula(smatricula);
+            a.setSiape(ssuap);
             a.setDataNascimento(sdata);
             
-            if(!(a.getCpf().isEmpty()||a.getNome().isEmpty()||a.getEmail().isEmpty()||a.getSenha().isEmpty()||a.getTelefone().isEmpty()||a.getMatricula().isEmpty())){
-                AlunoDao adao = new AlunoDao();
+            if(!(a.getCpf().isEmpty()||a.getNome().isEmpty()||a.getEmail().isEmpty()||a.getSenha().isEmpty()||a.getTelefone().isEmpty()||a.getSiape().isEmpty())){
+                ServidorDao adao = new ServidorDao();
             adao.adiciona(a);
             
             session.setAttribute("erro_cadastro", "false");
-            response.sendRedirect("tela_login/cadastro_aluno.jsp");
+            response.sendRedirect("tela_login/cadastro_servidor.jsp");
             } else{
                 session.setAttribute("erro_cadastro","vazio");
-                response.sendRedirect("tela_login/cadastro_aluno.jsp");
+                response.sendRedirect("tela_login/cadastro_servidor.jsp");
             }
         }
         
@@ -87,35 +87,34 @@ public class CadastroAlunoServlet extends HttpServlet {
             String semail = request.getParameter("email");
             String ssenha = request.getParameter("senha");
             String stelefone = request.getParameter("telefone");
-            String smatricula = request.getParameter("matricula");
+            String ssuap = request.getParameter("suap");
             Date sdata = new Date(1);
             try {
                 sdata = Date.valueOf(request.getParameter("data"));
             } catch (IllegalArgumentException iae) {
                 session.setAttribute("erro_cadastro", "data");
             }
-            Aluno a = new Aluno();
+            Servidor a = new Servidor();
 
             a.setNome(snome);
             a.setCpf(scpf);
             a.setEmail(semail);
             a.setSenha(ssenha);
             a.setTelefone(stelefone);
-            a.setMatricula(smatricula);
+            a.setSiape(ssuap);
             a.setDataNascimento(sdata);
             
-            if(!(a.getCpf().isEmpty()||a.getNome().isEmpty()||a.getEmail().isEmpty()||a.getSenha().isEmpty()||a.getTelefone().isEmpty()||a.getMatricula().isEmpty())){
-                AlunoDao adao = new AlunoDao();
+            if(!(a.getCpf().isEmpty()||a.getNome().isEmpty()||a.getEmail().isEmpty()||a.getSenha().isEmpty()||a.getTelefone().isEmpty()||a.getSiape().isEmpty())){
+                ServidorDao adao = new ServidorDao();
             adao.adiciona(a);
             
             session.setAttribute("erro_cadastro", "false");
-            response.sendRedirect("gerenciar_conteudo/adicionar_aluno.jsp");
+            response.sendRedirect("gerenciar_conteudo/adicionar_servidor.jsp");
             } else{
                 session.setAttribute("erro_cadastro","vazio");
-                response.sendRedirect("gerenciar_conteudo/adicionar_aluno.jsp");
+                response.sendRedirect("gerenciar_conteudo/adicionar_servidor.jsp");
             }
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

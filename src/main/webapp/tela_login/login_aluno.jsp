@@ -10,7 +10,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
-<tag:header_inicio title="SisCoor Web - Aluno" titlePage="SisCoor Web | Aluno" caminho="../resources" paramVolta="../index.jsp" alunoAtivo="active"/>
+<tag:header_inicio title="SisCoor Web - Aluno" titlePage="SisCoor Web | Aluno" caminho="../resources" paramVolta="../" alunoAtivo="active"/>
 
 <tag:conteudoInicio/>
 <%if (session.getAttribute("erro_login") != null) {%>

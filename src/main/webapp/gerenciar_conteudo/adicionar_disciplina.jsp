@@ -54,6 +54,7 @@
                                     <strong>*</strong>Nome
                                 </label>
                                 <div class="input-icon right">
+                                    <i class="fa fa-pencil"></i>
                                     <input class="form-control" type="text" value="" name="nomeDisciplina"/>
                                 </div>
                             </div>
@@ -66,6 +67,7 @@
                                     <strong>*</strong>Carga Horária
                                 </label>
                                 <div class="input-icon right">
+                                    <i class="fa fa-clock-o"></i>
                                     <input class="form-control" type="text" value="" name="cargaHorariaDisciplina"/>
                                 </div>
                             </div>

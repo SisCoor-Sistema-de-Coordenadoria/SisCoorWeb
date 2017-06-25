@@ -31,7 +31,7 @@ public class ServidorDao {
 
     public Servidor auntenticacao(Servidor servidor) {
         Servidor servidorretorno = null;
-        String sql = "select * FROM servidor where suap=? and senha=?";
+        String sql = "SELECT * FROM servidor WHERE suap=? and senha=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, servidor.getSiape());
@@ -39,11 +39,13 @@ public class ServidorDao {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+            
                 servidorretorno = new Servidor();
-                servidorretorno.setSiape(rs.getString("Suap"));
+                servidorretorno.setSiape(rs.getString("suap"));
                 servidorretorno.setSenha(rs.getString("senha"));
-
+                servidorretorno.setNome(rs.getString("nome"));
             }
+            
             System.out.println("logado com sucesso");
 
         } catch (SQLException ex) {
@@ -83,21 +85,20 @@ public class ServidorDao {
 
     public void adiciona(Servidor servidor) {
         String sql = "insert into Servidor"
-                + "(id,nome,cpf,email,suap,,senha,telefone,tipo,data_de_Nascimento)"
-                + "values(?,?,?,?,?,?,?,?,?)";
+                + "(nome,cpf,email,suap,senha,telefone,tipo,data_nascimento)"
+                + "values(?,?,?,?,?,?,?,?)";
         try {
             //prepared statement para inserção
             PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
             //seta os valores
-            stmt.setInt(1, servidor.getIdServidor());
-            stmt.setString(2, servidor.getNome());
-            stmt.setString(3, servidor.getCpf());
-            stmt.setString(4, servidor.getEmail());
-            stmt.setString(5, servidor.getSiape());
-            stmt.setString(6, servidor.getSenha());
-            stmt.setString(7, servidor.getTelefone());
-            stmt.setInt(8, servidor.getTipo());
-            stmt.setDate(9, servidor.getDataNascimento());
+            stmt.setString(1, servidor.getNome());
+            stmt.setString(2, servidor.getCpf());
+            stmt.setString(3, servidor.getEmail());
+            stmt.setString(4, servidor.getSiape());
+            stmt.setString(5, servidor.getSenha());
+            stmt.setString(6, servidor.getTelefone());
+            stmt.setInt(7, servidor.getTipo());
+            stmt.setDate(8, servidor.getDataNascimento());
 
             //executa
             stmt.execute();
