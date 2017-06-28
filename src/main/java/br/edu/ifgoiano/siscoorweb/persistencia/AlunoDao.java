@@ -80,14 +80,14 @@ public class AlunoDao {
     }
 
     public ArrayList<Aluno> getLista(){        
-        String sql = "SELECT * FROM Aluno";
-        
+        String sql = "SELECT * FROM aluno ORDER BY nome asc";
+        ArrayList<Aluno> alunos = new ArrayList<Aluno>();
         try {
-            ArrayList<Aluno> alunos = new ArrayList();
+            
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-
             while (rs.next()) {
+                
                 Aluno aluno = new Aluno();
                 aluno.setIdAluno(rs.getInt("id_Aluno"));
                 aluno.setNome(rs.getString("nome"));
@@ -102,10 +102,11 @@ public class AlunoDao {
             }
             rs.close();
             stmt.close();
-            return alunos;
+            
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+        return alunos;
     }
 }

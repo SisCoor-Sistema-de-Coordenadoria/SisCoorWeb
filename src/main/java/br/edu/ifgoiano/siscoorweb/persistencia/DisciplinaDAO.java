@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,5 +68,32 @@ public class DisciplinaDAO
             Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
        return discip;
-   }
+    }
+    
+    public ArrayList<Disciplina> getLista() {
+        String sql = "SELECT * FROM disciplinas ORDER BY nome_da_Disciplina asc";
+        ArrayList<Disciplina> listaDisciplinas = new ArrayList<Disciplina>();
+        
+        try {
+            
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Disciplina disciplina = new Disciplina();
+                
+                disciplina.setIdDisciplina(rs.getInt("id_Disciplina"));
+                disciplina.setNome(rs.getString("nome_da_Disciplina"));
+                disciplina.setCargaHora(rs.getInt("carga_Horaria"));
+                
+                listaDisciplinas.add(disciplina);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaDisciplinas;
+    }
 }

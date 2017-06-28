@@ -15,6 +15,7 @@ public class Curso {
     private String turno;
     private int idProfessorCoordenador;
     private int numDePeriodos;
+    private String nomeCoordenador;
     //private Coordenador coordenador;
 
     public Curso(int idCurso, String nome, String turno, int idProfessorCoordenador, int numDePeriodos) {
@@ -39,6 +40,14 @@ public class Curso {
     
  
     public Curso() {
+    }
+
+    public String getNomeCoordenador() {
+        return nomeCoordenador;
+    }
+
+    public void setNomeCoordenador(String nom_coordenador) {
+        this.nomeCoordenador = nom_coordenador;
     }
 
     public int getIdCurso() {

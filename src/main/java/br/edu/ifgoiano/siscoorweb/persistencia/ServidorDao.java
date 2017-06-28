@@ -110,10 +110,10 @@ public class ServidorDao {
     }
     
     public ArrayList<Servidor> getLista(){
-        String sql = "SELECT * FROM Servidor";
-        
+        String sql = "SELECT * FROM servidor ORDER BY nome asc";
+        ArrayList<Servidor> servidores = new ArrayList();
         try {
-            ArrayList<Servidor> servidores = new ArrayList();
+            
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
@@ -132,10 +132,38 @@ public class ServidorDao {
             }
             rs.close();
             stmt.close();
-            return servidores;
+            
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+        return servidores;
+    }
+    
+    public Servidor buscaPorId(int id) {
+        
+        Servidor servidorretorno = null;
+        String sql = "select * FROM servidor where id_Servidor=?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                servidorretorno = new Servidor();
+                servidorretorno.setIdServidor(rs.getInt("id_Servidor"));
+                servidorretorno.setNome(rs.getString("nome"));
+                servidorretorno.setCpf(rs.getString("cpf"));               
+                servidorretorno.setEmail(rs.getString("email"));
+                servidorretorno.setSiape(rs.getString("suap"));
+                servidorretorno.setTelefone(rs.getString("telefone"));
+                servidorretorno.setTipo(rs.getInt("tipo"));
+            }
+
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return servidorretorno;
     }
 }

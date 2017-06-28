@@ -9,6 +9,9 @@ import br.edu.ifgoiano.siscoorweb.modelos.Disciplina;
 import br.edu.ifgoiano.siscoorweb.persistencia.DisciplinaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Comparator;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,11 +42,10 @@ public class DisciplinaServlet extends HttpServlet {
         Disciplina disciplina = new Disciplina();
         Disciplina disciplinaRetorno = new Disciplina();
         DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-        
+        RequestDispatcher rd = null;
         HttpSession session = request.getSession();
-        
-        
-        if(botao.equals("Cadastrar"))
+                
+        if(botao!=null && botao.equals("Cadastrar"))
         {
             try
             {
@@ -80,6 +82,31 @@ public class DisciplinaServlet extends HttpServlet {
                 session.setAttribute("msg", "Preencha corretamente os campos.");
                 session.setAttribute("tipo_msg", "danger");
                 response.sendRedirect("gerenciar_conteudo/adicionar_disciplina.jsp");
+            }
+        }
+        
+        if(session.getAttribute("name_op_disciplina")!=null && session.getAttribute("name_op_disciplina").equals("listar_disciplina"))
+        {
+            try
+            {
+                ArrayList<Disciplina> listaDisciplina = new ArrayList<Disciplina>();
+                listaDisciplina=disciplinaDAO.getLista();
+
+                if(listaDisciplina.isEmpty())
+                {
+                    session.setAttribute("msg", "Nenhuma disciplina cadastrada no momento.");
+                    session.setAttribute("tipo_msg", "danger");
+                    response.sendRedirect("gerenciar_conteudo/listar_disciplina.jsp");                 
+                }
+                else
+                {
+                    session.setAttribute("lista_de_disciplinas", listaDisciplina);
+                    response.sendRedirect("gerenciar_conteudo/listar_disciplina.jsp");
+                }
+            }
+            catch(Exception e)
+            {
+                System.out.println(e);
             }
         }
     }

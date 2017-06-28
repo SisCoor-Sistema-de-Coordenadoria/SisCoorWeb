@@ -68,7 +68,7 @@
                         </div>
                         <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <a href="listar_disciplina.jsp">
+                            <a href="../DisciplinaServlet">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
@@ -78,6 +78,7 @@
                                         <p class="description">Exibe uma Lista de Disciplinas</p>
                                     </div>
                                 </div>
+                                <%session.setAttribute("name_op_disciplina", "listar_disciplina");%>
                             </a>
                         </div>
                     </div>
@@ -128,7 +129,7 @@
                         </div>
                         <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <a href="listar_curso.jsp">
+                            <a href="../CursoServlet">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
@@ -138,6 +139,7 @@
                                         <p class="description">Exibe uma Lista de Cursos</p>
                                     </div>
                                 </div>
+                                <%session.setAttribute("name_op_curso", "listar_curso");%>
                             </a>
                         </div>
                     </div>                   
@@ -188,7 +190,7 @@
                         </div>
                         <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <a href="listar_aluno.jsp">
+                            <a href="../AlunoServlet">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
@@ -198,6 +200,7 @@
                                         <p class="description">Exibe uma Lista de Alunos</p>
                                     </div>
                                 </div>
+                                <%session.setAttribute("name_op_alunos", "listar_alunos");%>
                             </a>
                         </div>
                     </div>                   
@@ -248,7 +251,7 @@
                         </div>
                         <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <a href="listar_servidor.jsp">
+                            <a href="../ServidorServlet">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
@@ -258,9 +261,9 @@
                                         <p class="description">Exibe uma Lista de Servidores</p>
                                     </div>
                                 </div>
+                                <%session.setAttribute("name_op_servidor", "listar_servidores");%>
                             </a>
-                        </div>
-                        
+                        </div>  
                     </div>                   
                 </div>
             </div>

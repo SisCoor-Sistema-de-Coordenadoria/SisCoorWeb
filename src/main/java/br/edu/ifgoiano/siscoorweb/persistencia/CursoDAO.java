@@ -7,10 +7,12 @@ package br.edu.ifgoiano.siscoorweb.persistencia;
 
 import br.edu.ifgoiano.siscoorweb.modelos.Curso;
 import br.edu.ifgoiano.siscoorweb.modelos.Disciplina;
+import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -70,5 +72,36 @@ public class CursoDAO
             Logger.getLogger(CursoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
        return cur;
-   }
+    }
+    
+    public ArrayList<Curso> getLista() {
+        String sql = "SELECT * FROM curso ORDER BY nome asc";
+        ArrayList<Curso> listaCursos = new ArrayList<Curso>();
+        
+        try {
+            
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            ServidorDao servidorDAO = new ServidorDao();
+
+            while (rs.next()) {
+
+                Curso curso = new Curso();
+                Servidor servidor = new Servidor();
+                
+                curso.setIdCurso(rs.getInt("id_Curso"));
+                curso.setNome(rs.getString("nome"));
+                curso.setTurno(rs.getString("turno"));
+                curso.setNumDePeriodos(rs.getInt("numero_de_Periodos"));
+                servidor=servidorDAO.buscaPorId(rs.getInt("professor_Coordenador"));
+                curso.setNomeCoordenador(servidor.getNome());
+                listaCursos.add(curso);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CursoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaCursos;
+    }
 }

@@ -13,6 +13,7 @@ import br.edu.ifgoiano.siscoorweb.persistencia.DisciplinaDAO;
 import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,7 +50,7 @@ public class CursoServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        if(botao.equals("Cadastrar"))
+        if(botao!=null && botao.equals("Cadastrar"))
         {
             try
             {
@@ -90,6 +91,31 @@ public class CursoServlet extends HttpServlet {
                 session.setAttribute("msg", "Preencha corretamente os campos.");
                 session.setAttribute("tipo_msg", "danger");
                 response.sendRedirect("gerenciar_conteudo/adicionar_curso.jsp");
+            }
+        }
+        
+        if(session.getAttribute("name_op_curso")!=null && session.getAttribute("name_op_curso").equals("listar_curso"))
+        {
+            try
+            {
+                ArrayList<Curso> listaCursos = new ArrayList<Curso>();
+                listaCursos=cursoDAO.getLista();
+
+                if(listaCursos.isEmpty())
+                {
+                    session.setAttribute("msg", "Nenhum curso cadastrado no momento.");
+                    session.setAttribute("tipo_msg", "danger");
+                    response.sendRedirect("gerenciar_conteudo/listar_curso.jsp");
+                }
+                else
+                {
+                    session.setAttribute("lista_de_cursos", listaCursos);
+                    response.sendRedirect("gerenciar_conteudo/listar_curso.jsp");
+                }
+            }
+            catch(Exception e)
+            {
+                System.out.println(e);
             }
         }
     }
