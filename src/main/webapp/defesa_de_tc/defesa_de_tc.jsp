@@ -4,7 +4,7 @@
     Author     : IFgoiano
 --%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags/"%>
-<tag:header defesaAtivo="active" caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Módulo | Defesa de Trabalho de Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>"/>
+<tag:header defesaAtivo="active" caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Módulo | Defesa de Trabalho de Curso"/>
 <tag:conteudoInicio/>
 
 <tag:open_coluna tamanho="12"/>
