@@ -7,9 +7,12 @@ package br.edu.ifgoiano.siscoorweb.persistencia;
 
 import br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,10 +30,6 @@ public class PropostaDAO {
 
     public PropostaDAO() {
         this.connection = new ConnectionFactory().getConnectionFactory();
-    }
-
-    public PropostaTrabalho getProposta() {
-        return proposta;
     }
 
     public void setProposta(PropostaTrabalho proposta) {
@@ -52,9 +51,8 @@ public class PropostaDAO {
                 + "?,"
                 + (proposta.getCoorientador().getIdServidor() == 0 ? "" : "?,")
                 + "?,?,?,?)";
-        
-            System.out.println(sql);
-        
+
+        //System.out.println(sql);
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, proposta.getTituloPTC());
@@ -105,8 +103,20 @@ public class PropostaDAO {
      *
      * @return
      */
-    public boolean deletaDados() {
-        return false;
+    public boolean deletaDados(int id_Proposta) {
+        String sql = "DELETE FROM proposta WHERE id_Proposta = ?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id_Proposta);
+            stmt.executeUpdate();
+            stmt.close();
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PropostaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     /**
@@ -123,7 +133,75 @@ public class PropostaDAO {
      *
      * @return
      */
-    public boolean buscaDados() {
-        return false;
+    public ArrayList<PropostaTrabalho> getLista() {
+        String sql = "SELECT * FROM proposta";
+
+        try {
+            ArrayList<PropostaTrabalho> proposta_retorno = new ArrayList();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                PropostaTrabalho trabalho = new PropostaTrabalho();
+                AlunoDao p_aluno = new AlunoDao();
+                ServidorDao p_servidor = new ServidorDao();
+                
+                trabalho.setTitulo(rs.getString("titulo"));
+                trabalho.setAluno1(p_aluno.getAluno(rs.getInt("id_aluno_1")));
+                trabalho.setAluno2(p_aluno.getAluno(rs.getInt("id_aluno_2")));
+                trabalho.setOrientador(p_servidor.getServidor(rs.getInt("id_Orientador_1")));
+                trabalho.setCoorientador(p_servidor.getServidor(rs.getInt("id_Orientador_2")));
+                trabalho.setDataEnvio(rs.getString("data_Envio"));
+                trabalho.setHoraEnvio(rs.getString("hora_Envio"));
+                trabalho.setCaminhoArquivo(rs.getString("caminho"));
+                trabalho.setAceite(rs.getBoolean("aceite"));
+                trabalho.setIdProposta(rs.getInt("id_Proposta"));
+                proposta_retorno.add(trabalho);
+            }
+            rs.close();
+            stmt.close();
+            return proposta_retorno;
+        } catch (SQLException ex) {
+            Logger.getLogger(PropostaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    /**
+     * Retorna Busca por única proposta
+     * @param idProposta
+     * @return 
+     */
+    public PropostaTrabalho getProposta(int idProposta){
+        String sql = "SELECT * FROM proposta WHERE id_Proposta = ?";
+        PropostaTrabalho trabalho = new PropostaTrabalho();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idProposta);
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                AlunoDao p_aluno = new AlunoDao();
+                ServidorDao p_servidor = new ServidorDao();
+                
+                trabalho.setTitulo(rs.getString("titulo"));
+                trabalho.setAluno1(p_aluno.getAluno(rs.getInt("id_aluno_1")));
+                trabalho.setAluno2(p_aluno.getAluno(rs.getInt("id_aluno_2")));
+                trabalho.setOrientador(p_servidor.getServidor(rs.getInt("id_Orientador_1")));
+                trabalho.setCoorientador(p_servidor.getServidor(rs.getInt("id_Orientador_2")));
+                trabalho.setDataEnvio(rs.getString("data_Envio"));
+                trabalho.setHoraEnvio(rs.getString("hora_Envio"));
+                trabalho.setCaminhoArquivo(rs.getString("caminho"));
+                trabalho.setAceite(rs.getBoolean("aceite"));
+                trabalho.setIdProposta(rs.getInt("id_Proposta"));
+            }
+            rs.close();
+            stmt.close();
+            return trabalho;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PropostaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 }

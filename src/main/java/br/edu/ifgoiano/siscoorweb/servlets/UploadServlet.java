@@ -8,12 +8,15 @@ package br.edu.ifgoiano.siscoorweb.servlets;
 import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho;
 import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
+import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
 import br.edu.ifgoiano.siscoorweb.utilitarios.UploadPTC;
 import br.edu.ifgoiano.siscoorweb.persistencia.PropostaDAO;
+import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +29,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Jehymeson Gil
  */
-@WebServlet(name = "UploadServletPTC", urlPatterns = {"/UploadServletPTC"})
-public class UploadServletPTC extends HttpServlet {
+@WebServlet(name = "UploadServlet", urlPatterns = {"/UploadServlet"})
+public class UploadServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,13 +44,14 @@ public class UploadServletPTC extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
 
         UploadPTC up = new UploadPTC();
         up.setFolderUpload("uploadsPTC");
 
         uploadArquivo(request, response, up);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -106,6 +110,7 @@ public class UploadServletPTC extends HttpServlet {
         String appPath = request.getServletContext().getRealPath("");
         // constructs path of the directory to save uploaded file
         String savePath = appPath + File.separator + up.getFolderUpload();
+        //System.out.println(savePath);
 
         // creates the save directory if it does not exists
         File fileSaveDir = new File(savePath);
@@ -114,7 +119,7 @@ public class UploadServletPTC extends HttpServlet {
         }
 
         if (up.formProcess(getServletContext(), request)) {
-            if (String.valueOf(up.getForm().get("btn_propostaSubmit")).equals("Voltar")) {
+            if (String.valueOf(up.getForm().get("btn")).equals("Voltar")) {
                 String tentar_pegar = null;
                 try {
                     tentar_pegar = up.getFiles().get(0);
@@ -144,7 +149,7 @@ public class UploadServletPTC extends HttpServlet {
                 session.setAttribute("tipo_msg", null);
                 if (tentar_pegar.isEmpty()
                         || String.valueOf(up.getForm().get("tituloPTC")).isEmpty()
-                        || String.valueOf(up.getForm().get("aluno01")).isEmpty()
+                        || String.valueOf(up.getForm().get("idAluno01")).isEmpty()
                         || String.valueOf(up.getForm().get("idOrientador")).isEmpty()) {
 
                     try {
@@ -159,18 +164,25 @@ public class UploadServletPTC extends HttpServlet {
                         response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
                     }
                 } else if (getTipoArquivo(up) == 0) {
-                    //Erro
+                    try {
+                        File fileApaga = new File(savePath + File.separator + up.getFiles().get(0));
+                        fileApaga.delete();
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    } finally {
+                        //Erro
                         session.setAttribute("msg", "Por favor, o arquivo para "
                                 + "submissão deve ser do tipo Adobe Acrobat Document (pdf).");
                         session.setAttribute("tipo_msg", "danger");
                         response.sendRedirect("proposta_de_tc/proposta_trabalho_curso.jsp");
+                    }
                 } else {
                     //Enviar para o BD
                     String caminho = savePath + File.separator + up.getFiles().get(0);
                     PropostaTrabalho novaProposta = new PropostaTrabalho();
                     PropostaDAO enviarProposta = new PropostaDAO();
 
-                    novaProposta = setProposta(novaProposta, up, caminho);
+                    novaProposta = setProposta(novaProposta, up, caminho, session);
 
                     if (enviarProposta.insereDados(novaProposta)) {
                         session.setAttribute("msg", "Trabalho submetido com sucesso");
@@ -209,11 +221,17 @@ public class UploadServletPTC extends HttpServlet {
      * @param caminho
      * @return
      */
-    public PropostaTrabalho setProposta(PropostaTrabalho proposta, UploadPTC up, String caminho) {
+    public PropostaTrabalho setProposta(PropostaTrabalho proposta, UploadPTC up, String caminho, HttpSession session) {
         String[] pegaDataHora;
         pegaDataHora = getDataHora(1);
 
-        Aluno novoAluno1 = new Aluno();//Mudar para pegar da sessão
+        AlunoDao aluno = new AlunoDao();
+        ArrayList<Aluno> alunosProposta = aluno.getLista();
+
+        ServidorDao servidor = new ServidorDao();
+        ArrayList<Servidor> servidorProposta = servidor.getLista();
+
+        Aluno novoAluno1 = new Aluno();
         Aluno novoAluno2 = new Aluno();
         Servidor orientador = new Servidor();
         Servidor coorientador = new Servidor();
@@ -221,32 +239,81 @@ public class UploadServletPTC extends HttpServlet {
         if (String.valueOf(up.getForm().get("idAluno02")).equals("0")) {
             novoAluno2.setIdAluno(0);
             proposta.setAluno2(novoAluno2);
-            System.out.println("Aluno 2 ID: " + novoAluno2.getIdAluno());
         } else {
-            novoAluno2.setIdAluno(Integer.parseInt(String.valueOf(up.getForm().get("idAluno02"))));
+            for (int i = 0; i < alunosProposta.size(); i++) {
+                if (alunosProposta.get(i).getIdAluno() == Integer.parseInt(String.valueOf(up.getForm().get("idAluno02")))) {
+                    novoAluno2.setNome(alunosProposta.get(i).getNome());
+                    novoAluno2.setIdAluno(alunosProposta.get(i).getIdAluno());
+                    novoAluno2.setCpf(alunosProposta.get(i).getCpf());
+                    novoAluno2.setDataNascimento(alunosProposta.get(i).getDataNascimento());
+                    novoAluno2.setEmail(alunosProposta.get(i).getEmail());
+                    novoAluno2.setMatricula(alunosProposta.get(i).getMatricula());
+                    novoAluno2.setTipo(alunosProposta.get(i).getTipo());
+                    novoAluno2.setTelefone(alunosProposta.get(i).getTelefone());
+                    novoAluno2.setSenha(alunosProposta.get(i).getSenha());
+                }
+            }
+            //System.out.println("Inseriu novoAluno2");
             proposta.setAluno2(novoAluno2);
         }
 
         if (String.valueOf(up.getForm().get("idCoorientador")).equals("0")) {
             coorientador.setIdServidor(0);
             proposta.setCoorientador(coorientador);
-            System.out.println("Coorientador ID: " + coorientador.getIdServidor());
         } else {
-            coorientador.setIdServidor(Integer.parseInt(String.valueOf(up.getForm().get("idCoorientador"))));
+            for (int i = 0; i < servidorProposta.size(); i++) {
+                if (servidorProposta.get(i).getIdServidor() == Integer.parseInt(String.valueOf(up.getForm().get("idCoorientador")))) {
+                    coorientador.setNome(servidorProposta.get(i).getNome());
+                    coorientador.setIdServidor(servidorProposta.get(i).getIdServidor());
+                    coorientador.setCpf(servidorProposta.get(i).getCpf());
+                    coorientador.setDataNascimento(servidorProposta.get(i).getDataNascimento());
+                    coorientador.setEmail(servidorProposta.get(i).getEmail());
+                    coorientador.setSiape(servidorProposta.get(i).getSiape());
+                    coorientador.setTipo(servidorProposta.get(i).getTipo());
+                    coorientador.setTelefone(servidorProposta.get(i).getTelefone());
+                    coorientador.setSenha(servidorProposta.get(i).getSenha());
+                }
+            }
+            //System.out.println("Inseriu Coorien.");
             proposta.setCoorientador(coorientador);
         }
 
-        novoAluno1.setIdAluno(Integer.parseInt(String.valueOf(up.getForm().get("idAluno01"))));
-        orientador.setIdServidor(Integer.parseInt(String.valueOf(up.getForm().get("idOrientador"))));
-        proposta.setTitulo(String.valueOf(up.getForm().get("tituloPTC")));
+        for (int i = 0; i < alunosProposta.size(); i++) {
+            if (alunosProposta.get(i).getIdAluno() == Integer.parseInt(String.valueOf(up.getForm().get("idAluno01")))) {
+                novoAluno1.setNome(alunosProposta.get(i).getNome());
+                novoAluno1.setIdAluno(alunosProposta.get(i).getIdAluno());
+                novoAluno1.setCpf(alunosProposta.get(i).getCpf());
+                novoAluno1.setDataNascimento(alunosProposta.get(i).getDataNascimento());
+                novoAluno1.setEmail(alunosProposta.get(i).getEmail());
+                novoAluno1.setMatricula(alunosProposta.get(i).getMatricula());
+                novoAluno1.setTipo(alunosProposta.get(i).getTipo());
+                novoAluno1.setTelefone(alunosProposta.get(i).getTelefone());
+                novoAluno1.setSenha(alunosProposta.get(i).getSenha());
+            }
+        }
         proposta.setAluno1(novoAluno1);
+
+        for (int i = 0; i < servidorProposta.size(); i++) {
+            if (servidorProposta.get(i).getIdServidor() == Integer.parseInt(String.valueOf(up.getForm().get("idOrientador")))) {
+                orientador.setNome(servidorProposta.get(i).getNome());
+                orientador.setIdServidor(servidorProposta.get(i).getIdServidor());
+                orientador.setCpf(servidorProposta.get(i).getCpf());
+                orientador.setDataNascimento(servidorProposta.get(i).getDataNascimento());
+                orientador.setEmail(servidorProposta.get(i).getEmail());
+                orientador.setSiape(servidorProposta.get(i).getSiape());
+                orientador.setTipo(servidorProposta.get(i).getTipo());
+                orientador.setTelefone(servidorProposta.get(i).getTelefone());
+                orientador.setSenha(servidorProposta.get(i).getSenha());
+            }
+        }
         proposta.setOrientador(orientador);
+        
+        proposta.setTitulo(String.valueOf(up.getForm().get("tituloPTC")));
         proposta.setCaminhoArquivo(caminho);
         proposta.setDataEnvio(pegaDataHora[0]);
         proposta.setHoraEnvio(pegaDataHora[1]);
 
         return proposta;
-
     }
 
     /**
@@ -295,4 +362,5 @@ public class UploadServletPTC extends HttpServlet {
         }
         return 0;
     }
+
 }

@@ -1,6 +1,5 @@
 <%@attribute name="title" required="true" %>
 <%@attribute name="titlePage" required="true" %>
-<%@attribute name="usuario" required="true" %>
 <%@attribute name="caminho" required="true"%>
 <%@attribute name="homeAtivo" required="false"%>
 <%@attribute name="ptcAtivo" required="false"%>
@@ -58,17 +57,21 @@
                             <li class="dropdown topbar-user">
                                 <a data-hover="dropdown" href="#" class="dropdown-toggle">
                                     <img src="${caminho}/img/avatar/48.jpg" alt="" class="img-responsive img-circle"/>&nbsp;
-                                    <span class="hidden-xs">${usuario}</span>&nbsp;
+                                    <span class="hidden-xs"><%= (String) session.getAttribute("nomeUsuario")%></span>&nbsp;
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user pull-right">
-                                    <li><a href="#"><i class="fa fa-user"></i>My Profile</a></li>
-                                    <li><a href="#"><i class="fa fa-calendar"></i>My Calendar</a></li>
-                                    <li><a href="#"><i class="fa fa-envelope"></i>My Inbox<span class="badge badge-danger">3</span></a></li>
-                                    <li><a href="#"><i class="fa fa-tasks"></i>My Tasks<span class="badge badge-success">7</span></a></li>
+                                    <li><a href="#"><i class="fa fa-user"></i>Meu Perfil</a></li>
+                                    <li><a href="#"><i class="fa fa-calendar"></i>Meu Calendário</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope"></i>Caixa de Entrada<span class="badge badge-danger">3</span></a></li>
+                                    <li><a href="#"><i class="fa fa-tasks"></i>Minhas Conversas<span class="badge badge-success">7</span></a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#"><i class="fa fa-lock"></i>Lock Screen</a></li>
-                                    <li><a href="Login.html"><i class="fa fa-key"></i>Log Out</a></li>
+                                    <li>                                        
+                                        <a class="col-md-12" href="../index.jsp">
+                                            <i class="fa fa-key"></i>                                                
+                                            Sair
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -117,15 +120,15 @@
                         <ul id="side-menu" class="nav">
 
                             <div class="clearfix"></div>
-                            <li class='${homeAtivo}'><a href="${paramVolta}/logado.jsp"><i class="fa fa-tachometer fa-fw">
+                            <li class='${homeAtivo}'><a href="${paramVolta}/pag_principal.jsp"><i class="fa fa-tachometer fa-fw">
                                         <div class="icon-bg bg-orange"></div>
                                     </i><span class="menu-title">Início</span></a></li>
 
-                                    <li class="${labAtivo}"><a href="${paramVolta}/uso_laboratorio/uso_laboratorio_criar.jsp"><i class="fa fa-desktop fa-fw">
+                            <li class="${labAtivo}"><a href="${paramVolta}/uso_laboratorio/uso_laboratorio_criar.jsp"><i class="fa fa-desktop fa-fw">
                                         <div class="icon-bg bg-pink"></div>
                                     </i><span class="menu-title">Uso de Laboratório</span></a></li>
 
-                                    <li class="${horarioAtivo}"><a href="${paramVolta}/horario_de_aulas/selecao_de_curso.jsp"><i class="fa fa-calendar fa-fw">
+                            <li class="${horarioAtivo}"><a href="${paramVolta}/horario_de_aulas/selecao_de_curso.jsp"><i class="fa fa-calendar fa-fw">
                                         <div class="icon-bg bg-green"></div>
                                     </i><span class="menu-title">Horário de Aulas</span></a>
 
@@ -133,9 +136,9 @@
                             <li class="${ptcAtivo}"><a href="${paramVolta}/proposta_de_tc/menu_ptc.jsp"><i class="fa fa-file-text-o fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Proposta de Trabalho de Curso</span></a>
-    
-                                </li>
-                                <li class="${defesaAtivo}"><a href="${paramVolta}/defesa_de_tc/defesa_de_tc.jsp"><i class="fa fa-book fa-fw">
+
+                            </li>
+                            <li class="${defesaAtivo}"><a href="${paramVolta}/defesa_de_tc/defesa_de_tc.jsp"><i class="fa fa-book fa-fw">
                                         <div class="icon-bg bg-violet"></div>
                                     </i><span class="menu-title">Defesa de Trabalho de Curso</span></a>
     

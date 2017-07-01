@@ -46,7 +46,7 @@ fecha scriplet>'
             paramVolta="../../SisCoorWeb" 
             title="Título da Aba Aqui"
             titlePage="Título da Página Aqui"
-            usuario="Nome do Usuário Aqui"/>
+            usuario="<%= (String) session.getAttribute("nomeUsuario") %>"/>
 
 
 <!------------ ATENÇÃO | ABERTURA DA ENTRADA DE CONTEÚDO | ATENÇÃO -------------
