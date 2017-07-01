@@ -5,7 +5,6 @@
  */
 package br.edu.ifgoiano.siscoorweb.persistencia;
 
-import br.edu.ifgoiano.siscoorweb.persistencia.ConnectionFactory;
 import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,7 +41,6 @@ public class AlunoDao {
                 alunoretorno.setSenha(rs.getString("senha"));
                 alunoretorno.setNome(rs.getString("nome"));
             }
-            System.out.println("logado com sucesso");
 
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);

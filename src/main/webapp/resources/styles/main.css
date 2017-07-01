@@ -44,7 +44,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 13px;
   line-height: 1.42857143;
-  color: #999999;
+  color: #4e4e4e;
   background-color: #f0f2f5;
   height: 100%;
 }
@@ -6407,7 +6407,7 @@ li [class*=" icon-"].icon-large {
 }
 .input-icon input {
   padding-left: 33px !important;
-  color: #999999;
+  color: #5a5a5a;
 }
 .input-icon i {
   color: #999999;

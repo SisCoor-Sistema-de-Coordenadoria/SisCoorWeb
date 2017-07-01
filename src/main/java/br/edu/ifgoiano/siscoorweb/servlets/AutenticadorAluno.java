@@ -8,6 +8,7 @@ package br.edu.ifgoiano.siscoorweb.servlets;
 
 import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
+import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -44,8 +45,7 @@ public class AutenticadorAluno extends HttpServlet {
             
            
           String smatricula=request.getParameter("matricula");
-          
-          String ssenha=request.getParameter("senha");
+          String ssenha=Criptografia.criptografar(request.getParameter("senha")).toLowerCase();
           
           
           a.setMatricula(smatricula);
