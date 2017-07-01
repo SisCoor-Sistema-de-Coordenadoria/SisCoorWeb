@@ -9,14 +9,6 @@ CREATE TABLE Disciplinas (
   PRIMARY KEY(id_Disciplina)
 );
 
-CREATE TABLE Laboratorio (
-  id_Laboratorio INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  nome TEXT NULL,
-  tipo TEXT NULL,
-  predio TEXT NULL,
-  PRIMARY KEY(id_Laboratorio)
-);
-
 CREATE TABLE Servidor (
   id_Servidor INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   nome VARCHAR(60) NULL,
@@ -28,6 +20,14 @@ CREATE TABLE Servidor (
   tipo INTEGER(1) NULL,
   data_nascimento DATE NULL,
   PRIMARY KEY(id_Servidor)
+);
+
+CREATE TABLE Laboratorio (
+  id_Laboratorio INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  nome TEXT NULL,
+  tipo TEXT NULL,
+  predio TEXT NULL,
+  PRIMARY KEY(id_Laboratorio)
 );
 
 CREATE TABLE Aluno (
@@ -56,20 +56,6 @@ CREATE TABLE Restricao_do_Professor (
       ON UPDATE NO ACTION
 );
 
-CREATE TABLE Curso (
-  id_Curso INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  nome TEXT NULL,
-  turno VARCHAR(30) NULL,
-  professor_Coordenador INTEGER UNSIGNED NULL,
-  numero_de_Periodos INTEGER UNSIGNED NULL,
-  PRIMARY KEY(id_Curso),
-  INDEX Curso_FKIndex1(professor_Coordenador),
-  FOREIGN KEY(professor_Coordenador)
-    REFERENCES Servidor(id_Servidor)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
-);
-
 CREATE TABLE Restricao_de_Aula_do_Professor (
   id_Restricao_de_Aula_do_Professor INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   hora_Inicial VARCHAR(10) NULL,
@@ -79,6 +65,20 @@ CREATE TABLE Restricao_de_Aula_do_Professor (
   PRIMARY KEY(id_Restricao_de_Aula_do_Professor),
   INDEX Restricao_de_Aula_do_Professor_FKIndex1(id_do_Professor),
   FOREIGN KEY(id_do_Professor)
+    REFERENCES Servidor(id_Servidor)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+CREATE TABLE Curso (
+  id_Curso INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  nome TEXT NULL,
+  turno VARCHAR(30) NULL,
+  professor_Coordenador INTEGER UNSIGNED NULL,
+  numero_de_Periodos INTEGER UNSIGNED NULL,
+  PRIMARY KEY(id_Curso),
+  INDEX Curso_FKIndex1(professor_Coordenador),
+  FOREIGN KEY(professor_Coordenador)
     REFERENCES Servidor(id_Servidor)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
@@ -235,6 +235,17 @@ CREATE TABLE Turma (
       ON UPDATE NO ACTION
 );
 
+CREATE TABLE Dias_de_Atendimento (
+  id_quadro_de_atendimento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  dia_da_semana VARCHAR(25) NULL,
+  data_do_atendimento DATE NULL,
+  INDEX Dias_de_Atendimento_FKIndex1(id_quadro_de_atendimento),
+  FOREIGN KEY(id_quadro_de_atendimento)
+    REFERENCES Quadro_de_atendimento_monitoria(id_quadro_de_atendimento_monitoria)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
 CREATE TABLE Conteudo_da_Monitoria (
   id_quadro_de_atendimento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   conteudo TEXT NULL,
@@ -246,13 +257,17 @@ CREATE TABLE Conteudo_da_Monitoria (
       ON UPDATE NO ACTION
 );
 
-CREATE TABLE Dias_de_Atendimento (
-  id_quadro_de_atendimento INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  dia_da_semana VARCHAR(25) NULL,
-  data_do_atendimento DATE NULL,
-  INDEX Dias_de_Atendimento_FKIndex1(id_quadro_de_atendimento),
-  FOREIGN KEY(id_quadro_de_atendimento)
-    REFERENCES Quadro_de_atendimento_monitoria(id_quadro_de_atendimento_monitoria)
+CREATE TABLE Membro_Banca_Proposta (
+  id_Proposta INTEGER UNSIGNED NOT NULL,
+  id_Servidor INTEGER UNSIGNED NOT NULL,
+  INDEX Membro_Banca_Proposta_FKIndex1(id_Proposta),
+  INDEX Membro_Banca_Proposta_FKIndex2(id_Servidor),
+  FOREIGN KEY(id_Proposta)
+    REFERENCES Proposta(id_Proposta)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(id_Servidor)
+    REFERENCES Servidor(id_Servidor)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
@@ -300,9 +315,9 @@ CREATE TABLE Horario_de_Aula (
       ON UPDATE NO ACTION
 );
 
-CREATE TABLE Banca (
-  id_agendar_defesa INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  id_servidor INTEGER UNSIGNED NULL,
+CREATE TABLE Membro_Banca_Defesa (
+  id_agendar_defesa INTEGER UNSIGNED NOT NULL,
+  id_servidor INTEGER UNSIGNED NOT NULL,
   INDEX Banca_FKIndex1(id_servidor),
   INDEX Banca_FKIndex2(id_agendar_defesa),
   FOREIGN KEY(id_servidor)
