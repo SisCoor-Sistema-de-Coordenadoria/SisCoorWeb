@@ -305,7 +305,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="inputAluno01" class="control-label">
-                                    Aluno 01
+                                    <strong>*</strong> Aluno 01
                                 </label>
                                 <div class="input-icon right">
                                     <i class="fa fa-user"></i>
