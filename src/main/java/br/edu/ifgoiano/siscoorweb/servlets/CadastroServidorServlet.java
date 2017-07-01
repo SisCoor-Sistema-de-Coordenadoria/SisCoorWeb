@@ -7,7 +7,9 @@ package br.edu.ifgoiano.siscoorweb.servlets;
 
 import br.edu.ifgoiano.hotel.utilitarios.ValidaData;
 import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
+import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
+import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
 import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,8 +25,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Tarcisio
  */
-@WebServlet(name = "CadastroAlunoServlet", urlPatterns = {"/CadastroAlunoServlet"})
-public class CadastroAlunoServlet extends HttpServlet {
+@WebServlet(name = "CadastroServidorServlet", urlPatterns = {"/CadastroServidorServlet"})
+public class CadastroServidorServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,13 +44,13 @@ public class CadastroAlunoServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (request.getParameter("bt_cad").equals("voltar")) {
-            response.sendRedirect("tela_login/login_aluno.jsp");
+            response.sendRedirect("tela_login/login_servidor.jsp");
         } else {
             boolean erroCpf = false;
             boolean erroEmail = false;
             boolean erroTelefone = false;
             boolean erroDataNasc = false;
-            boolean erroMatricula = false;
+            boolean erroSiape = false;
             boolean erroSenha = false;
             boolean erroCSenha = false;
             boolean erroVazio = false;
@@ -61,12 +63,12 @@ public class CadastroAlunoServlet extends HttpServlet {
             String sconfirmsenha = request.getParameter("confirm_senha");
             String sddd = request.getParameter("ddd");
             String stelefone = request.getParameter("telefone");
-            String smatricula = request.getParameter("matricula");
+            String ssiape = request.getParameter("siape");
             String sdia = request.getParameter("dataDia");
             String smes = request.getParameter("dataMes");
             String sano = request.getParameter("dataAno");
 
-            if (snome.isEmpty() || scpf.isEmpty() || semail.isEmpty() || ssenha.isEmpty() || sddd.isEmpty() || stelefone.isEmpty() || smatricula.isEmpty() || sconfirmsenha.isEmpty() || sdia.isEmpty() || smes.isEmpty() || sano.isEmpty()) {
+            if (snome.isEmpty() || scpf.isEmpty() || semail.isEmpty() || ssenha.isEmpty() || sddd.isEmpty() || stelefone.isEmpty() || ssiape.isEmpty() || sconfirmsenha.isEmpty() || sdia.isEmpty() || smes.isEmpty() || sano.isEmpty()) {
                 session.setAttribute("erro_cadastro", "vazio");
                 erroVazio = true;
             }
@@ -124,12 +126,12 @@ public class CadastroAlunoServlet extends HttpServlet {
                         erroDataNasc = true;
                     } finally {
                         try {
-                            if (!smatricula.isEmpty()) {
-                                long matricula = Long.parseLong(smatricula);
+                            if (!ssiape.isEmpty()) {
+                                long siape = Long.parseLong(ssiape);
                             } else;
                         } catch (NumberFormatException nfe) {
-                            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "matricula_inv" : (session.getAttribute("erro_cadastro") + "|" + "matricula_inv"));
-                            erroMatricula = true;
+                            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "siape_inv" : (session.getAttribute("erro_cadastro") + "|" + "siape_inv"));
+                            erroSiape = true;
                         } finally {
                             if (ssenha.length() < 6 && !ssenha.isEmpty()) {
                                 session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "senha_peq" : (session.getAttribute("erro_cadastro") + "|" + "senha_peq"));
@@ -141,25 +143,25 @@ public class CadastroAlunoServlet extends HttpServlet {
                                 }
                             }
 
-                            if (!erroCpf && !erroDataNasc && !erroEmail && !erroMatricula && !erroSenha && !erroTelefone && !erroCSenha) {
+                            if (!erroCpf && !erroDataNasc && !erroEmail && !erroSiape && !erroSenha && !erroTelefone && !erroCSenha) {
                                 String aceite = String.valueOf(request.getParameter("aceito"));
                                 if (aceite.equals("null")) {
                                     session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "termos_uso" : (session.getAttribute("erro_cadastro") + "|" + "termos_uso"));
                                 } else {
                                     if (!erroVazio) {
-                                        Aluno a = new Aluno();
+                                        Servidor s = new Servidor();
 
-                                        a.setNome(snome);
-                                        a.setCpf(scpf);
-                                        a.setEmail(semail);
-                                        a.setSenha(ssenha);
-                                        a.setTelefone(sddd + stelefone);
-                                        a.setMatricula(smatricula);
-                                        a.setDataNascimento(sdata);
+                                        s.setNome(snome);
+                                        s.setCpf(scpf);
+                                        s.setEmail(semail);
+                                        s.setSenha(ssenha);
+                                        s.setTelefone(sddd + stelefone);
+                                        s.setSiape(ssiape);
+                                        s.setDataNascimento(sdata);
 
-                                        AlunoDao adao = new AlunoDao();
-                                        a.setSenha(Criptografia.criptografar(a.getSenha()).toLowerCase());
-                                        adao.adiciona(a);
+                                        ServidorDao sdao = new ServidorDao();
+                                        s.setSenha(Criptografia.criptografar(s.getSenha()).toLowerCase());
+                                        sdao.adiciona(s);
 
                                         session.setAttribute("erro_cadastro", "false");
                                     }
@@ -169,7 +171,7 @@ public class CadastroAlunoServlet extends HttpServlet {
                     }
                 }
             }
-            response.sendRedirect("tela_login/cadastro_aluno.jsp");
+            response.sendRedirect("tela_login/cadastro_servidor.jsp");
         }
     }
 
