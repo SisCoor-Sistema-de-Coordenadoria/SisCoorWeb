@@ -7,7 +7,6 @@ package br.edu.ifgoiano.siscoorweb.servlets;
 
 import br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho;
 import br.edu.ifgoiano.siscoorweb.persistencia.PropostaDAO;
-import com.sun.corba.se.spi.presentation.rmi.StubAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,13 +41,12 @@ public class PTCServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         //Separa nome do botão do valor do ID
         String[] valores = separaValores(request, response);
-        
+
         if (request.getParameter("btn").equals("download")) {
-            //out.println("<h1>"+request.getParameter("idProposta")+"</h1>");
-            downloadArquivo(request, response);
+            System.out.println("Fazer Download");
         }
         if (request.getParameter("btn").equals("Voltar")) {
             btnVoltar(request, response);
@@ -56,7 +54,9 @@ public class PTCServlet extends HttpServlet {
         if (valores[0].equals("excluir")) {
             btnExcluir(request, response, Integer.parseInt(valores[1]));
         }
-        //downloadArquivo(request, response);
+        if (valores[0].equals("btn")){
+            
+        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -136,6 +136,7 @@ public class PTCServlet extends HttpServlet {
 
     /**
      * Chamada para o método de exclusão de dados de proposta
+     *
      * @param request
      * @param response
      * @throws java.io.IOException
@@ -144,7 +145,7 @@ public class PTCServlet extends HttpServlet {
         HttpSession session = request.getSession();
         PropostaDAO ptxLixo = new PropostaDAO();
         PropostaTrabalho propostaArquivo = ptxLixo.getProposta(idProposta);
-        
+
         if (apagarArquivo(ptxLixo, propostaArquivo.getCaminhoArquivo(), request, response, idProposta)) {
             if (ptxLixo.deletaDados(idProposta) == true) {
                 session.setAttribute("msg", "Proposta apagada com sucesso.");
@@ -165,12 +166,13 @@ public class PTCServlet extends HttpServlet {
 
     /**
      * Apaga arquivo da pasta
+     *
      * @param ptxLixo
      * @param request
      * @param response
-     * @return 
+     * @return
      */
-    public static boolean apagarArquivo(PropostaDAO ptxLixo, String caminho,HttpServletRequest request, HttpServletResponse response, int idProposta) {
+    public static boolean apagarArquivo(PropostaDAO ptxLixo, String caminho, HttpServletRequest request, HttpServletResponse response, int idProposta) {
         System.out.println(caminho);
         File up = new File(caminho);
         boolean tentar_pegar = false;
@@ -191,10 +193,10 @@ public class PTCServlet extends HttpServlet {
             return false;
         }
     }
-    
-    public static String[] separaValores(HttpServletRequest request, HttpServletResponse response){
-            String captura = request.getParameter("btn");
-            String[] valores = captura.split("_|_\\s");
-            return valores;
+
+    public static String[] separaValores(HttpServletRequest request, HttpServletResponse response) {
+        String captura = request.getParameter("btn");
+        String[] valores = captura.split("_|_\\s");
+        return valores;
     }
 }

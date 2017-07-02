@@ -26,6 +26,7 @@
         <link type="text/css" rel="stylesheet" href="${caminho}/styles/zabuto_calendar.min.css">
         <link type="text/css" rel="stylesheet" href="${caminho}/styles/pace.css">
         <link type="text/css" rel="stylesheet" href="${caminho}/styles/jquery.news-ticker.css">
+        <script src="${caminho}/script/jquery-1.10.2.min.js"></script>
     </head>
     <body>
         <div>

@@ -132,7 +132,7 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
     <div class="panel-heading">Propostas Submetidas</div>
     <div class="panel-body">
         <form action="../PTCServlet" method="POST">
-            <table class="table table-hover table-bordered">
+            <table class="table table-responsive table-hover-color">
                 <thead>
                     <tr>
                         <th style="text-align: center">ID</th>
@@ -146,41 +146,69 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
                     </tr>
                 </thead>
                 <tbody>
+                    <%-- Reduz o nome no campo 
+                    style="max-width: 20ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                    --%>
                     <% for (int i = 0; i < lista_trabalho.size(); i++) {%>
                     <tr>
                         <td><%= i + 1%></td>
-                        <td class="hidden"><%= lista_trabalho.get(i).getIdProposta()%></td>
-                        <td><%= lista_trabalho.get(i).getTituloPTC()%></td>
-                        <td><%= lista_trabalho.get(i).getAluno1().getNome()%></td>
-                        <td class="hidden-xs hidden-sm"><%= lista_trabalho.get(i).getAluno2().getNome()%></td>
-                        <td><%= lista_trabalho.get(i).getOrientador().getNome()%></td>
-                        <td class="hidden-xs hidden-sm"><%= lista_trabalho.get(i).getCoorientador().getNome()%></td>
+                        <td class="hidden"><%= lista_trabalho.get(i).getIdProposta() %></td>
                         <td>
-                            <div class="todo-actions" style="text-align: center">
-                                <div class="col-lg-4 col-sm-2" style="text-align: right">
-                                    <a href="btnDownload" class="todo-edit">
-                                        <i class="fa fa-download" style="color: darkcyan"></i>
-                                    </a>
-                                    <input id="#btnDownload" type="submit" class="todo-complete hidden"
-                                           value="<%= lista_trabalho.get(i).getIdProposta()%>" name="btnDownload"/>
-                                </div>
-                                <div class="col-md-4 col-sm-2">
-                                    <a href="btnEditar" class="todo-edit">
-                                        <i class="fa fa-edit" style="color: darkgreen"></i>
-                                    </a>
-                                    <input id="#btnEditar" type="submit" class="todo-complete hidden"
-                                           value="<%= lista_trabalho.get(i).getIdProposta()%>" name="btnEditar"/>
-                                </div>
-                                <div class="col-md-4 col-sm-2">
-                                    <button class="btn btn-square btn-xs" type="submit" 
-                                            value="excluir_<%= lista_trabalho.get(i).getIdProposta()%>" name="btn">  
-                                        <i class="fa fa-trash-o" style="color: red"></i>
-                                    </button>
-                                </div>                               
-                            </div>
+                            <tooltip data-toggle="tooltip" title="<%= lista_trabalho.get(i).getTituloPTC()%>">
+                                <% if(lista_trabalho.get(i).getTituloPTC().length() > 25){%>
+                                    <%= lista_trabalho.get(i).getTituloPTC().substring(0, 25) %>...
+                                <%}else{%>
+                                    <%= lista_trabalho.get(i).getTituloPTC() %>
+                                <%}%>
+                            </tooltip>
                         </td>
-                    </tr>                
-                    <%}%>
+
+                <%--Tooltip Script--%>
+                <%-- 
+                Colocar dentro da tag que se quer usar o tooltip:
+                
+                data-toggle = "tooltip"
+                title = "Texto a ser apresentado"
+                data-placement = "top" || "right" || "left" || "bottom"
+                
+                --%> 
+                <script>
+                    $(document).ready(function(){
+                    $('[data-toggle="tooltip"]').tooltip();
+                    });
+                </script>
+                <%--Tooltip Script--%>
+                <td><%= lista_trabalho.get(i).getAluno1().getNome()%></td>
+                <td class="hidden-xs hidden-sm"><%= lista_trabalho.get(i).getAluno2().getNome()%></td>
+                <td><%= lista_trabalho.get(i).getOrientador().getNome()%></td>
+                <td class="hidden-xs hidden-sm"><%= lista_trabalho.get(i).getCoorientador().getNome()%></td>
+                <td>
+                    <div class="todo-actions" style="text-align: center">
+                        <div class="col-md-4 col-sm-2">
+                            <button class="btn btn-square btn-xs" type="submit" style="background-color: rgba(0,0,0,0)" 
+                                    value="download_<%= lista_trabalho.get(i).getIdProposta()%>" name="btn"
+                                    data-toggle="tooltip" title="Download">  
+                                <i class="fa fa-download" style="color: darkcyan"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-4 col-sm-2">
+                            <button class="btn btn-square btn-xs" type="submit" style="background-color: rgba(0,0,0,0)" 
+                                    value="excluir_<%= lista_trabalho.get(i).getIdProposta()%>" name="btn"
+                                    data-toggle="tooltip" title="Editar">  
+                                <i class="fa fa-edit" style="color: darkgreen"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-4 col-sm-2">
+                            <button class="btn btn-square btn-xs" type="submit" style="background-color: rgba(0,0,0,0)"
+                                    value="excluir_<%= lista_trabalho.get(i).getIdProposta()%>" name="btn"
+                                    data-toggle="tooltip" title="Excluir">  
+                                <i class="fa fa-trash-o" style="color: red"></i>
+                            </button>
+                        </div>                               
+                    </div>
+                </td>
+                </tr>                
+                <%}%>
                 </tbody>
             </table>
             <div class="col-lg-12">
