@@ -26,7 +26,7 @@ public class AlunoDao {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
 
-    public Aluno auntenticacao(Aluno aluno) {
+    public Aluno autenticacao(Aluno aluno) {
         Aluno alunoretorno = null;
         String sql = "select * FROM Aluno where matricula=? and senha=?";
         try {
@@ -52,7 +52,7 @@ public class AlunoDao {
 
     public void adiciona(Aluno aluno) {
         String sql = "insert into Aluno"
-                + "(id_Aluno,nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento)"
+                + "(id_Aluno,nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento,)"
                 + "values(?,?,?,?,?,?,?,?,?)";
         try {
             //prepared statement para inserção

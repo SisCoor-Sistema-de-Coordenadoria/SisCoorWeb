@@ -50,7 +50,7 @@ public class AutenticadorServidor extends HttpServlet {
           s.setSiape(ssiape);
           s.setSenha(ssenha);
           
-          Servidor sautenticado = sdao.auntenticacao(s);
+          Servidor sautenticado = sdao.autenticacao(s);
           if(sautenticado != null){
               session.removeAttribute("erro_login");
               session.setAttribute("nomeUsuario", sautenticado.getNome());
