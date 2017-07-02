@@ -106,4 +106,73 @@ public class AlunoDao {
             return null;
         }
     }
+    
+    public boolean cpfJaCadastrado(String cpf){
+        String sql = "SELECT * FROM Aluno where cpf like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,cpf);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean emailJaCadastrado(String email){
+        String sql = "SELECT * FROM Aluno where email like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,email);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean matriculaJaCadastrado(String matricula){
+        String sql = "SELECT * FROM Aluno where matricula like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,matricula);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }
