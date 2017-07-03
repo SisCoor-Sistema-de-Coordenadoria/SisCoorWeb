@@ -40,11 +40,15 @@ public class CadastroServidorServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
+        
+        ServidorDao servidorDAO = new ServidorDao();
+        Servidor servidor = new Servidor();
+        String botao = request.getParameter("botao");
 
-        if (request.getParameter("bt_cad").equals("voltar")) {
+        if (request.getParameter("bt_cad")!=null && request.getParameter("bt_cad").equals("voltar")) {
             response.sendRedirect("tela_login/login_servidor.jsp");
         } 
-        else if(request.getParameter("bt_cad").equals("cad"))
+        if(request.getParameter("bt_cad")!=null && request.getParameter("bt_cad").equals("cad"))
         {
             String snome = request.getParameter("nome");
             String scpf = request.getParameter("cpf");
@@ -80,7 +84,7 @@ public class CadastroServidorServlet extends HttpServlet {
             }
         }
         
-        else
+        if(request.getParameter("bt_cad")!=null && request.getParameter("bt_cad").equals("Cadastrar"))
         {
             String snome = request.getParameter("nome");
             String scpf = request.getParameter("cpf");
@@ -113,6 +117,33 @@ public class CadastroServidorServlet extends HttpServlet {
             } else{
                 session.setAttribute("erro_cadastro","vazio");
                 response.sendRedirect("gerenciar_conteudo/adicionar_servidor.jsp");
+            }
+        }
+        
+        if(botao!=null && botao.equals("Buscar dados"))
+        {
+            servidor=servidorDAO.buscaPorId(Integer.parseInt(String.valueOf(request.getParameter("idServidor"))));
+            session.setAttribute("msg", "Dados encontrados com sucesso.");
+            session.setAttribute("tipo_msg", "success");
+            session.setAttribute("Dados_excluir_servidor", servidor);
+            response.sendRedirect("gerenciar_conteudo/excluir_servidor.jsp");      
+        }
+        
+        if(botao!=null && botao.equals("Excluir"))
+        {
+            boolean Verificacao=servidorDAO.removerPorId(Integer.parseInt(String.valueOf(request.getParameter("idServidor"))));
+            
+            if(Verificacao==true)
+            {
+                session.setAttribute("msg", "Servidor excluido com sucesso.");
+                session.setAttribute("tipo_msg", "success");
+                response.sendRedirect("gerenciar_conteudo/excluir_servidor.jsp");
+            }
+            else
+            {
+                session.setAttribute("msg", "Não foi possivel remover este servidor.");
+                session.setAttribute("tipo_msg", "danger");
+                response.sendRedirect("gerenciar_conteudo/excluir_servidor.jsp");
             }
         }
     }

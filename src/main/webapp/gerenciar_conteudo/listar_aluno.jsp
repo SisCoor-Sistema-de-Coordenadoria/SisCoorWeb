@@ -4,6 +4,7 @@
     Author     : Diego
 --%>
 
+<%@page import="br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Aluno"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Curso"%>
 <%@page import="java.util.ArrayList"%>
@@ -12,6 +13,16 @@
 <tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Lista de Alunos" title="SisCoor | Gerenciar Conteúdo | Lista de Alunos" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
+<%AlunoDao alunoDAO = new AlunoDao();
+ArrayList<Aluno> listaAlunos = new ArrayList<Aluno>();
+listaAlunos=alunoDAO.getLista();
+
+if(listaAlunos.isEmpty())
+{
+    session.setAttribute("msg", "Nenhum aluno cadastrado no momento.");
+    session.setAttribute("tipo_msg", "danger");
+}
+%>
 
 <% if (session.getAttribute("msg") != null) {
         String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
@@ -31,7 +42,7 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>ID do Aluno</th>
+                    <th>Código</th>
                     <th>Matricula</th>
                     <th>Nome</th>
                     <th>E-mail</th>
@@ -40,9 +51,8 @@
                 </tr>
                 </thead>
                     <tbody>
-                    <%ArrayList<Aluno> listaAlunos = new ArrayList<Aluno>();
-                    listaAlunos=(ArrayList<Aluno>)session.getAttribute("lista_de_alunos");
-                    
+
+                    <%
                     for(int i=0;i<listaAlunos.size();i++)
                     {
                         Aluno aluno = new Aluno();

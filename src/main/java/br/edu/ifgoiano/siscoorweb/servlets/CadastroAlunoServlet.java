@@ -6,8 +6,10 @@
 package br.edu.ifgoiano.siscoorweb.servlets;
 
 import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
+import br.edu.ifgoiano.siscoorweb.modelos.Curso;
 import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
+import br.edu.ifgoiano.siscoorweb.persistencia.CursoDAO;
 import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,11 +42,19 @@ public class CadastroAlunoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-
-        if (request.getParameter("bt_cad").equals("voltar")) {
+        AlunoDao alunoDAO = new AlunoDao();
+        Aluno aluno = new Aluno();
+        Aluno alunoRetorno = new Aluno();
+        CursoDAO cursoDAO = new CursoDAO();
+        Curso curso = new Curso();
+        
+        String botao = request.getParameter("botao");
+        
+        if (request.getParameter("bt_cad")!=null && request.getParameter("bt_cad").equals("voltar")) 
+        {
             response.sendRedirect("tela_login/login_aluno.jsp");
         } 
-        else if(request.getParameter("bt_cad").equals("cad"))
+        if(request.getParameter("bt_cad")!=null && request.getParameter("bt_cad").equals("cad"))
         {
             String snome = request.getParameter("nome");
             String scpf = request.getParameter("cpf");
@@ -80,7 +90,7 @@ public class CadastroAlunoServlet extends HttpServlet {
             }
         }
         
-        else
+        if(request.getParameter("bt_cad")!=null && request.getParameter("bt_cad").equals("Cadastrar"))
         {
             String snome = request.getParameter("nome");
             String scpf = request.getParameter("cpf");
@@ -116,6 +126,34 @@ public class CadastroAlunoServlet extends HttpServlet {
             }
         }
         
+        if(botao!=null && botao.equals("Buscar dados"))
+        {
+            aluno=alunoDAO.buscarPorId(Integer.parseInt(String.valueOf(request.getParameter("idAluno"))));
+            curso=cursoDAO.buscarPorId(aluno.getIdCurso());
+            aluno.setNomeCurso(curso.getNome());
+            session.setAttribute("msg", "Dados encontrados com sucesso.");
+            session.setAttribute("tipo_msg", "success");
+            session.setAttribute("Dados_excluir_aluno", aluno);
+            response.sendRedirect("gerenciar_conteudo/excluir_aluno.jsp");      
+        }
+        
+        if(botao!=null && botao.equals("Excluir"))
+        {
+            boolean Verificacao=alunoDAO.removerPorId(Integer.parseInt(String.valueOf(request.getParameter("idAluno"))));
+            
+            if(Verificacao==true)
+            {
+                session.setAttribute("msg", "Aluno excluido com sucesso.");
+                session.setAttribute("tipo_msg", "success");
+                response.sendRedirect("gerenciar_conteudo/excluir_aluno.jsp");
+            }
+            else
+            {
+                session.setAttribute("msg", "Não foi possivel remover este aluno.");
+                session.setAttribute("tipo_msg", "danger");
+                response.sendRedirect("gerenciar_conteudo/excluir_aluno.jsp");
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

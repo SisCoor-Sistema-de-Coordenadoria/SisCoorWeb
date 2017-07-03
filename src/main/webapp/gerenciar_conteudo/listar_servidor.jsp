@@ -4,6 +4,7 @@
     Author     : Diego
 --%>
 
+<%@page import="br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Servidor"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
@@ -11,6 +12,16 @@
 <tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Lista de Servidores" title="SisCoor | Gerenciar Conteúdo | Lista de Servidores" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
+<%ServidorDao servidorDAO = new ServidorDao();
+ArrayList<Servidor> listaServidor = new ArrayList<Servidor>();
+listaServidor=servidorDAO.getLista();
+
+if(listaServidor.isEmpty())
+{
+    session.setAttribute("msg", "Nenhum servidor cadastrado no momento.");
+    session.setAttribute("tipo_msg", "danger");
+}
+%>
 
 <% if (session.getAttribute("msg") != null) {
         String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
@@ -30,7 +41,7 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>ID do Servidor</th>
+                    <th>Código</th>
                     <th>Siape</th>
                     <th>Nome</th>
                     <th>E-mail</th>
@@ -39,9 +50,7 @@
                 </tr>
                 </thead>
                     <tbody>
-                    <%ArrayList<Servidor> listaServidor = new ArrayList<Servidor>();
-                    listaServidor=(ArrayList<Servidor>)session.getAttribute("lista_de_servidor");
-                    
+                    <%
                     for(int i=0;i<listaServidor.size();i++)
                     {
                         Servidor servidor = new Servidor();

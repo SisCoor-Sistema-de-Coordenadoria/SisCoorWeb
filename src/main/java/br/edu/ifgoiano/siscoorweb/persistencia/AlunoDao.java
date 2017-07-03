@@ -109,4 +109,45 @@ public class AlunoDao {
         }
         return alunos;
     }
+    
+    public Aluno buscarPorId(int id){
+       String sql = "SELECT * FROM aluno WHERE id_Aluno=?;";
+        
+       Aluno aluno = new Aluno();
+       
+       try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1,id);
+            
+            ResultSet rs = stmt.executeQuery();
+            rs.first();
+            
+            aluno.setIdAluno(rs.getInt("id_Aluno"));
+            aluno.setNome(rs.getString("nome"));
+            aluno.setCpf(rs.getString("cpf"));
+            aluno.setEmail(rs.getString("email"));
+            aluno.setTelefone(rs.getString("telefone"));
+            aluno.setMatricula(rs.getString("matricula"));
+            aluno.setDataNascimento(rs.getDate("data_de_Nascimento"));
+            aluno.setIdCurso(rs.getInt("id_Curso"));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return aluno;
+    }
+    
+    public boolean removerPorId(int id) {
+        String sql = "DELETE FROM aluno WHERE id_Aluno=?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
 }

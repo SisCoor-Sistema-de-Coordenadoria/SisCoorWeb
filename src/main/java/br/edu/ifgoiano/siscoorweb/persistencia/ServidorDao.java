@@ -59,7 +59,7 @@ public class ServidorDao {
     public Servidor buscaPorNome(Servidor servidor) {
         
         Servidor servidorretorno = null;
-        String sql = "select * FROM servidor where nome=?";
+        String sql = "SELECT * FROM servidor WHERE nome LIKE ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, servidor.getNome());
@@ -165,5 +165,19 @@ public class ServidorDao {
 
         }
         return servidorretorno;
+    }
+    
+    public boolean removerPorId(int id) {
+        String sql = "DELETE FROM servidor WHERE id_Servidor=?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 }

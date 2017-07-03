@@ -39,12 +39,13 @@ public class DisciplinaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String botao = request.getParameter("botao");
+        String botao_editar = request.getParameter("botao_editar");
         Disciplina disciplina = new Disciplina();
         Disciplina disciplinaRetorno = new Disciplina();
         DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
         RequestDispatcher rd = null;
         HttpSession session = request.getSession();
-                
+
         if(botao!=null && botao.equals("Cadastrar"))
         {
             try
@@ -85,28 +86,80 @@ public class DisciplinaServlet extends HttpServlet {
             }
         }
         
-        if(session.getAttribute("name_op_disciplina")!=null && session.getAttribute("name_op_disciplina").equals("listar_disciplina"))
+        if(botao!=null && botao.equals("Buscar dados"))
+        {
+            disciplina=disciplinaDAO.buscarPorId(Integer.parseInt(String.valueOf(request.getParameter("idDisciplina"))));
+            session.setAttribute("msg", "Dados encontrados com sucesso.");
+            session.setAttribute("tipo_msg", "success");
+            session.setAttribute("Dados_excluir_disciplina", disciplina);
+            response.sendRedirect("gerenciar_conteudo/excluir_disciplina.jsp");      
+        }
+        
+        if(botao_editar!=null && botao_editar.equals("Buscar dados"))
+        {
+            disciplina=disciplinaDAO.buscarPorId(Integer.parseInt(String.valueOf(request.getParameter("idDisciplina"))));
+            session.setAttribute("msg", "Dados encontrados com sucesso.");
+            session.setAttribute("tipo_msg", "success");
+            session.setAttribute("Dados_editar_disciplina", disciplina);
+            response.sendRedirect("gerenciar_conteudo/editar_disciplina.jsp");      
+        }
+        
+        if(botao!=null && botao.equals("Excluir"))
+        {
+            boolean Verificacao= disciplinaDAO.removerPorId(Integer.parseInt(String.valueOf(request.getParameter("idDisciplina"))));
+            
+            if(Verificacao==true)
+            {
+                session.setAttribute("msg", "Disciplina excluida com sucesso.");
+                session.setAttribute("tipo_msg", "success");
+                response.sendRedirect("gerenciar_conteudo/excluir_disciplina.jsp");
+            }
+            else
+            {
+                session.setAttribute("msg", "Não foi possivel remover esta disciplina.");
+                session.setAttribute("tipo_msg", "danger");
+                response.sendRedirect("gerenciar_conteudo/excluir_disciplina.jsp");
+            }
+        }
+        
+        if(botao_editar!=null && botao_editar.equals("Salvar"))
         {
             try
             {
-                ArrayList<Disciplina> listaDisciplina = new ArrayList<Disciplina>();
-                listaDisciplina=disciplinaDAO.getLista();
-
-                if(listaDisciplina.isEmpty())
+                if(request.getParameter("nomeDisciplina").isEmpty() || request.getParameter("ch").isEmpty())
                 {
-                    session.setAttribute("msg", "Nenhuma disciplina cadastrada no momento.");
+                    session.setAttribute("msg", "Preencha todos os campos com *.");
                     session.setAttribute("tipo_msg", "danger");
-                    response.sendRedirect("gerenciar_conteudo/listar_disciplina.jsp");                 
+                    response.sendRedirect("gerenciar_conteudo/editar_disciplina.jsp");
                 }
+
                 else
                 {
-                    session.setAttribute("lista_de_disciplinas", listaDisciplina);
-                    response.sendRedirect("gerenciar_conteudo/listar_disciplina.jsp");
-                }
+                    disciplina.setNome(request.getParameter("nomeDisciplina"));
+                    disciplina.setCargaHora(Integer.parseInt((String)request.getParameter("ch")));
+                    disciplina.setIdDisciplina(Integer.parseInt((String)request.getParameter("codigo")));
+                    disciplinaRetorno=disciplinaDAO.jaExiste(disciplina);
+
+                    if(disciplina.getNome().equalsIgnoreCase(disciplinaRetorno.getNome()) && disciplina.getCargaHora()==disciplinaRetorno.getCargaHora())
+                    {
+                        session.setAttribute("msg", "Esta disciplina ja está cadastrada.");
+                        session.setAttribute("tipo_msg", "danger");
+                        response.sendRedirect("gerenciar_conteudo/editar_disciplina.jsp");
+                    }
+                    else
+                    {
+                        disciplinaDAO.alterarPorId(disciplina);
+                        session.setAttribute("msg", "Disciplina alterada com sucesso.");
+                        session.setAttribute("tipo_msg", "success");
+                        response.sendRedirect("gerenciar_conteudo/editar_disciplina.jsp");
+                    }   
+                } 
             }
-            catch(Exception e)
+            catch(NumberFormatException e)
             {
-                System.out.println(e);
+                session.setAttribute("msg", "Preencha corretamente os campos.");
+                session.setAttribute("tipo_msg", "danger");
+                response.sendRedirect("gerenciar_conteudo/editar_disciplina.jsp");
             }
         }
     }

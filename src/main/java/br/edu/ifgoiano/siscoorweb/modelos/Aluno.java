@@ -21,6 +21,8 @@ public class Aluno {
     private String telefone;
     private Date dataNascimento; 
     private int tipo;
+    private int idCurso;
+    private String nomeCurso;
 
     public Aluno(String nome) {
         this.nome = nome;
@@ -31,7 +33,7 @@ public class Aluno {
         this.idAluno = idAluno;
     }
 
-    public Aluno(String senha, String matricula, int idAluno, String nome, String cpf, String email, String telefone, Date dataNascimento, int tipo) {
+    public Aluno(String senha, String matricula, int idAluno, String nome, String cpf, String email, String telefone, Date dataNascimento, int tipo, int idCurso, String nomeCurso) {
         this.senha = senha;
         this.matricula = matricula;
         this.idAluno = idAluno;
@@ -41,11 +43,28 @@ public class Aluno {
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
         this.tipo = tipo;
+        this.idCurso = idCurso;
+        this.nomeCurso = nomeCurso;
     }
 
     public Aluno() {
     }
-    
+
+    public String getNomeCurso() {
+        return nomeCurso;
+    }
+
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
+    }
+ 
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
+    }
     
     public String getSenha() {
         return senha;

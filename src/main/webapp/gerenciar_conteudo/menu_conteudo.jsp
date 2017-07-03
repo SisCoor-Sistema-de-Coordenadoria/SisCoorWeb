@@ -63,12 +63,12 @@
                                         <h4 class="value">Excluir Disciplina</h4>
                                         <p class="description">Exclui uma Disciplina Cadastrada</p>
                                     </div>
-                                </div>
+                                </div>  
                             </a>
                         </div>
                         <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <a href="../DisciplinaServlet">
+                            <a href="listar_disciplina.jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
@@ -77,8 +77,7 @@
                                         <h4 class="value">Lista de Disciplinas</h4>
                                         <p class="description">Exibe uma Lista de Disciplinas</p>
                                     </div>
-                                </div>
-                                <%session.setAttribute("name_op_disciplina", "listar_disciplina");%>
+                                </div>   
                             </a>
                         </div>
                     </div>
@@ -129,7 +128,7 @@
                         </div>
                         <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <a href="../CursoServlet">
+                            <a href="listar_curso.jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
@@ -139,7 +138,6 @@
                                         <p class="description">Exibe uma Lista de Cursos</p>
                                     </div>
                                 </div>
-                                <%session.setAttribute("name_op_curso", "listar_curso");%>
                             </a>
                         </div>
                     </div>                   
@@ -190,7 +188,7 @@
                         </div>
                         <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <a href="../AlunoServlet">
+                            <a href="listar_aluno.jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
@@ -200,7 +198,6 @@
                                         <p class="description">Exibe uma Lista de Alunos</p>
                                     </div>
                                 </div>
-                                <%session.setAttribute("name_op_alunos", "listar_alunos");%>
                             </a>
                         </div>
                     </div>                   
@@ -251,7 +248,7 @@
                         </div>
                         <div class="row"></div>
                         <div class="col-sm-6 col-md-4 col-lg-4">
-                            <a href="../ServidorServlet">
+                            <a href="listar_servidor.jsp">
                                 <div class="panel profit db mbm">
                                     <div class="panel-body">
                                         <p class="icon">
@@ -261,7 +258,6 @@
                                         <p class="description">Exibe uma Lista de Servidores</p>
                                     </div>
                                 </div>
-                                <%session.setAttribute("name_op_servidor", "listar_servidores");%>
                             </a>
                         </div>  
                     </div>                   
@@ -270,8 +266,7 @@
         </div>
     </div>
             
-    <div class="form-actions text-right pal"></div>                                      
-
+    <div class="form-actions text-right pal"></div>
 <tag:close_coluna/>
 <tag:conteudoFim/>
 <tag:footer ano="2017" caminho="../resources" desenvolvedores="Diego F. Pereira" versao="1.0"/>

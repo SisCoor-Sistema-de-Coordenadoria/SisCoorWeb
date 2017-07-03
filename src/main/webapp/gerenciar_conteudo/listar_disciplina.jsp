@@ -12,6 +12,16 @@
 <tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Lista de Disciplinas" title="SisCoor | Gerenciar Conteúdo | Lista de Disciplinas" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
+<%DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+ArrayList<Disciplina> listaDisciplinas = new ArrayList<Disciplina>();
+listaDisciplinas=disciplinaDAO.getLista();
+
+if(listaDisciplinas.isEmpty())
+{
+    session.setAttribute("msg", "Nenhuma disciplina cadastrada no momento.");
+    session.setAttribute("tipo_msg", "danger");
+}
+%>
 
 <% if (session.getAttribute("msg") != null) {
         String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
@@ -33,15 +43,13 @@
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>ID da Disciplina</th>
+                    <th>Codigo</th>
                     <th>Nome</th>
                     <th>Carga Horária</th>
                 </tr>
                 </thead>
                     <tbody>
-                    <%ArrayList<Disciplina> listaDisciplinas = new ArrayList<Disciplina>();
-                    listaDisciplinas=(ArrayList<Disciplina>)session.getAttribute("lista_de_disciplinas");
-                    
+                    <%
                     for(int i=0;i<listaDisciplinas.size();i++)
                     {
                         Disciplina disciplina = new Disciplina();

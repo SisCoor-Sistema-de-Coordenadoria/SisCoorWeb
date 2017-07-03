@@ -60,6 +60,7 @@ public class DisciplinaDAO
             stmt.setInt(2, disciplina.getCargaHora());
             
             ResultSet rs = stmt.executeQuery();
+            rs.first();
             
             discip.setNome(rs.getString("nome_da_Disciplina"));
             discip.setCargaHora(rs.getInt("carga_Horaria"));
@@ -95,5 +96,58 @@ public class DisciplinaDAO
             Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaDisciplinas;
+    }
+    
+    public Disciplina buscarPorId(int id){
+       String sql = "SELECT * FROM disciplinas WHERE id_Disciplina=?;";
+        
+       Disciplina discip = new Disciplina();
+       
+       try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1,id);
+            
+            ResultSet rs = stmt.executeQuery();
+            rs.first();
+            
+            discip.setIdDisciplina(rs.getInt("id_Disciplina"));
+            discip.setNome(rs.getString("nome_da_Disciplina"));
+            discip.setCargaHora(rs.getInt("carga_Horaria"));
+      
+        } catch (SQLException ex) {
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return discip;
+    }
+    
+    public boolean removerPorId(int id) {
+        String sql = "DELETE FROM disciplinas WHERE id_Disciplina=?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+    
+    public void alterarPorId(Disciplina disciplina) {
+        String sql = "UPDATE `disciplinas` SET `nome_da_Disciplina`=?,`carga_Horaria`=? WHERE id_Disciplina=?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1, disciplina.getNome());
+            stmt.setInt(2, disciplina.getCargaHora());
+            stmt.setInt(3, disciplina.getIdDisciplina());
+
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DisciplinaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
