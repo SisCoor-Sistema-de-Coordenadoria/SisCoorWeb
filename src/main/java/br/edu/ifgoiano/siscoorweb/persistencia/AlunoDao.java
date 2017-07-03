@@ -63,21 +63,22 @@ public class AlunoDao {
 
     public void adiciona(Aluno aluno) {
         String sql = "insert into Aluno"
-                + "(id_Aluno,nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento)"
+                + "(nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento,id_Aluno)"
                 + "values(?,?,?,?,?,?,?,?,?)";
         try {
             //prepared statement para inserção
             PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
             //seta os valores
-            stmt.setInt(1, aluno.getIdAluno());
-            stmt.setString(2, aluno.getNome());
-            stmt.setString(3, aluno.getCpf());
-            stmt.setString(4, aluno.getEmail());
-            stmt.setString(5, aluno.getSenha());
-            stmt.setString(6, aluno.getTelefone());
-            stmt.setInt(7, aluno.getTipo());
-            stmt.setString(8, aluno.getMatricula());
-            stmt.setDate(9, aluno.getDataNascimento());
+            
+            stmt.setString(1, aluno.getNome());
+            stmt.setString(2, aluno.getCpf());
+            stmt.setString(3, aluno.getEmail());
+            stmt.setString(4, aluno.getSenha());
+            stmt.setString(5, aluno.getTelefone());
+            stmt.setInt(6, aluno.getTipo());
+            stmt.setString(7, aluno.getMatricula());
+            stmt.setDate(8, aluno.getDataNascimento());
+            stmt.setInt(9, aluno.getCurso().getIdCurso());
 
             //executa
             stmt.execute();
@@ -103,13 +104,12 @@ public class AlunoDao {
 
             while (rs.next()) {
                 Aluno aluno = new Aluno();
-                aluno.setIdAluno(rs.getInt("id_Aluno"));
                 aluno.setNome(rs.getString("nome"));
                 aluno.setCpf(rs.getString("cpf"));
                 aluno.setEmail(rs.getString("email"));
                 aluno.setSenha(rs.getString("senha"));
                 aluno.setTelefone(rs.getString("telefone"));
-                aluno.setTipo(rs.getInt("tipo"));
+                aluno.setTipo(4);
                 aluno.setMatricula(rs.getString("matricula"));
                 aluno.setDataNascimento(rs.getDate("data_de_Nascimento"));
                 alunos.add(aluno);
@@ -154,6 +154,50 @@ public class AlunoDao {
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+    
+    public boolean emailJaCadastrado(String email){
+        String sql = "SELECT * FROM Aluno where email like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,email);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean matriculaJaCadastrado(String matricula){
+        String sql = "SELECT * FROM Aluno where matricula like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,matricula);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 }

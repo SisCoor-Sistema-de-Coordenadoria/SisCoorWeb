@@ -93,6 +93,19 @@
                         <br>
                     </div>
                     <div class="form-group"  style="padding:5px">
+                        <label for="inputCurso" class="col-md-3 control-label">
+                            * Curso: </label>
+                        <div class="col-md-9">
+                            <select name="curso"class="form-control">
+                                <option value="00">Escolha...</option>
+                                <%for (int i = 1; i <= 31; i++) {%>
+                                <option value="<%=i%>"><%=i%></option>
+                                <%}%>
+                            </select>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="form-group"  style="padding:5px">
                         <label for="inputCpf" class="col-md-3 control-label">
                             * CPF: </label>
                         <div class="col-md-9">
