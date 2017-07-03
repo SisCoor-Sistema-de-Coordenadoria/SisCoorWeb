@@ -46,6 +46,7 @@ fecha scriplet>'
             paramVolta="../../SisCoorWeb" 
             title="SisCoor | Módulo PTC"
             titlePage="Módulo | Proposta de Trabalho de Curso"
+usuario="<%=(String) session.getAttribute("nomeUsuario")%>"
             ptcAtivo="active"/>
 
 
@@ -83,7 +84,7 @@ AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI | AKI
         </a>
     </div>
     <div class="col-sm-6 col-md-6">
-        <a href="crud_ptc.jsp">
+        <a href="crud_ptc_aluno.jsp">
         <div class="panel profit db mbm">
             <div class="panel-body">
                 <p class="icon">
@@ -121,9 +122,9 @@ houver mais de um desenvolvedor.
 --------------------------------------------------------------------------------
 versão -> Versão do módulo do Sistema em desenvolvimento.
 ------------------------------------------------------------------------------->
-<tag:footer ano="2017"
+<tag:footer ano="Ano da Criação do Sistema"
             caminho="../resources"
-            desenvolvedores="Jehymison Gil Alves Oliveira"
-            versao="1.0" />
+            desenvolvedores="Nome dos Desenvolvedores"
+            versao="Versão do Sistema" />
 <!--------------------- ATENÇÃO | FIM DA PÁGINA | ATENÇÃO ----------------------
 --------------------------------------------------------------------------------

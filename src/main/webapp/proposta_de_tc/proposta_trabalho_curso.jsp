@@ -15,14 +15,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 --%>
 <tag:header title="SisCoor | Módulo PTC" titlePage="Módulo|Proposta de Trabalho
-            de Curso" caminho="../resources" paramVolta="../../SisCoorWeb" ptcAtivo="active" />
+de Curso" caminho="../resources" paramVolta="../../SisCoorWeb" ptcAtivo="active" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" />
 
 <%-- Objetos para preenchimento de campos select --%>
-<%
-    AlunoDao aluno = new AlunoDao();
-    ServidorDao servidor = new ServidorDao();
-    ArrayList<Aluno> listaAluno = aluno.getLista();
-    ArrayList<Servidor> listaServidor = servidor.getLista();
+<% 
+AlunoDao aluno = new AlunoDao();
+ServidorDao servidor = new ServidorDao();
+ArrayList<Aluno> listaAluno =  aluno.getLista();
+ArrayList<Servidor> listaServidor = servidor.getLista();
 %>
 
 <!-- Escondendo Mensagem Sucess-->
@@ -30,18 +30,18 @@
     function fecha_banner()
     {
     var banner_obj = document.getElementById('alert');
-    banner_obj.style.display = 'none';
+            banner_obj.style.display = 'none';
     }
     setTimeout('fecha_banner()', 5000);</script>
 <!-- Fim do JavaScript -->
 
 <!-- Escondendo Mensagem Danger-->
 <script language="JavaScript">
-    function fecha_banner_danger()
-    {
-    var banner_obj = document.getElementById('alert_danger');
-    banner_obj.style.display = 'none';
-    }
+            function fecha_banner_danger()
+            {
+            var banner_obj = document.getElementById('alert_danger');
+                    banner_obj.style.display = 'none';
+            }
     setTimeout('fecha_banner_danger()', 5000000);</script>
 <!-- Fim do JavaScript -->
 
@@ -70,195 +70,17 @@
         session.setAttribute("msg", null);
         session.setAttribute("tipo_msg", null);
     }%>
-
-<!-- Verifica se é aluno ou cordenador que esta usando o módulo -->
-<%if (session.getAttribute("tipoUsuario").toString().equals("3") || session.getAttribute("tipoUsuario").toString().equals("-1")) {%>
-<tag:open_coluna tamanho="2" />
-<div class="row">
-    <div class="container-fluid">
-        <button value="Novo Aluno" name="btn_propostaSubmissao" class="btn btn-blue">
-            Novo Aluno
-        </button>
-    </div>
-</div>
-<div class="row">
-    
-</div>
-<tag:close_coluna/>
-
-<tag:open_coluna tamanho="6"/>
-<div class="panel panel-grey">
-    <div class="panel-heading">
-        Submeter Proposta
-    </div>
-    <div class="panel-body pan">
-        <form action="../UploadServlet" method="POST" enctype="multipart/form-data">
-            <div class="form-body pal">
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- Conteudo do formulário -->
-
-                        <!-- Titulo do Trabalho -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="inputTitlePTC" class="control-label">
-                                    <strong>*</strong>Título do Trabalho
-                                </label>
-                                <div class="input-icon right">
-                                    <i class="fa fa-pencil"></i>
-                                    <input type="text" id="inputTitlePTC" class="form-control" name="tituloPTC">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--Condição que checa se é aluno ou cordenador do curso -->
-                        <%if (session.getAttribute("tipoUsuario").toString().equals("4") || session.getAttribute("tipoUsuario").toString().equals("5")) {%>
-
-                        <!-- ID Aluno01 -->
-                        <div class="col-md-12" hidden="enable">
-                            <div class="form-group">
-                                <div class="input-icon right">                                    
-                                    <input value="<%= session.getAttribute("idUsuario")%>" type="text" id="idAluno01" class="form-control" name="idAluno01">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Aluno 01 -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="inputAluno01" class="control-label">
-                                    <strong>*</strong> Aluno 01
-                                </label>
-                                <div class="input-icon right">
-                                    <i class="fa fa-user"></i>
-                                    <input class="form-control" 
-                                           value="<%=(String) session.getAttribute("nomeUsuario")%>"
-                                           disabled="enable" name="aluno01"/>
-                                </div>
-                            </div>
-                        </div>
-                        <%} else {%>
-                        <!-- Aluno 01 -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="inputAluno01" class="control-label">
-                                    <strong>*</strong> Aluno 01
-                                </label>
-                                <div class="input-icon right">
-                                    <i class="fa fa-user"></i>
-                                    <select id="inputAluno01" class="form-control" name="idAluno01">
-                                        <option value="0"> </option>
-                                        <%for (int i = 0; i < listaAluno.size(); i++) {%>
-                                        <option value="<%=listaAluno.get(i).getIdAluno()%>"><%= listaAluno.get(i).getNome()%></option>
-                                        <% }%>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <%}%>
-
-                        <!-- Aluno 02 -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="inputAluno02" class="control-label">
-                                    Aluno 02
-                                </label>
-                                <div class="input-icon right">
-                                    <i class="fa fa-user"></i>
-                                    <select id="inputAluno02" class="form-control" name="idAluno02">
-                                        <option value="0"> </option>
-                                        <%for (int i = 0; i < listaAluno.size(); i++) {%>
-                                        <option value="<%=listaAluno.get(i).getIdAluno()%>"><%= listaAluno.get(i).getNome()%></option>
-                                        <% }%>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Orientador -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="inputOrientador" class="control-label">
-                                    <strong>*</strong>Orientador
-                                </label>
-                                <div class="input-icon right">
-                                    <i class="fa fa-user"></i>
-                                    <select id="inputOrientador" class="form-control" name="idOrientador">
-                                        <option value="0"> </option>
-                                        <%for (int i = 0; i < listaServidor.size(); i++) {%>
-                                        <option value="<%=listaServidor.get(i).getIdServidor()%>"><%= listaServidor.get(i).getNome()%></option>
-                                        <%}%>                                       
-                                    </select>                                        
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Coorientador -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="inputCoorientador" class="control-label">
-                                    Coorientador
-                                </label>
-                                <div class="input-icon right">
-                                    <i class="fa fa-user"></i>
-                                    <select id="inputCoorientador" class="form-control" name="idCoorientador">
-                                        <option value="0"> </option>
-                                        <%for (int i = 0;
-                                                    i < listaServidor.size();
-                                                    i++) {%>
-                                        <option value="<%=listaServidor.get(i).getIdServidor()%>"><%= listaServidor.get(i).getNome()%></option>
-                                        <%}%>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Arquivo a ser enviado -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="inputFile" class="control-label">
-                                    <strong>*</strong>Selecione o Trabalho
-                                </label>
-                                <div class="input-icon right">
-                                    <i class="fa fa-file"></i>
-                                    <input type="file" id="inputFile" class="form-control" name="file" accept=".pdf"/>
-                                </div>
-                            </div>
-                            <strong><h6><b>Obs.: Campos compostos de '*' são obrigatórios.</b></h6></strong>
-                        </div>
-
-                        <!-- Botão de Envio -->
-                        <div class="col-lg-12" style="text-align: justify">
-                            <div class="col-sm-4 col-md-2 col-lg-4" style="text-align: justify">
-                                <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn"/>
-                            </div>
-                            <div class="col-sm-4 col-md-7 col-lg-4"></div>
-                            <div class="col-sm-4 col-md-2 col-lg-3">
-                                <input type="submit" class="btn btn-blue" value="Submeter Proposta" name="btn"/>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<tag:close_coluna />
-
-<tag:open_coluna tamanho="3"/>
-<tag:close_coluna/>
-
-<%} else {%>
 <tag:open_coluna tamanho="3" />
 <tag:close_coluna />
+
 <tag:open_coluna tamanho="6"/>
+
 <div class="panel panel-grey">
     <div class="panel-heading">
         Submeter Proposta
     </div>
     <div class="panel-body pan">
-        <form action="../UploadServlet" method="POST" enctype="multipart/form-data">
+        <form action="../UploadServletPTC" method="POST" enctype="multipart/form-data">
             <div class="form-body pal">
                 <div class="row">
                     <div class="col-md-12">
@@ -277,38 +99,22 @@
                             </div>
                         </div>
 
-                        <!--Condição que checa se é aluno ou cordenador do curso -->
-                        <%if (session.getAttribute("tipoUsuario").toString().equals("4") || session.getAttribute("tipoUsuario").toString().equals("5")) {%>
-
-                        <!-- ID Aluno01 -->
+                        <!-- ID Aluno01 
                         <div class="col-md-12" hidden="enable">
                             <div class="form-group">
-                                <div class="input-icon right">                                    
-                                    <input value="<%= session.getAttribute("idUsuario")%>" type="text" id="idAluno01" class="form-control" name="idAluno01">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Aluno 01 -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="inputAluno01" class="control-label">
-                                    <strong>*</strong> Aluno 01
-                                </label>
                                 <div class="input-icon right">
-                                    <i class="fa fa-user"></i>
-                                    <input class="form-control" 
-                                           value="<%=(String) session.getAttribute("nomeUsuario")%>"
-                                           disabled="enable" name="aluno01"/>
+                                    <i class="fa fa-pencil"></i>                                    
+                                    <input value="" type="text" id="idAluno01" class="form-control" name="idAluno01">
                                 </div>
                             </div>
                         </div>
-                        <%} else {%>
+                        -->
+                        
                         <!-- Aluno 01 -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="inputAluno01" class="control-label">
-                                    <strong>*</strong> Aluno 01
+                                <label for="inputAluno02" class="control-label">
+                                    Aluno 01
                                 </label>
                                 <div class="input-icon right">
                                     <i class="fa fa-user"></i>
@@ -321,7 +127,6 @@
                                 </div>
                             </div>
                         </div>
-                        <%}%>
 
                         <!-- Aluno 02 -->
                         <div class="col-md-6">
@@ -350,7 +155,7 @@
                                 <div class="input-icon right">
                                     <i class="fa fa-user"></i>
                                     <select id="inputOrientador" class="form-control" name="idOrientador">
-                                        <option value="0"> </option>
+                                        <option> </option>
                                         <%for (int i = 0; i < listaServidor.size(); i++) {%>
                                         <option value="<%=listaServidor.get(i).getIdServidor()%>"><%= listaServidor.get(i).getNome()%></option>
                                         <%}%>                                       
@@ -368,8 +173,8 @@
                                 <div class="input-icon right">
                                     <i class="fa fa-user"></i>
                                     <select id="inputCoorientador" class="form-control" name="idCoorientador">
-                                        <option value="0"> </option>
-                                        <%for (int i = 0;i < listaServidor.size();i++) {%>
+                                       <option> </option>
+                                        <%for (int i = 0; i < listaServidor.size(); i++) {%>
                                         <option value="<%=listaServidor.get(i).getIdServidor()%>"><%= listaServidor.get(i).getNome()%></option>
                                         <%}%>
                                     </select>
@@ -394,11 +199,11 @@
                         <!-- Botão de Envio -->
                         <div class="col-lg-12" style="text-align: justify">
                             <div class="col-sm-4 col-md-2 col-lg-4" style="text-align: justify">
-                                <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn"/>
+                                <input id="btn" type="submit" class="btn btn-blue" value="Voltar" name="btn_propostaSubmit"/>
                             </div>
                             <div class="col-sm-4 col-md-7 col-lg-4"></div>
                             <div class="col-sm-4 col-md-2 col-lg-3">
-                                <input type="submit" class="btn btn-blue" value="Submeter Proposta" name="btn"/>
+                                <input type="submit" class="btn btn-blue" value="Submeter Proposta" name="btn_propostaSubmit"/>
                             </div>
                         </div>
 
@@ -410,11 +215,8 @@
 </div>
 <tag:close_coluna />
 
-<tag:open_coluna tamanho="3"/>
+<tag:open_coluna tamanho="3" />
 <tag:close_coluna />
-<%}%>
-
-
 
 <tag:conteudoFim />
 

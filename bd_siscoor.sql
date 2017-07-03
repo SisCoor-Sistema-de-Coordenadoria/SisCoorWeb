@@ -30,19 +30,6 @@ CREATE TABLE Laboratorio (
   PRIMARY KEY(id_Laboratorio)
 );
 
-CREATE TABLE Aluno (
-  id_Aluno INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  nome VARCHAR(60) NULL,
-  cpf VARCHAR(11) NULL,
-  email VARCHAR(40) NULL,
-  senha TEXT NULL,
-  telefone VARCHAR(11) NULL,
-  tipo INTEGER(1) NULL,
-  matricula TEXT NULL,
-  data_de_Nascimento DATE NULL,
-  PRIMARY KEY(id_Aluno)
-);
-
 CREATE TABLE Restricao_do_Professor (
   id_Restricao_do_Professor INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   id_do_Professor INTEGER UNSIGNED NULL,
@@ -80,6 +67,25 @@ CREATE TABLE Curso (
   INDEX Curso_FKIndex1(professor_Coordenador),
   FOREIGN KEY(professor_Coordenador)
     REFERENCES Servidor(id_Servidor)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+CREATE TABLE Aluno (
+  id_Aluno INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(60) NULL,
+  cpf VARCHAR(11) NULL,
+  email VARCHAR(40) NULL,
+  senha TEXT NULL,
+  telefone VARCHAR(11) NULL,
+  tipo INTEGER(1) NULL,
+  matricula TEXT NULL,
+  data_de_Nascimento DATE NULL,
+  id_Curso INTEGER UNSIGNED NULL,
+  PRIMARY KEY(id_Aluno),
+  INDEX Aluno_FKIndex1(id_Curso),
+  FOREIGN KEY(id_Curso)
+    REFERENCES Curso(id_Curso)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
@@ -172,7 +178,7 @@ CREATE TABLE Proposta (
 );
 
 CREATE TABLE Trabalho_Monografico (
-  id_trabalho_monografico INTEGER UNSIGNED NOT NULL,
+  id_trabalho_monografico INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   id_proposta INTEGER UNSIGNED NULL,
   id_aluno_1 INTEGER UNSIGNED NOT NULL,
   id_aluno_2 INTEGER UNSIGNED NULL,
@@ -208,19 +214,6 @@ CREATE TABLE Trabalho_Monografico (
       ON UPDATE NO ACTION
 );
 
-CREATE TABLE Quadro_de_atendimento_monitoria (
-  id_quadro_de_atendimento_monitoria INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  id_monitoria INTEGER UNSIGNED NULL,
-  laboratorio TEXT NULL,
-  observacoes TEXT NULL,
-  PRIMARY KEY(id_quadro_de_atendimento_monitoria),
-  INDEX Quadro_de_atendimento_monitoria_FKIndex1(id_monitoria),
-  FOREIGN KEY(id_monitoria)
-    REFERENCES Monitoria(id_monitoria)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
-);
-
 CREATE TABLE Turma (
   id_Turma INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   periodo INTEGER UNSIGNED NULL,
@@ -231,6 +224,19 @@ CREATE TABLE Turma (
   INDEX Turma_FKIndex1(id_Curso),
   FOREIGN KEY(id_Curso)
     REFERENCES Curso(id_Curso)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
+CREATE TABLE Quadro_de_atendimento_monitoria (
+  id_quadro_de_atendimento_monitoria INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  id_monitoria INTEGER UNSIGNED NULL,
+  laboratorio TEXT NULL,
+  observacoes TEXT NULL,
+  PRIMARY KEY(id_quadro_de_atendimento_monitoria),
+  INDEX Quadro_de_atendimento_monitoria_FKIndex1(id_monitoria),
+  FOREIGN KEY(id_monitoria)
+    REFERENCES Monitoria(id_monitoria)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );

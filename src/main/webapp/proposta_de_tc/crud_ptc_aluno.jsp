@@ -44,9 +44,9 @@ fecha scriplet>'
 
 <tag:header caminho="../resources" 
             paramVolta="../../SisCoorWeb" 
-            title="Título da Aba Aqui"
-            titlePage="Título da Página Aqui"
-            usuario="Nome do Usuário Aqui"/>
+            title="SisCoor | Módulo PTC"
+            titlePage="Módulo | Proposta de Trabalho de Curso"
+            usuario="<%= (String) session.getAttribute("nomeUsuario")%>"/>
 
 
 <!------------ ATENÇÃO | ABERTURA DA ENTRADA DE CONTEÚDO | ATENÇÃO -------------

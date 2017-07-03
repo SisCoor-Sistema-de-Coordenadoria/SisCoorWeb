@@ -25,12 +25,8 @@ public class Servidor {
     public Servidor(String nome){
         this.nome = nome;
     }
-    
-    public Servidor(int idServidor){
-        this.idServidor = idServidor;
-    }
 
-    public Servidor( String nome, int idServidor) {
+    public Servidor(int idServidor, String nome) {
         this.idServidor = idServidor;
         this.nome = nome;
     }
@@ -38,8 +34,7 @@ public class Servidor {
     public Servidor(){
     }
 
-    public Servidor(String siape, String senha, String nome, String cpf, String email, String telefone, int tipo, Date dataNascimento, int idServidor) {
-        this.idServidor = idServidor;
+    public Servidor(String siape, String senha, String nome, String cpf, String email, String telefone, int tipo, Date dataNascimento) {
         this.siape = siape;
         this.senha = senha;
         this.nome = nome;

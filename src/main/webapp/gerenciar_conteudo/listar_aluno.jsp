@@ -9,7 +9,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
-<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Lista de Cursos" title="SisCoor | Gerenciar Conteúdo | Lista de Cursos" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
+<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Lista de Alunos" title="SisCoor | Gerenciar Conteúdo | Lista de Alunos" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
 
@@ -25,41 +25,42 @@
 }}else{%>
 
 <tag:open_coluna tamanho="12"/>
-   <div class="panel panel-grey">
-        <div class="panel-heading">Lista de Cursos</div>
+    <div class="panel panel-grey">
+        <div class="panel-heading">Lista de Alunos</div>
         <div class="panel-body">
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>ID do Curso</th>
+                    <th>ID do Aluno</th>
+                    <th>Matricula</th>
                     <th>Nome</th>
-                    <th>Numero de Periodos</th>
-                    <th>Turno</th>
-                    <th>Coordenador</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>Data de Nascimento</th>
                 </tr>
                 </thead>
                     <tbody>
-                    <%ArrayList<Curso> listaCursos = new ArrayList<Curso>();
-                    listaCursos=(ArrayList<Curso>)session.getAttribute("lista_de_cursos");
+                    <%ArrayList<Aluno> listaAlunos = new ArrayList<Aluno>();
+                    listaAlunos=(ArrayList<Aluno>)session.getAttribute("lista_de_alunos");
                     
-                    for(int i=0;i<listaCursos.size();i++)
+                    for(int i=0;i<listaAlunos.size();i++)
                     {
-                        Curso curso = new Curso();
-                        curso=listaCursos.get(i);
+                        Aluno aluno = new Aluno();
+                        aluno=listaAlunos.get(i);
                     %>    
                         <tr>
-                            <td class="active"><%=curso.getIdCurso()%></td>
-                            <td class="active"><%=curso.getNome()%></td>
-                            <td class="active"><%=curso.getNumDePeriodos()%></td>
-                            <td class="active"><%=curso.getTurno()%></td>
-                            <td class="active"><%=curso.getNomeCoordenador()%></td>
+                            <td class="active"><%=aluno.getIdAluno()%></td>
+                            <td class="active"><%=aluno.getMatricula()%></td>
+                            <td class="active"><%=aluno.getNome()%></td>
+                            <td class="active"><%=aluno.getEmail()%></td>
+                            <td class="active"><%=aluno.getTelefone()%></td>
+                            <td class="active"><%=aluno.getDataNascimento()%></td>
                         </tr>                       
                     <%}%>
                     </tbody>
             </table>
         </div>
     </div>
-
 
 <tag:close_coluna/>
 

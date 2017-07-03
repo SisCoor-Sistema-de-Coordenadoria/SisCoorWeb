@@ -5,8 +5,11 @@
  */
 package br.edu.ifgoiano.siscoorweb.persistencia;
 
+import br.edu.ifgoiano.siscoorweb.persistencia.ConnectionFactory;
+
 import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,68 +23,78 @@ import java.util.logging.Logger;
  */
 public class ServidorDao {
 
-    private final Connection connection;
-
+    private Connection connection;
+    
     public ServidorDao() {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
 
-    /**
-     * Autentica servidor do banco de dados
-     * @param servidor
-     * @return 
-     */
     public Servidor autenticacao(Servidor servidor) {
-        Servidor servidor_retorno = null;
-        String sql = "SELECT * FROM Servidor WHERE suap = ? AND senha = ?";
+        Servidor servidorretorno = null;
+        String sql = "SELECT * FROM Servidor WHERE suap=? and senha=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, servidor.getSiape());
             stmt.setString(2, servidor.getSenha());
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                servidor_retorno = new Servidor();
-                servidor_retorno.setIdServidor(rs.getInt("id_Servidor"));
-              servidor_retorno.setNome(rs.getString("nome"));
-              servidor_retorno.setSenha(rs.getString("senha"));
-              servidor_retorno.setEmail(rs.getString("email"));
-              servidor_retorno.setCpf(rs.getString("cpf"));
-              servidor_retorno.setTelefone(rs.getString("telefone"));
-              servidor_retorno.setTipo(rs.getInt("tipo"));
-              servidor_retorno.setSiape(rs.getString("suap"));
-              servidor_retorno.setDataNascimento(rs.getDate("data_nascimento"));
-              
+            if (rs.first()) {
+                servidorretorno = new Servidor();
+                servidorretorno.setSiape(rs.getString("suap"));
+                servidorretorno.setSenha(rs.getString("senha"));
+                servidorretorno.setNome(rs.getString("nome"));
             }
-              return servidor_retorno;            
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Falha a buscar em ServidorDao", ex);
+
+        }
+        return servidorretorno;
+    }
+    
+    public Servidor buscaPorNome(Servidor servidor) {
+        
+        Servidor servidorretorno = null;
+        String sql = "select * FROM Servidor where nome=?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, servidor.getNome());
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                servidorretorno = new Servidor();
+                servidorretorno.setIdServidor(rs.getInt("id_Servidor"));
+                servidorretorno.setNome(rs.getString("nome"));
+                servidorretorno.setCpf(rs.getString("cpf"));               
+                servidorretorno.setEmail(rs.getString("email"));
+                servidorretorno.setSiape(rs.getString("suap"));
+                servidorretorno.setTelefone(rs.getString("telefone"));
+                servidorretorno.setTipo(rs.getInt("tipo"));
+            }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            java.util.logging.Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
+
         }
+        return servidorretorno;
     }
 
-    /**
-     * Adiciona Servidor ao banco de dados
-     * @param servidor 
-     */
     public void adiciona(Servidor servidor) {
         String sql = "insert into Servidor"
-                + "(id,nome,cpf,email,suap,,senha,telefone,tipo,data_de_Nascimento)"
-                + "values(?,?,?,?,?,?,?,?,?)";
+                + "(nome,cpf,email,suap,senha,telefone,tipo,data_nascimento)"
+                + "values(?,?,?,?,?,?,?,?)";
         try {
             //prepared statement para inserção
             PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
             //seta os valores
-            stmt.setInt(1, servidor.getIdServidor());
-            stmt.setString(2, servidor.getNome());
-            stmt.setString(3, servidor.getCpf());
-            stmt.setString(4, servidor.getEmail());
-            stmt.setString(5, servidor.getSiape());
-            stmt.setString(6, servidor.getSenha());
-            stmt.setString(7, servidor.getTelefone());
-            stmt.setInt(8, servidor.getTipo());
-            stmt.setDate(9, servidor.getDataNascimento());
+            stmt.setString(1, servidor.getNome());
+            stmt.setString(2, servidor.getCpf());
+            stmt.setString(3, servidor.getEmail());
+            stmt.setString(4, servidor.getSiape());
+            stmt.setString(5, servidor.getSenha());
+            stmt.setString(6, servidor.getTelefone());
+            stmt.setInt(7, servidor.getTipo());
+            stmt.setDate(8, servidor.getDataNascimento());
 
             //executa
             stmt.execute();
@@ -92,15 +105,11 @@ public class ServidorDao {
         }
     }
     
-    /**
-     * Retorna Lista de Servidores Cadastrados
-     * @return 
-     */
     public ArrayList<Servidor> getLista(){
-        String sql = "SELECT * FROM Servidor";
-        
+        String sql = "SELECT * FROM Servidor ORDER BY nome asc";
+        ArrayList<Servidor> servidores = new ArrayList();
         try {
-            ArrayList<Servidor> servidores = new ArrayList();
+            
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
@@ -119,44 +128,108 @@ public class ServidorDao {
             }
             rs.close();
             stmt.close();
-            return servidores;
+            
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+        return servidores;
     }
     
-    /**
-     * Retorna busca por servidor único
-     * @param idServidor
-     * @return 
-     */
-    public Servidor getServidor(int idServidor) {
-        Servidor servidor = new Servidor();
-        String sql = "SELECT * FROM servidor WHERE id_Servidor = ?";
-
+    public Servidor buscaPorId(int id) {
+        
+        Servidor servidorretorno = null;
+        String sql = "select * FROM Servidor where id_Servidor=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idServidor);
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                servidor.setIdServidor(rs.getInt("id_Servidor"));
-                servidor.setNome(rs.getString("nome"));
-                servidor.setCpf(rs.getString("cpf"));
-                servidor.setEmail(rs.getString("email"));
-                servidor.setSenha(rs.getString("senha"));
-                servidor.setTelefone(rs.getString("telefone"));
-                servidor.setTipo(rs.getInt("tipo"));
-                servidor.setSiape(rs.getString("suap"));
-                servidor.setDataNascimento(rs.getDate("data_Nascimento"));
+            if (rs.next()) {
+                servidorretorno = new Servidor();
+                servidorretorno.setIdServidor(rs.getInt("id_Servidor"));
+                servidorretorno.setNome(rs.getString("nome"));
+                servidorretorno.setCpf(rs.getString("cpf"));               
+                servidorretorno.setEmail(rs.getString("email"));
+                servidorretorno.setSiape(rs.getString("suap"));
+                servidorretorno.setTelefone(rs.getString("telefone"));
+                servidorretorno.setTipo(rs.getInt("tipo"));
             }
+
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return servidorretorno;
+    }
+    
+    public boolean cpfJaCadastrado(String cpf){
+        String sql = "SELECT * FROM Servidor where cpf like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,cpf);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
             rs.close();
             stmt.close();
-            return servidor;
+            return existe;
         } catch (SQLException ex) {
-            Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
+    
+    public boolean emailJaCadastrado(String email){
+        String sql = "SELECT * FROM Servidor where email like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,email);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean siapeJaCadastrado(String siape){
+        String sql = "SELECT * FROM Servidor where suap like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,siape);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
 }

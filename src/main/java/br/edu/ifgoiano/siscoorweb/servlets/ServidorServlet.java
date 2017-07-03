@@ -5,20 +5,26 @@
  */
 package br.edu.ifgoiano.siscoorweb.servlets;
 
+import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
+import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
+import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
+import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Diego
  */
-@WebServlet(name = "CrudDisciplinas", urlPatterns = {"/CrudDisciplinas"})
-public class CrudDisciplinas extends HttpServlet {
+@WebServlet(name = "ServidorServlet", urlPatterns = {"/ServidorServlet"})
+public class ServidorServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,20 +38,32 @@ public class CrudDisciplinas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CrudDisciplinas</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CrudDisciplinas at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {
-            out.close();
+        HttpSession session = request.getSession();
+        ServidorDao servidorDAO = new ServidorDao();
+        ArrayList<Servidor> listaServidores = new ArrayList<Servidor>();
+        
+        if(session.getAttribute("name_op_servidor")!=null && session.getAttribute("name_op_servidor").equals("listar_servidores"))
+        {
+            try
+            {
+                listaServidores=servidorDAO.getLista();
+
+                if(listaServidores.isEmpty())
+                {
+                    session.setAttribute("msg", "Nenhum servidor cadastrado no momento.");
+                    session.setAttribute("tipo_msg", "danger");
+                    response.sendRedirect("gerenciar_conteudo/listar_servidor.jsp");
+                }
+                else
+                {
+                    session.setAttribute("lista_de_servidor", listaServidores);
+                    response.sendRedirect("gerenciar_conteudo/listar_servidor.jsp");
+                }
+            }
+            catch(Exception e)
+            {
+                System.out.println(e);
+            }
         }
     }
 

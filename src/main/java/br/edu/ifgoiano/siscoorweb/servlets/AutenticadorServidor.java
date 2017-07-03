@@ -5,9 +5,9 @@
  */
 package br.edu.ifgoiano.siscoorweb.servlets;
 
-
 import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
+import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -36,31 +36,31 @@ public class AutenticadorServidor extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
-          String ssuap=request.getParameter("suap");
-          String ssenha=request.getParameter("senha");
-          
-          Servidor a = new Servidor();
-          a.setSiape(ssuap);
-          a.setSenha(ssenha);
-          ServidorDao adao = new ServidorDao();
-          Servidor a_autenticado = adao.autenticacao(a);
-          if(a_autenticado != null){
-              HttpSession session = request.getSession();
-              session.setAttribute("idUsuario", a_autenticado.getIdServidor());
-              session.setAttribute("nomeUsuario", a_autenticado.getNome());
-              session.setAttribute("senhaUsuario", a_autenticado.getSenha());
-              session.setAttribute("emailUsuario", a_autenticado.getEmail());
-              session.setAttribute("cpfUsuario", a_autenticado.getCpf());
-              session.setAttribute("telefoneUsuario", a_autenticado.getTelefone());
-              session.setAttribute("tipoUsuario", a_autenticado.getTipo());
-              session.setAttribute("siapUsuario", a_autenticado.getSiape());
-              session.setAttribute("dataNascimentoUsu", a_autenticado.getDataNascimento());
-              response.sendRedirect("../SisCoorWeb/pag_principal.jsp");              
-          }else{
-              response.sendRedirect("login_siscoor/ErrorLoginServidor.jsp");
-          }
-        
+        HttpSession session = request.getSession();
+
+        ServidorDao sdao = new ServidorDao();
+        Servidor s = new Servidor();
+
+        String ssiape = request.getParameter("siape");
+        String ssenha = Criptografia.criptografar(request.getParameter("senha")).toLowerCase();
+
+        s.setSiape(ssiape);
+        s.setSenha(ssenha);
+
+        Servidor aautenticado = sdao.autenticacao(s);
+        if (aautenticado != null) {
+            session.removeAttribute("erro_login");
+            session.setAttribute("nomeUsuario", aautenticado.getNome());
+            response.sendRedirect("logado.jsp");
+        } else {
+            if (request.getParameter("siape").isEmpty() || request.getParameter("senha").isEmpty()) {
+                session.setAttribute("erro_login", "vazio");
+            } else {
+                session.setAttribute("erro_login", "validacao");
+            }
+            response.sendRedirect("tela_login/login_servidor.jsp");
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

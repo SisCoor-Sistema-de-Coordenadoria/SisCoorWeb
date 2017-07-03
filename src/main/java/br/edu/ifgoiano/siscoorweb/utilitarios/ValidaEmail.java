@@ -16,7 +16,7 @@ public class ValidaEmail {
         boolean erroEmail = false;
         
         if (semail.contains("@") && semail.contains(".") && !semail.isEmpty()) {
-            if ((semail.indexOf("@") != semail.lastIndexOf("@")) || (semail.indexOf("@") >= semail.indexOf(".") || (semail.indexOf(".") - semail.indexOf("@") < 2) || (semail.indexOf("@") == 0 || semail.indexOf(".") == semail.length() - 1))) {
+            if ((semail.indexOf("@") != semail.lastIndexOf("@")) || (semail.indexOf("@") >= semail.lastIndexOf(".") || (semail.indexOf(".") - semail.indexOf("@") < 2) || (semail.indexOf("@") == 0 || semail.indexOf(".") == semail.length() - 1))) {
                 erroEmail = true;
             } else {
                 char[] emailChar = semail.toCharArray();
@@ -31,5 +31,12 @@ public class ValidaEmail {
             erroEmail = true;
         }
         return erroEmail;
+    }
+    
+    
+    public static void main(String[] args) {
+        String email = "gabriel.vieira@ifgoiano.edu";
+        
+        System.out.println(validaEmail(email));
     }
 }

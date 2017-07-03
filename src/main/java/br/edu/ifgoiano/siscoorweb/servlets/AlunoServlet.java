@@ -5,12 +5,12 @@
  */
 package br.edu.ifgoiano.siscoorweb.servlets;
 
-
 import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
+import br.edu.ifgoiano.siscoorweb.modelos.Curso;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
-import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,10 +20,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author joesi
+ * @author Diego
  */
-@WebServlet(name = "AutenticadorAluno", urlPatterns = {"/AutenticadorAluno"})
-public class AutenticadorAluno extends HttpServlet {
+@WebServlet(name = "AlunoServlet", urlPatterns = {"/AlunoServlet"})
+public class AlunoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,35 +37,34 @@ public class AutenticadorAluno extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
         HttpSession session = request.getSession();
+        AlunoDao alunoDAO;
+        ArrayList<Aluno> listaAlunos = new ArrayList<Aluno>();
+        alunoDAO = new AlunoDao();
         
-            AlunoDao adao = new AlunoDao();
-            Aluno a = new Aluno();
-            
-           
-          String smatricula=request.getParameter("matricula");
-          String ssenha=Criptografia.criptografar(request.getParameter("senha")).toLowerCase();
-          
-          
-          a.setMatricula(smatricula);
-          a.setSenha(ssenha);
-          
-          Aluno aautenticado = adao.autenticacao(a);
-          if(aautenticado != null){
-              session.removeAttribute("erro_login");
-              session.setAttribute("nomeUsuario", aautenticado.getNome());
-              response.sendRedirect("logado.jsp");
-          }else{
-              if(request.getParameter("matricula").isEmpty()||request.getParameter("senha").isEmpty()){
-                  session.setAttribute("erro_login", "vazio");
-              }else{
-                  session.setAttribute("erro_login", "validacao");
-              }
-              response.sendRedirect("tela_login/login_aluno.jsp");
-          }
-        
-        
+        if(session.getAttribute("name_op_alunos")!=null && session.getAttribute("name_op_alunos").equals("listar_alunos"))
+        {
+            try
+            {
+                listaAlunos=alunoDAO.getLista();
+
+                if(listaAlunos.isEmpty())
+                {
+                    session.setAttribute("msg", "Nenhum aluno cadastrado no momento.");
+                    session.setAttribute("tipo_msg", "danger");
+                    response.sendRedirect("gerenciar_conteudo/listar_aluno.jsp");
+                }
+                else
+                {
+                    session.setAttribute("lista_de_alunos", listaAlunos);
+                    response.sendRedirect("gerenciar_conteudo/listar_aluno.jsp");
+                }
+            }
+            catch(Exception e)
+            {
+                System.out.println(e);
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

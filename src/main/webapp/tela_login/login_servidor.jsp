@@ -15,17 +15,17 @@
 <tag:conteudoInicio/>
 <%if (session.getAttribute("erro_login") != null) {%>
 <div id="alert_danger" class="alert alert-danger col-lg-12" role="alert" style="text-align: center">
-    <%if (session.getAttribute("erro_login").equals("vazio")) {%>
+    <%if (session.getAttribute("erro_login").equals("vazio")){%>
     <strong>Preencha todos os campos!</strong>
     <%session.setAttribute("erro_login", null);
     } else {%>
-    <strong>Número de Matrícula e/ou Senha incorreto(s)!</strong>
+    <strong>Número do Siape e/ou Senha incorreto(s)!</strong>
     <%
             session.setAttribute("erro_login", null);
         }
     %>
 </div>
-<%}%>
+    <%}%>
 <tag:open_coluna tamanho="12"/>
 
 <div class="col-lg-3"></div>
@@ -37,12 +37,12 @@
             <form action="../AutenticadorServidor" class="form-horizontal" method="post">
                 <div class="form-body pal">
                     <div class="form-group">
-                        <label for="inputMatricula" class="col-md-3 control-label">
+                        <label for="inputSiape" class="col-md-3 control-label">
                             Núm. do Siape: </label>
                         <div class="col-md-9">
                             <div class="input-icon right">
                                 <i class="fa fa-user"></i>
-                                <input name="matricula" id="inputMatricula" type="text" class="form-control" /></div>
+                                <input name="siape" id="inputSiape" type="text" class="form-control" /></div>
                         </div>
                     </div>
                     <div class="form-group">

@@ -20,21 +20,15 @@ import java.util.logging.Logger;
  */
 public class AlunoDao {
 
-    private final Connection connection;
+    private Connection connection;
 
     public AlunoDao() {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
 
-    /**
-     * Autentica aluno do banco de dados
-     *
-     * @param aluno
-     * @return
-     */
-    public Aluno auntenticacao(Aluno aluno) {
-        Aluno aluno_retorno = null;
-        String sql = "select * FROM aluno where matricula=? and senha=?";
+    public Aluno autenticacao(Aluno aluno) {
+        Aluno alunoretorno = null;
+        String sql = "select * FROM Aluno where matricula=? and senha=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, aluno.getMatricula());
@@ -42,40 +36,34 @@ public class AlunoDao {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                aluno_retorno = new Aluno();
-                aluno_retorno.setIdAluno(rs.getInt("id_Aluno"));
-                aluno_retorno.setNome(rs.getString("nome"));
-                aluno_retorno.setCpf(rs.getString("cpf"));
-                aluno_retorno.setEmail(rs.getString("email"));
-                aluno_retorno.setSenha(rs.getString("senha"));
-                aluno_retorno.setTelefone(rs.getString("telefone"));
-                aluno_retorno.setTipo(rs.getInt("tipo"));
-                aluno_retorno.setMatricula(rs.getString("matricula"));
-                aluno_retorno.setDataNascimento(rs.getDate("data_de_Nascimento"));
+                alunoretorno = new Aluno();
+                alunoretorno.setMatricula(rs.getString("matricula"));
+                alunoretorno.setSenha(rs.getString("senha"));
+                alunoretorno.setNome(rs.getString("nome"));
             }
-            return aluno_retorno;
 
         } catch (SQLException ex) {
-            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            java.util.logging.Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Falha a buscar em AlunoDao", ex);
+
         }
+        return alunoretorno;
     }
 
     public void adiciona(Aluno aluno) {
-        String sql = "insert into Aluno"
-                + "(id_Aluno,nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento)"
+        String sql = "insert into Aluno (id_Curso,nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento)"
                 + "values(?,?,?,?,?,?,?,?,?)";
         try {
             //prepared statement para inserção
             PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
             //seta os valores
-            stmt.setInt(1, aluno.getIdAluno());
+            stmt.setInt(1, aluno.getCurso().getIdCurso());
             stmt.setString(2, aluno.getNome());
             stmt.setString(3, aluno.getCpf());
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getSenha());
             stmt.setString(6, aluno.getTelefone());
-            stmt.setInt(7, aluno.getTipo());
+            stmt.setInt(7, 4);
             stmt.setString(8, aluno.getMatricula());
             stmt.setDate(9, aluno.getDataNascimento());
 
@@ -88,20 +76,15 @@ public class AlunoDao {
         }
     }
 
-    /**
-     * Retorna Lista de Alunos do banco de dados
-     *
-     * @return
-     */
-    public ArrayList<Aluno> getLista() {
-        String sql = "SELECT * FROM aluno";
-
+    public ArrayList<Aluno> getLista(){        
+        String sql = "SELECT * FROM aluno ORDER BY nome asc";
+        ArrayList<Aluno> alunos = new ArrayList<Aluno>();
         try {
-            ArrayList<Aluno> alunos = new ArrayList();
+            
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-
             while (rs.next()) {
+                
                 Aluno aluno = new Aluno();
                 aluno.setIdAluno(rs.getInt("id_Aluno"));
                 aluno.setNome(rs.getString("nome"));
@@ -116,21 +99,17 @@ public class AlunoDao {
             }
             rs.close();
             stmt.close();
-            return alunos;
+            
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+        return alunos;
     }
-
-    /**
-     * Retorna Busca por único Aluno
-     * @param idAluno
-     * @return 
-     */
+    
     public Aluno getAluno(int idAluno) {
         Aluno aluno = new Aluno();
-        String sql = "SELECT * FROM aluno WHERE id_Aluno = ?";
+        String sql = "SELECT * FROM Aluno WHERE id_Aluno = ?";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -154,6 +133,75 @@ public class AlunoDao {
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+    
+    public boolean cpfJaCadastrado(String cpf){
+        String sql = "SELECT * FROM Aluno where cpf like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,cpf);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean emailJaCadastrado(String email){
+        String sql = "SELECT * FROM Aluno where email like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,email);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean matriculaJaCadastrado(String matricula){
+        String sql = "SELECT * FROM Aluno where matricula like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,matricula);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 }

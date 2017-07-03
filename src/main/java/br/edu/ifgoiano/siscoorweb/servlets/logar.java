@@ -80,5 +80,4 @@ public class logar extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
