@@ -5,7 +5,7 @@
 --%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
-<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Nova Disciplina" title="SisCoor | Gerenciar Conteúdo | Nova Disciplina" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
+<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Nova Disciplina" title="SisCoor | Gerenciar Conteúdo | Nova Disciplina" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
 <tag:open_coluna tamanho="12"/>

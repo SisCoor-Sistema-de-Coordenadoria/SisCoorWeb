@@ -13,7 +13,7 @@
 <%Disciplina[] discips = {new Disciplina("LTP II"), new Disciplina("Arquitetura"), new Disciplina("Governança de TI"), new Disciplina("Redes III")};%>
 
 <%if (session.getAttribute("olho_servlet_horario") == null) { //condição para verificar se a tela já passou por alguma servlet%>
-<tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo Horário de Aulas" usuario="<%=(String)session.getAttribute("nomeUsuario")%>" horarioAtivo="active"/>
+<tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo Horário de Aulas" horarioAtivo="active"/>
 <%} else{%>
 <tag:header paramVolta="<%=(String) session.getAttribute("param_volta_servlet")%>" title="SisCoor | Módulo Hr. de Aula" caminho="<%=(String) session.getAttribute("caminho_servlet")%>" titlePage="Módulo Horário de Aulas" usuario="Tarcísio R. Júnior" horarioAtivo="active"/>
 <%}%>
