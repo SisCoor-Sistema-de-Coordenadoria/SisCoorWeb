@@ -124,8 +124,43 @@ public class PropostaDAO {
      *
      * @return
      */
-    public boolean atualizaDados() {
-        return false;
+    public boolean atualizaDados(PropostaTrabalho proposta) {
+        String sql = "UPDATE Proposta SET "
+                + "titulo = ?, "
+                + "id_aluno_1 = ?, "
+                + "id_aluno_2 = ?, "
+                + "id_Orientador_1 = ?, "
+                + "id_Orientador_2 = ?, "
+                + "data_Envio = ?, "
+                + "hora_envio = ?, "
+                + "caminho = ? WHERE id_Proposta = ?";
+        
+        String desativa = "SET FOREIGN_KEY_CHECKS=0;";
+        String ativa = "SET FOREIGN_KEY_CHECKS=1";
+
+        //System.out.println(sql);
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, proposta.getTituloPTC());
+            stmt.setInt(2, proposta.getAluno1().getIdAluno());
+            stmt.setInt(3, proposta.getAluno2().getIdAluno());
+            stmt.setInt(4, proposta.getOrientador().getIdServidor());
+            stmt.setInt(5, proposta.getCoorientador().getIdServidor());
+            stmt.setString(6, proposta.getDataEnvio());
+            stmt.setString(7, proposta.getHoraEnvio());
+            stmt.setString(8, proposta.getCaminhoArquivo());
+            stmt.setInt(9, proposta.getIdProposta());
+            
+            stmt.execute(desativa);
+            stmt.execute();
+            stmt.execute(ativa);
+            
+            stmt.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PropostaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     /**
@@ -145,7 +180,7 @@ public class PropostaDAO {
                 PropostaTrabalho trabalho = new PropostaTrabalho();
                 AlunoDao p_aluno = new AlunoDao();
                 ServidorDao p_servidor = new ServidorDao();
-                
+
                 trabalho.setTitulo(rs.getString("titulo"));
                 trabalho.setAluno1(p_aluno.getAluno(rs.getInt("id_aluno_1")));
                 trabalho.setAluno2(p_aluno.getAluno(rs.getInt("id_aluno_2")));
@@ -169,21 +204,22 @@ public class PropostaDAO {
 
     /**
      * Retorna Busca por única proposta
+     *
      * @param idProposta
-     * @return 
+     * @return
      */
-    public PropostaTrabalho getProposta(int idProposta){
+    public PropostaTrabalho getProposta(int idProposta) {
         String sql = "SELECT * FROM proposta WHERE id_Proposta = ?";
         PropostaTrabalho trabalho = new PropostaTrabalho();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, idProposta);
             ResultSet rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
                 AlunoDao p_aluno = new AlunoDao();
                 ServidorDao p_servidor = new ServidorDao();
-                
+
                 trabalho.setTitulo(rs.getString("titulo"));
                 trabalho.setAluno1(p_aluno.getAluno(rs.getInt("id_aluno_1")));
                 trabalho.setAluno2(p_aluno.getAluno(rs.getInt("id_aluno_2")));
@@ -198,7 +234,7 @@ public class PropostaDAO {
             rs.close();
             stmt.close();
             return trabalho;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(PropostaDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;

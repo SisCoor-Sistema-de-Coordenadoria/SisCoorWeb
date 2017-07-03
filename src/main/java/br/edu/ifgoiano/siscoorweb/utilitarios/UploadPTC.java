@@ -87,7 +87,7 @@ public class UploadPTC {
                         }
                     } else {
 
-                        form.put(fi.getFieldName(), convertString(fi.getString()));
+                        form.put(fi.getFieldName(), fi.getString());
 
                     }
                 }
@@ -101,17 +101,5 @@ public class UploadPTC {
             ret = false;
         }
         return ret;
-    }
-
-    /**
-     * Retorna String do tipo UTF-8
-     * @param texto
-     * @return
-     * @throws UnsupportedEncodingException 
-     */
-    public static String convertString(String texto) throws UnsupportedEncodingException {
-        byte[] valor = texto.getBytes();
-        String nTexto = new String(valor, "UTF-8");
-        return nTexto;
     }
 }

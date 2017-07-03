@@ -36,6 +36,7 @@
         <link type="text/css" rel="stylesheet" href="${caminho}/styles/pace.css">
         <link type="text/css" rel="stylesheet" href="${caminho}/styles/jquery.news-ticker.css">
         <script src="${caminho}/script/jquery-1.10.2.min.js"></script>
+        <script src="${caminho}/script/bootstrap.min.js"></script>
     </head>
     <body style="color: black">
         <div>

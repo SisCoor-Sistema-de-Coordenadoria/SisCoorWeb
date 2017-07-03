@@ -15,6 +15,7 @@ import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -221,7 +222,7 @@ public class UploadServlet extends HttpServlet {
      * @param caminho
      * @return
      */
-    public PropostaTrabalho setProposta(PropostaTrabalho proposta, UploadPTC up, String caminho, HttpSession session) {
+    public PropostaTrabalho setProposta(PropostaTrabalho proposta, UploadPTC up, String caminho, HttpSession session) throws UnsupportedEncodingException {
         String[] pegaDataHora;
         pegaDataHora = getDataHora(1);
 
@@ -308,7 +309,7 @@ public class UploadServlet extends HttpServlet {
         }
         proposta.setOrientador(orientador);
         
-        proposta.setTitulo(String.valueOf(up.getForm().get("tituloPTC")));
+        proposta.setTitulo(convertString(String.valueOf(up.getForm().get("tituloPTC"))));
         proposta.setCaminhoArquivo(caminho);
         proposta.setDataEnvio(pegaDataHora[0]);
         proposta.setHoraEnvio(pegaDataHora[1]);
@@ -363,4 +364,17 @@ public class UploadServlet extends HttpServlet {
         return 0;
     }
 
+        /**
+     * Retorna String do tipo UTF-8
+     *
+     * @param texto
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public static String convertString(String texto) throws UnsupportedEncodingException {
+        byte[] valor = texto.getBytes();
+        String nTexto = new String(valor, "UTF-8");
+        return nTexto;
+    }
+    
 }

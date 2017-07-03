@@ -72,14 +72,17 @@
     }%>
 
 <!-- Verifica se é aluno ou cordenador que esta usando o módulo -->
-<%if (session.getAttribute("tipoUsuario").toString().equals("2")) {%>
+<%if (session.getAttribute("tipoUsuario").toString().equals("3") || session.getAttribute("tipoUsuario").toString().equals("-1")) {%>
 <tag:open_coluna tamanho="2" />
 <div class="row">
     <div class="container-fluid">
-        <button value="Novo Aluno" name="btn_propostaSubmissao" class="btn btn-default">
+        <button value="Novo Aluno" name="btn_propostaSubmissao" class="btn btn-blue">
             Novo Aluno
         </button>
     </div>
+</div>
+<div class="row">
+    
 </div>
 <tag:close_coluna/>
 
@@ -109,7 +112,7 @@
                         </div>
 
                         <!--Condição que checa se é aluno ou cordenador do curso -->
-                        <%if (session.getAttribute("tipoUsuario").toString().equals("1")) {%>
+                        <%if (session.getAttribute("tipoUsuario").toString().equals("4") || session.getAttribute("tipoUsuario").toString().equals("5")) {%>
 
                         <!-- ID Aluno01 -->
                         <div class="col-md-12" hidden="enable">
@@ -275,7 +278,7 @@
                         </div>
 
                         <!--Condição que checa se é aluno ou cordenador do curso -->
-                        <%if (session.getAttribute("tipoUsuario").toString().equals("1")) {%>
+                        <%if (session.getAttribute("tipoUsuario").toString().equals("4") || session.getAttribute("tipoUsuario").toString().equals("5")) {%>
 
                         <!-- ID Aluno01 -->
                         <div class="col-md-12" hidden="enable">
