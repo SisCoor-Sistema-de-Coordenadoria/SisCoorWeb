@@ -9,7 +9,6 @@ import br.edu.ifgoiano.hotel.utilitarios.ValidaData;
 import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
 import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
-import br.edu.ifgoiano.siscoorweb.utilitarios.ValidaEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -43,7 +42,7 @@ public class CadastroAlunoServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (request.getParameter("bt_cad").equals("voltar")) {
-            response.sendRedirect("tela_login/login_servidor.jsp");
+            response.sendRedirect("tela_login/login_aluno.jsp");
         } else {
             boolean erroCpf = false;
             boolean erroEmail = false;
@@ -53,10 +52,7 @@ public class CadastroAlunoServlet extends HttpServlet {
             boolean erroSenha = false;
             boolean erroCSenha = false;
             boolean erroVazio = false;
-            boolean erroCpfCad = false;
-            boolean erroEmailCad = false;
-            boolean erroMatriculaCad = false;
-            boolean erroAceite = false;
+            boolean erroTermos = false;
 
             String snome = request.getParameter("nome");
             String scpf = request.getParameter("cpf");
@@ -70,31 +66,42 @@ public class CadastroAlunoServlet extends HttpServlet {
             String smes = request.getParameter("dataMes");
             String sano = request.getParameter("dataAno");
 
-            
-            if (snome.isEmpty() || scpf.isEmpty() || semail.isEmpty() || stelefone.isEmpty() || sddd.isEmpty() || sdia.isEmpty() || smes.isEmpty() || sano.isEmpty() || smatricula.isEmpty() || ssenha.isEmpty() || sconfirmsenha.isEmpty()) {
+            if (snome.isEmpty() || scpf.isEmpty() || semail.isEmpty() || ssenha.isEmpty() || sddd.isEmpty() || stelefone.isEmpty() || smatricula.isEmpty() || sconfirmsenha.isEmpty() || sdia.isEmpty() || smes.isEmpty() || sano.isEmpty()) {
+                session.setAttribute("erro_cadastro", "vazio");
                 erroVazio = true;
-            }
-
-            String aceite = String.valueOf(request.getParameter("aceito"));
-            if (aceite.equals("null")) {
-                erroAceite = true;
             }
 
             Date sdata = new Date(1);
             try {
-                long cpf = Long.parseLong(scpf);
-
-                if (scpf.length() != 11) {
+                if (scpf.length() != 11 && !scpf.isEmpty()) {
+                    session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "cpf_inv" : (session.getAttribute("erro_cadastro") + "|" + "cpf_inv"));
                     erroCpf = true;
+                } else if (scpf.isEmpty()); else {
+                    long cpf = Long.parseLong(scpf);
                 }
             } catch (NumberFormatException nfe) {
-                if (scpf.length() != 11 && !scpf.isEmpty()) {
-                    erroCpf = true;
-                } else if (scpf.isEmpty());
+                session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "cpf_inv" : (session.getAttribute("erro_cadastro") + "|" + "cpf_inv"));
+                erroCpf = true;
             } finally {
-                if (ValidaEmail.validaEmail(semail) && !semail.isEmpty()) {
+                if (semail.contains("@") && semail.contains(".") && !semail.isEmpty()) {
+                    if ((semail.indexOf("@") != semail.lastIndexOf("@")) || (semail.indexOf("@") >= semail.indexOf(".") || (semail.indexOf(".") - semail.indexOf("@") < 2) || (semail.indexOf("@") == 0 || semail.indexOf(".") == semail.length() - 1))) {
+                        session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "email_inv" : (session.getAttribute("erro_cadastro") + "|" + "email_inv"));
+                        erroEmail = true;
+                    } else {
+                        char[] emailChar = semail.toCharArray();
+                        for (int i = 0; i < emailChar.length - 1; i++) {
+                            if (emailChar[i] == '.' && emailChar[i + 1] == '.') {
+                                session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "email_inv" : (session.getAttribute("erro_cadastro") + "|" + "email_inv"));
+                                erroEmail = true;
+                                break;
+                            }
+                        }
+                    }
+                } else if (semail.isEmpty()); else {
+                    session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "email_inv" : (session.getAttribute("erro_cadastro") + "|" + "email_inv"));
                     erroEmail = true;
-                } else if (semail.isEmpty());
+                }
+
                 try {
                     if (sddd.isEmpty() || stelefone.isEmpty()); else {
                         int telDdd = Integer.parseInt(sddd);
@@ -102,14 +109,18 @@ public class CadastroAlunoServlet extends HttpServlet {
                     }
                 } catch (NumberFormatException nfe) {
                     erroTelefone = true;
+                    session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "telefone_inv" : (session.getAttribute("erro_cadastro") + "|" + "telefone_inv"));
                 } finally {
                     try {
+
                         if (ValidaData.validaData(Integer.parseInt((String) request.getParameter("dataDia")), Integer.parseInt((String) request.getParameter("dataMes")), Integer.parseInt((String) request.getParameter("dataAno"))) && !sdia.equals("00") && !smes.equals("00") && !sano.equals("00")) {
                             sdata = Date.valueOf(request.getParameter("dataAno") + "-" + request.getParameter("dataMes") + "-" + request.getParameter("dataDia"));
                         } else if (sdia.equals("00") || smes.equals("00") || sano.equals("00")); else {
+                            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "data" : (session.getAttribute("erro_cadastro") + "|" + "data"));
                             erroDataNasc = true;
                         }
                     } catch (IllegalArgumentException iae) {
+                        session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "data" : (session.getAttribute("erro_cadastro") + "|" + "data"));
                         erroDataNasc = true;
                     } finally {
                         try {
@@ -117,59 +128,49 @@ public class CadastroAlunoServlet extends HttpServlet {
                                 long matricula = Long.parseLong(smatricula);
                             } else;
                         } catch (NumberFormatException nfe) {
+                            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "matricula_inv" : (session.getAttribute("erro_cadastro") + "|" + "matricula_inv"));
                             erroMatricula = true;
                         } finally {
                             if (ssenha.length() < 6 && !ssenha.isEmpty()) {
+                                session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "senha_peq" : (session.getAttribute("erro_cadastro") + "|" + "senha_peq"));
                                 erroSenha = true;
                             } else {
                                 if (!ssenha.equals(sconfirmsenha) && !ssenha.isEmpty() && !sconfirmsenha.isEmpty()) {
                                     erroCSenha = true;
+                                    session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "senhas_dif" : (session.getAttribute("erro_cadastro") + "|" + "senhas_dif"));
                                 }
                             }
-                            
-                            if (!erroCpf && !erroDataNasc && !erroEmail && !erroMatricula && !erroSenha && !erroTelefone && !erroCSenha && !erroAceite) {
 
-                                if (!erroVazio) {
-                                    AlunoDao adao = new AlunoDao();
+                            if (!erroCpf && !erroDataNasc && !erroEmail && !erroMatricula && !erroSenha && !erroTelefone && !erroCSenha) {
+                                String aceite = String.valueOf(request.getParameter("aceito"));
+                                if (aceite.equals("null")) {
+                                    session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "termos_uso" : (session.getAttribute("erro_cadastro") + "|" + "termos_uso"));
+                                } else {
+                                    if (!erroVazio) {
+                                        Aluno a = new Aluno();
 
-                                    erroCpfCad = adao.cpfJaCadastrado(scpf);
-                                    erroEmailCad = adao.emailJaCadastrado(semail);
-                                    erroMatriculaCad = adao.matriculaJaCadastrado(smatricula);
+                                        a.setNome(snome);
+                                        a.setCpf(scpf);
+                                        a.setEmail(semail);
+                                        a.setSenha(ssenha);
+                                        a.setTelefone(sddd + stelefone);
+                                        a.setMatricula(smatricula);
+                                        a.setDataNascimento(sdata);
 
-                                    if (!erroCpfCad && !erroEmailCad && !erroMatriculaCad) {
-                                        boolean adicionar = adicionarAluno(snome, scpf, semail, ssenha, sddd, stelefone, smatricula, sdata);
-                                        if (adicionar) {
-                                            session.setAttribute("erro_cadastro", "false");
-                                        }
+                                        AlunoDao adao = new AlunoDao();
+                                        a.setSenha(Criptografia.criptografar(a.getSenha()).toLowerCase());
+                                        adao.adiciona(a);
+
+                                        session.setAttribute("erro_cadastro", "false");
                                     }
                                 }
                             }
                         }
                     }
                 }
-
             }
-            setaErrosSessao(session, erroEmail, erroTelefone, erroDataNasc, erroMatricula, erroSenha, erroCSenha, erroVazio, erroCpf, erroAceite, erroEmailCad, erroMatriculaCad, erroCpfCad);
-
             response.sendRedirect("tela_login/cadastro_aluno.jsp");
         }
-    }
-
-    public static boolean adicionarAluno(String snome, String scpf, String semail, String ssenha, String sddd, String stelefone, String smatricula, Date sdata) {
-        Aluno a = new Aluno();
-        AlunoDao adao = new AlunoDao();
-
-        a.setNome(snome);
-        a.setCpf(scpf);
-        a.setEmail(semail);
-        a.setSenha(ssenha);
-        a.setTelefone(sddd + stelefone);
-        a.setMatricula(smatricula);
-        a.setDataNascimento(sdata);
-
-        a.setSenha(Criptografia.criptografar(a.getSenha()).toLowerCase());
-        adao.adiciona(a);
-        return true;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -211,71 +212,4 @@ public class CadastroAlunoServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    /**
-     * Método responsável por setar os erros na sessão, para exibir a mensagem
-     * adequada na tela de cadastro.
-     *
-     * @param session
-     * @param erroEmail
-     * @param erroTelefone
-     * @param erroDataNasc
-     * @param erroMatricula
-     * @param erroSenha
-     * @param erroCSenha
-     * @param erroVazio
-     * @param erroCpf
-     * @param erroAceite
-     * @param erroEmailCad
-     * @param erroMatriculaCad
-     * @param erroCpfCad
-     */
-    public static void setaErrosSessao(HttpSession session, boolean erroEmail, boolean erroTelefone, boolean erroDataNasc, boolean erroMatricula, boolean erroSenha, boolean erroCSenha, boolean erroVazio, boolean erroCpf, boolean erroAceite, boolean erroEmailCad, boolean erroMatriculaCad, boolean erroCpfCad) {
-        if (erroVazio) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "vazio" : (session.getAttribute("erro_cadastro") + "|" + "vazio"));
-        }
-
-        if (erroSenha) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "senha_peq" : (session.getAttribute("erro_cadastro") + "|" + "senha_peq"));
-        }
-
-        if (erroMatricula) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "matricula_inv" : (session.getAttribute("erro_cadastro") + "|" + "matricula_inv"));
-        }
-
-        if (erroCpf) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "cpf_inv" : (session.getAttribute("erro_cadastro") + "|" + "cpf_inv"));
-        }
-
-        if (erroEmail) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "email_inv" : (session.getAttribute("erro_cadastro") + "|" + "email_inv"));
-        }
-
-        if (erroTelefone) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "telefone_inv" : (session.getAttribute("erro_cadastro") + "|" + "telefone_inv"));
-        }
-
-        if (erroCSenha) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "senhas_dif" : (session.getAttribute("erro_cadastro") + "|" + "senhas_dif"));
-        }
-
-        if (erroAceite) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "termos_uso" : (session.getAttribute("erro_cadastro") + "|" + "termos_uso"));
-        }
-
-        if (erroCpfCad) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "cpf_existe" : (session.getAttribute("erro_cadastro") + "|" + "cpf_existe"));
-        }
-
-        if (erroMatriculaCad) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "matricula_existe" : (session.getAttribute("erro_cadastro") + "|" + "matricula_existe"));
-        }
-
-        if (erroEmailCad) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "email_existe" : (session.getAttribute("erro_cadastro") + "|" + "email_existe"));
-        }
-
-        if (erroDataNasc) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "data_inv" : (session.getAttribute("erro_cadastro") + "|" + "data_inv"));
-        }
-    }
 }

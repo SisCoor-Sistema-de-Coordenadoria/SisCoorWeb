@@ -67,20 +67,21 @@ public class ServidorDao {
      */
     public void adiciona(Servidor servidor) {
         String sql = "insert into Servidor"
-                + "(nome,cpf,email,suap,senha,telefone,tipo,data_nascimento)"
-                + "values(?,?,?,?,?,?,?,?)";
+                + "(id,nome,cpf,email,suap,,senha,telefone,tipo,data_de_Nascimento)"
+                + "values(?,?,?,?,?,?,?,?,?)";
         try {
             //prepared statement para inserção
             PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
             //seta os valores
-            stmt.setString(1, servidor.getNome());
-            stmt.setString(2, servidor.getCpf());
-            stmt.setString(3, servidor.getEmail());
-            stmt.setString(4, servidor.getSiape());
-            stmt.setString(5, servidor.getSenha());
-            stmt.setString(6, servidor.getTelefone());
-            stmt.setInt(7, servidor.getTipo());
-            stmt.setDate(8, servidor.getDataNascimento());
+            stmt.setInt(1, servidor.getIdServidor());
+            stmt.setString(2, servidor.getNome());
+            stmt.setString(3, servidor.getCpf());
+            stmt.setString(4, servidor.getEmail());
+            stmt.setString(5, servidor.getSiape());
+            stmt.setString(6, servidor.getSenha());
+            stmt.setString(7, servidor.getTelefone());
+            stmt.setInt(8, servidor.getTipo());
+            stmt.setDate(9, servidor.getDataNascimento());
 
             //executa
             stmt.execute();
@@ -158,73 +159,4 @@ public class ServidorDao {
             return null;
         }
     }
-    public boolean cpfJaCadastrado(String cpf){
-        String sql = "SELECT * FROM Servidor where cpf like ?";
-        
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            
-            stmt.setString(1,cpf);
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            boolean existe = rs.first();
-            
-            System.out.println(existe);
-            
-            rs.close();
-            stmt.close();
-            return existe;
-        } catch (SQLException ex) {
-            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-    
-    public boolean emailJaCadastrado(String email){
-        String sql = "SELECT * FROM Servidor where email like ?";
-        
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            
-            stmt.setString(1,email);
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            boolean existe = rs.first();
-            
-            System.out.println(existe);
-            
-            rs.close();
-            stmt.close();
-            return existe;
-        } catch (SQLException ex) {
-            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-    
-    public boolean siapeJaCadastrado(String siape){
-        String sql = "SELECT * FROM Servidor where suap like ?";
-        
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            
-            stmt.setString(1,siape);
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            boolean existe = rs.first();
-            
-            System.out.println(existe);
-            
-            rs.close();
-            stmt.close();
-            return existe;
-        } catch (SQLException ex) {
-            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-    
 }

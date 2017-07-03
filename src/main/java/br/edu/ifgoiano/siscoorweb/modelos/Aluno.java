@@ -21,7 +21,6 @@ public class Aluno {
     private String telefone;
     private Date dataNascimento; 
     private int tipo;
-    private Curso curso;
 
     public Aluno(String nome) {
         this.nome = nome;

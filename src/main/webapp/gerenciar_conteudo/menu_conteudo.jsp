@@ -6,7 +6,7 @@
 
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
-<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo" title="SisCoor | Gerenciar Conteúdo" crudMenuConteudoAtivo="active"/>
+<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo" title="SisCoor | Gerenciar Conteúdo" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
 <tag:open_coluna tamanho="12"/>

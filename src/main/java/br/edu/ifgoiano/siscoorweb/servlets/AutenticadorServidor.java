@@ -8,8 +8,8 @@ package br.edu.ifgoiano.siscoorweb.servlets;
 
 import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
-import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,21 +36,17 @@ public class AutenticadorServidor extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       HttpSession session = request.getSession();
-        
-            ServidorDao sdao = new ServidorDao();
-            Servidor s = new Servidor();
-            
-           
-          String ssiap=request.getParameter("siap");
-          String ssenha=Criptografia.criptografar(request.getParameter("senha")).toLowerCase();
+       
+          String ssuap=request.getParameter("suap");
+          String ssenha=request.getParameter("senha");
           
           Servidor a = new Servidor();
-          a.setSiape(ssiap);
+          a.setSiape(ssuap);
           a.setSenha(ssenha);
           ServidorDao adao = new ServidorDao();
           Servidor a_autenticado = adao.autenticacao(a);
           if(a_autenticado != null){
+              HttpSession session = request.getSession();
               session.setAttribute("idUsuario", a_autenticado.getIdServidor());
               session.setAttribute("nomeUsuario", a_autenticado.getNome());
               session.setAttribute("senhaUsuario", a_autenticado.getSenha());
@@ -60,14 +56,9 @@ public class AutenticadorServidor extends HttpServlet {
               session.setAttribute("tipoUsuario", a_autenticado.getTipo());
               session.setAttribute("siapUsuario", a_autenticado.getSiape());
               session.setAttribute("dataNascimentoUsu", a_autenticado.getDataNascimento());
-              response.sendRedirect("../SisCoorWeb/logado.jsp");              
+              response.sendRedirect("../SisCoorWeb/pag_principal.jsp");              
           }else{
-              if(request.getParameter("siape").isEmpty()||request.getParameter("senha").isEmpty()){
-                  session.setAttribute("erro_login", "vazio");
-              }else{
-                  session.setAttribute("erro_login", "validacao");
-              }
-              response.sendRedirect("tela_login/login_servidor.jsp");
+              response.sendRedirect("login_siscoor/ErrorLoginServidor.jsp");
           }
         
     }

@@ -11,7 +11,7 @@
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Servidor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
-<tag:headerHome title="SisCoor Web - 1.0" titlePage="Início" caminho="resources"/>
+<tag:headerHome title="SisCoor Web - 1.0" titlePage="Início" usuario="<%=(String)session.getAttribute("nomeUsuario")%>" caminho="resources"/>
 
 <tag:conteudoInicio />
 <!--

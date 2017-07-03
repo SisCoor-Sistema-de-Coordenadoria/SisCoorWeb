@@ -10,6 +10,7 @@ import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
 import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,7 +62,7 @@ public class AutenticadorAluno extends HttpServlet {
               session.setAttribute("tipoUsuario", a_autenticado.getTipo());
               session.setAttribute("matriculaUsuario", a_autenticado.getMatricula());
               session.setAttribute("dataNascimentoUsu", a_autenticado.getDataNascimento());
-              response.sendRedirect("../SisCoorWeb/logado.jsp");
+              response.sendRedirect("../SisCoorWeb/pag_principal.jsp");
              
           }else{
               if(request.getParameter("matricula").isEmpty()||request.getParameter("senha").isEmpty()){

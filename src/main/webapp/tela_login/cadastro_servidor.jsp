@@ -1,5 +1,5 @@
 <%-- 
-    Document   : cadastro_servidor
+    Document   : cadastro_aluno
     Created on : 27/05/2017, 17:09:38
     Author     : Tarcísio e Joesio
 --%>
@@ -37,8 +37,8 @@
     <%
             session.setAttribute("erro_cadastro", null);
         }
-        if (erros.contains("siape_inv")) {%>
-    <br>-> O campo "Núm. do Siape" deve conter apenas números!
+        if (erros.contains("matricula_inv")) {%>
+    <br>-> O campo "Núm. de Matrícula" deve conter apenas números!
     <%
             session.setAttribute("erro_cadastro", null);
         }
@@ -64,26 +64,6 @@
         }
         if (erros.contains("termos_uso")) {%>
     <br>-> Para se cadastrar no sistema, você deverá aceitar os termos de uso!
-    <%
-            session.setAttribute("erro_cadastro", null);
-        }
-        if (erros.contains("cpf_existe")) {%>
-    <br>-> CPF já cadastrado no sistema!
-    <%
-            session.setAttribute("erro_cadastro", null);
-        }
-        if (erros.contains("email_existe")) {%>
-    <br>-> E-mail já cadastrado no sistema!
-    <%
-            session.setAttribute("erro_cadastro", null);
-        }
-        if (erros.contains("siape_existe")) {%>
-    <br>-> Siape já cadastrado no sistema!
-    <%
-            session.setAttribute("erro_cadastro", null);
-        }
-        if (erros.contains("data_inv")) {%>
-    <br>-> Digite uma data de nascimento válida!
     <%
             session.setAttribute("erro_cadastro", null);
         }
@@ -131,12 +111,6 @@
                                 <input name="email" id="inputEmail" type="text" placeholder="Formato: email@dominio.com" class="form-control" /></div>
                         </div>
                         <br>
-                    </div>
-                    <div class="form-group" style="padding: 5px">
-                        <label class="col-md-3 control-label">* Cargo exercido:</label>
-                        <label><input type="radio" name="cargo" value="1" style="margin-left:20px;margin-right: 10px"/>Técnico Administrativo</label>
-                        <label><input type="radio" name="cargo" value="2" style="margin-left:40px; margin-right: 10px"/>Professor</label>
-
                     </div>
                     <div class="form-group" style="padding:5px">
                         <label class="col-md-3 control-label">
@@ -243,53 +217,12 @@
                                 <input tabindex="5" type="checkbox" />&nbsp; Aceito receber notícias e novidades do sistema.</label></div>
                     </div>
                     -->
-                    <div class="row">
-                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                        <textarea rows="7" cols="65" readonly class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="text-align: justify">Os documentos, informações, imagens e gráficos publicados neste projeto podem conter imprecisões técnicas ou erros tipográficos. Em nenhuma hipótese o SisCoor Web - 1.0 e/ou seus respectivos fornecedores serão responsáveis por qualquer dano direto ou indireto decorrente da impossibilidade de uso, perda de dados ou lucros, resultante do acesso e desempenho do site, dos serviços oferecidos ou de informações disponíveis neste projeto. O acesso aos serviços, materiais, informações e facilidades contidas neste projeto não garante a sua qualidade.
 
-1-) Limitação da responsabilidade
-
-Os materiais são fornecidos neste projeto sem nenhuma garantia explícita ou implícita de comercialização ou adequação a qualquer objetivo específico.
-Em nenhum caso o SisCoor Web - 1.0 ou os seus colaboradores serão responsabilizados por quaisquer danos, incluindo lucros cessantes, interrupção de negócio, ou perda de informação que resultem do uso ou da incapacidade de usar os materiais. 
-O SisCoor Web - 1.0 não garante a precisão ou integridade das informações, textos, gráficos, links e outros itens dos materiais. O SisCoor Web - 1.0 não se responsabiliza pelo conteúdo dos artigos e informações aqui publicadas, uma vez que os textos são de autoria de terceiros e não traduzem, necessariamente, a opinião da aplicação. O SisCoor Web - 1.0 tampouco é responsável pela violação de direitos autorais decorrente de informações, documentos e materiais publicados neste
-Projeto, comprometendo-se a retirá-los do ar assim que notificado da infração.
-
-
-2-) Informações enviadas pelos usuários e colaboradores
-
- Qualquer material, informação, artigos ou outras comunicações que forem transmitidas, enviadas ou publicadas neste projeto serão considerados informação não confidencial, e qualquer violação aos direitos dos seus criadores não será de responsabilidade do SisCoor Web - 1.0 É terminantemente proibido transmitir, trocar ou publicar, através desta aplicação, qualquer material de cunho obsceno, difamatório ou ilegal, bem como textos ou criações de terceiros sem a autorização do autor. O SisCoor Web - 1.0 reserva-se o direito de restringir o acesso às informações enviadas por terceiros aos seus usuários. 
-  
-O SisCoor Web - 1.0 poderá, mas não é obrigado, a monitorar, revistar e restringir o acesso a qualquer área no site onde usuários transmitem e trocam informações entre si, incluindo, mas não limitado a salas de chat, centro de mensagens ou outros fóruns de debates, podendo retirar do ar ou retirar o acesso a qualquer destas informações ou comunicações.  Porém, o SisCoor Web - 1.0 não é responsável pelo conteúdo de qualquer uma das informações trocadas entre os usuários, sejam elas lícitas ou ilícitas.
-
-3-) Links para sites de terceiros
-
-Os sites apontados não estão sob o controle do SisCoor Web - 1.0 que não é responsável pelo conteúdo de qualquer outro website indicado ou acessado por meio do SisCoor Web - 1.0 reserva-se o direito de eliminar qualquer link ou direcionamento a outros sites ou serviços a qualquer momento. O SisCoor Web - 1.0 não endossa firmas ou produtos indicados, acessados ou divulgados através deste website, tampouco pelos anúncios aqui publicados, reservando-se o direito de publicar este alerta em suas páginas eletrônicas sempre que considerar necessário.
-
-4-) Direitos autorais e propriedade intelectual
-
-Os documentos, conteúdos e criações contidos neste website pertencem aos seus criadores e colaboradores. A autoria dos conteúdo, material e imagens exibidos no SisCoor Web - 1.0 é protegida por leis nacionais e internacionais. Não podem ser copiados, reproduzidos, modificados, publicados, atualizados, postados, transmitidos ou distribuídos de qualquer maneira sem autorização prévia e por escrito do SisCoor Web - 1.0. As imagens contidas neste website são aqui incorporadas apenas para fins de visualização, e, salvo autorização expressa por escrito, não podem ser gravadas ou baixadas via download. A reprodução ou armazenamento de materiais recuperados a partir deste serviço sujeitará os infratores às penas da lei. O nome do projeto SisCoor Web - 1.0, seu logotipo, bem como todos os elementos característicos da tecnologia desenvolvida e aqui apresentada, sob a forma da articulação de bases de dados, constitui marcas registradas e propriedades intelectuais privadas e todos os direitos decorrentes de seu registro são assegurados por lei.
-
- Alguns direitos de uso podem ser cedidos por SisCoor Web - 1.0 em contrato ou licença especial, que pode ser cancelada a qualquer momento se não cumpridos os seus termos. As marcas registradas do SisCoor Web - 1.0 só podem ser usadas publicamente com autorização expressa. O uso destas marcas registradas em publicidade e promoção de produtos deve ser adequadamente informado.
-
-5-) Reclamações sobre violação de direitos autorais
-
-O SisCoor Web - 1.0 respeita a propriedade intelectual de outras pessoas ou empresas e solicitamos aos nossos membros que façam o mesmo. Toda e qualquer violação de direitos autorais deverá ser notificada a SisCoor Web - 1.0 e acompanhada dos documentos e informações que confirmam a autoria. A notificação poderá ser enviada pelos e-mails constantes do site.
-
-6-) Leis aplicáveis
-
-Este site é controlado e operado pelo SisCoor Web - 1.0 a partir de seu escritório na cidade de Urutai estado de Goiás e não garante que o conteúdo ou materiais estejam disponíveis para uso em outras localidades. Seu acesso é proibido em territórios onde o conteúdo seja considerado ilegal. Aqueles que optarem por acessar este site a partir de outras localidades o farão por iniciativa própria e serão responsáveis pelo cumprimento das leis locais aplicáveis. Os materiais não deverão ser usados ou exportados em descumprimento das leis brasileiras sobre exportação. 
-Qualquer pendência com relação aos materiais será dirimida pelas leis brasileiras.
-
-O acesso ao SisCoor Web - 1.0 representa a aceitação expressa e irrestrita dos termos de uso acima descritos.
-
-                        </textarea>
-                    </div>
-                    <br>
                     <div class="form-group mbn">
-                        <div class="col-lg-1 col-sm-1 col-xs-1"></div>
+                        <div class="col-lg-1"></div>
                         <div class="checkbox">
                             <label>
-                                * <input tabindex="5" type="checkbox" value="aceito" name="aceito" />&nbsp; <strong>Aceito os Termos e Condições de Uso do SisCoor Web.</strong></label></div>
+                                * <input tabindex="5" type="checkbox" value="aceito" name="aceito"/>&nbsp; <strong>Aceito os Termos e Condições de Uso do SisCoor Web.</strong></label></div>
                     </div>
                 </div>
                 <div class="form-actions text-right pal">

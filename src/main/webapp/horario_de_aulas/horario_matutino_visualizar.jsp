@@ -8,7 +8,7 @@
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Servidor"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
-<tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo Horário de Aulas" horarioAtivo="active"/>
+<tag:header paramVolta="../../SisCoorWeb" title="SisCoor | Módulo Hr. de Aula" caminho="../resources" titlePage="Módulo Horário de Aulas" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" horarioAtivo="active"/>
 
 <tag:conteudoInicio/>
 

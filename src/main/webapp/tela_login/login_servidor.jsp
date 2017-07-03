@@ -42,7 +42,7 @@
                         <div class="col-md-9">
                             <div class="input-icon right">
                                 <i class="fa fa-user"></i>
-                                <input name="siape" id="inputSiape" type="text" class="form-control" /></div>
+                                <input name="matricula" id="inputMatricula" type="text" class="form-control" /></div>
                         </div>
                     </div>
                     <div class="form-group">
