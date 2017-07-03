@@ -10,7 +10,6 @@ import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
 import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,18 +42,25 @@ public class AutenticadorServidor extends HttpServlet {
             Servidor s = new Servidor();
             
            
-          String ssiape=request.getParameter("siape");
+          String ssiap=request.getParameter("siap");
           String ssenha=Criptografia.criptografar(request.getParameter("senha")).toLowerCase();
           
-          
-          s.setSiape(ssiape);
-          s.setSenha(ssenha);
-          
-          Servidor sautenticado = sdao.autenticacao(s);
-          if(sautenticado != null){
-              session.removeAttribute("erro_login");
-              session.setAttribute("nomeUsuario", sautenticado.getNome());
-              response.sendRedirect("logado.jsp");
+          Servidor a = new Servidor();
+          a.setSiape(ssiap);
+          a.setSenha(ssenha);
+          ServidorDao adao = new ServidorDao();
+          Servidor a_autenticado = adao.autenticacao(a);
+          if(a_autenticado != null){
+              session.setAttribute("idUsuario", a_autenticado.getIdServidor());
+              session.setAttribute("nomeUsuario", a_autenticado.getNome());
+              session.setAttribute("senhaUsuario", a_autenticado.getSenha());
+              session.setAttribute("emailUsuario", a_autenticado.getEmail());
+              session.setAttribute("cpfUsuario", a_autenticado.getCpf());
+              session.setAttribute("telefoneUsuario", a_autenticado.getTelefone());
+              session.setAttribute("tipoUsuario", a_autenticado.getTipo());
+              session.setAttribute("siapUsuario", a_autenticado.getSiape());
+              session.setAttribute("dataNascimentoUsu", a_autenticado.getDataNascimento());
+              response.sendRedirect("../SisCoorWeb/logado.jsp");              
           }else{
               if(request.getParameter("siape").isEmpty()||request.getParameter("senha").isEmpty()){
                   session.setAttribute("erro_login", "vazio");

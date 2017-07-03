@@ -10,7 +10,6 @@ import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
 import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,11 +50,19 @@ public class AutenticadorAluno extends HttpServlet {
           a.setMatricula(smatricula);
           a.setSenha(ssenha);
           
-          Aluno aautenticado = adao.autenticacao(a);
-          if(aautenticado != null){
-              session.removeAttribute("erro_login");
-              session.setAttribute("nomeUsuario", aautenticado.getNome());
-              response.sendRedirect("logado.jsp");
+          Aluno a_autenticado = adao.auntenticacao(a);
+          if(a_autenticado != null){
+              session.setAttribute("idUsuario", a_autenticado.getIdAluno());
+              session.setAttribute("nomeUsuario", a_autenticado.getNome());
+              session.setAttribute("senhaUsuario", a_autenticado.getSenha());
+              session.setAttribute("emailUsuario", a_autenticado.getEmail());
+              session.setAttribute("cpfUsuario", a_autenticado.getCpf());
+              session.setAttribute("telefoneUsuario", a_autenticado.getTelefone());
+              session.setAttribute("tipoUsuario", a_autenticado.getTipo());
+              session.setAttribute("matriculaUsuario", a_autenticado.getMatricula());
+              session.setAttribute("dataNascimentoUsu", a_autenticado.getDataNascimento());
+              response.sendRedirect("../SisCoorWeb/logado.jsp");
+             
           }else{
               if(request.getParameter("matricula").isEmpty()||request.getParameter("senha").isEmpty()){
                   session.setAttribute("erro_login", "vazio");
@@ -106,5 +113,5 @@ public class AutenticadorAluno extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }

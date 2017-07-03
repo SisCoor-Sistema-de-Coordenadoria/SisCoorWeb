@@ -27,6 +27,10 @@ public class Aluno {
         this.nome = nome;
     }
     
+    public Aluno(int idAluno) {
+        this.idAluno = idAluno;
+    }
+    
     public Aluno(String nome, int idAluno){
         this.nome = nome;
         this.idAluno = idAluno;
