@@ -5,9 +5,9 @@
  */
 package br.edu.ifgoiano.siscoorweb.servlets;
 
+
 import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
-import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,7 +15,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,31 +35,23 @@ public class AutenticadorServidor extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-
-        ServidorDao sdao = new ServidorDao();
-        Servidor s = new Servidor();
-
-        String ssiape = request.getParameter("siape");
-        String ssenha = Criptografia.criptografar(request.getParameter("senha")).toLowerCase();
-
-        s.setSiape(ssiape);
-        s.setSenha(ssenha);
-
-        Servidor aautenticado = sdao.autenticacao(s);
-        if (aautenticado != null) {
-            session.removeAttribute("erro_login");
-            session.setAttribute("nomeUsuario", aautenticado.getNome());
-            response.sendRedirect("logado.jsp");
-        } else {
-            if (request.getParameter("siape").isEmpty() || request.getParameter("senha").isEmpty()) {
-                session.setAttribute("erro_login", "vazio");
-            } else {
-                session.setAttribute("erro_login", "validacao");
-            }
-            response.sendRedirect("tela_login/login_servidor.jsp");
-        }
-
+       
+          String ssuap=request.getParameter("suap");
+          String ssenha=request.getParameter("senha");
+          
+          Servidor a = new Servidor();
+          a.setSiape(ssuap);
+          a.setSenha(ssenha);
+          ServidorDao adao = new ServidorDao();
+          Servidor aautenticado = adao.auntenticacao(a);
+          if(aautenticado != null){
+              request.getRequestDispatcher("index.jsp").forward(request,response);
+              
+              
+          }else{
+              response.sendRedirect("tela_login/ErrorLoginServidor.jsp");
+          }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

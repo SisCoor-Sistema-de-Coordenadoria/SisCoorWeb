@@ -21,7 +21,6 @@ public class Aluno {
     private String telefone;
     private Date dataNascimento; 
     private int tipo;
-    private Curso curso;
 
     public Aluno(String nome) {
         this.nome = nome;
@@ -118,13 +117,5 @@ public class Aluno {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
     }
 }

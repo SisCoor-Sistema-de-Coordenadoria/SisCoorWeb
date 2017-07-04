@@ -1,13 +1,13 @@
 <%-- 
     Document   : agendar_defesa_tc
     Created on : 27/05/2017, 16:52:41
-    Author     : IFgoiano
+    Author     : Naiane
 --%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Aluno"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.PropostaTrabalho"%>
 <%@page import="java.util.ArrayList"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags/"%>
-<tag:header defesaAtivo="active" caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Defesa de Trabalho de Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>"/>
+<tag:header defesaAtivo="active" caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Defesa de Trabalho de Curso"/>
 
 <!-- Escondendo Mensagem Danger-->
 <script language="JavaScript">
@@ -57,7 +57,7 @@
         Agendar Defesa de Trabalho de Curso
     </div>
     <div class="panel-body pan">
-        <form action="../DefesaServlet" method="POST">
+        <form action="../DefesaTCServlet" method="POST">
             <div class="form-body pal">
                 <div class="row">
                     <div class="col-md-12">
@@ -71,7 +71,6 @@
                                 </label>
                                 <div class="input-icon right">
                                     <select id="titulo" class="form-control" name="idTrabalho">
-                                        
                                         <%for (int i = 0; i < lista.size(); i++) {%>
                                         <option value=<%=lista.get(i).getIdProposta()%>><%= lista.get(i).getTituloPTC()%></option>
                                         <% }%>
@@ -189,10 +188,15 @@
                                 <input class="form-control" type="text" value="" name="local">
                             </div>
                         </div>
+                        <strong>
+                            <h6>
+                                <b>Obs.: Campos compostos de '*' são obrigatórios.</b>
+                            </h6>
+                        </strong>
                         <!-- Botão Agendar Defesa -->
                         
                         <div class="col-md-12" style="text-align: right">
-                            <input type="submit" class="btn btn-blue" value="Agendar Defesa"/>
+                            <input type="submit" class="btn btn-blue" value="Agendar Defesa" name="botao"/>
                         </div>
                         
                     </div>

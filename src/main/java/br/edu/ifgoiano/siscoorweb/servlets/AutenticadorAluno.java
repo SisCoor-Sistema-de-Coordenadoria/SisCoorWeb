@@ -51,7 +51,7 @@ public class AutenticadorAluno extends HttpServlet {
           a.setMatricula(smatricula);
           a.setSenha(ssenha);
           
-          Aluno aautenticado = adao.autenticacao(a);
+          Aluno aautenticado = adao.auntenticacao(a);
           if(aautenticado != null){
               session.removeAttribute("erro_login");
               session.setAttribute("nomeUsuario", aautenticado.getNome());
