@@ -44,7 +44,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 13px;
   line-height: 1.42857143;
-  color: #999999;
+  color: #4e4e4e;
   background-color: #f0f2f5;
   height: 100%;
 }
@@ -57,7 +57,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #999999;
+  color: #444444;
   text-decoration: none;
 }
 a:hover,
@@ -1287,7 +1287,7 @@ background: #303030; /* Old browsers */
   transition: all 0.3s ease 0s;
 }
 #sum_box .icon {
-  color: #999999;
+  color: #565050;
   font-size: 55px;
   margin-top: 7px;
   margin-bottom: 0px;
@@ -1305,7 +1305,7 @@ background: #303030; /* Old browsers */
 }
 #sum_box p.description {
   margin-top: 0px;
-  opacity: .6;
+  opacity: .9;
 }
 #sum_box .db:hover {
   background: #40516f;
@@ -6407,7 +6407,7 @@ li [class*=" icon-"].icon-large {
 }
 .input-icon input {
   padding-left: 33px !important;
-  color: #999999;
+  color: #5a5a5a;
 }
 .input-icon i {
   color: #999999;

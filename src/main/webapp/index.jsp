@@ -12,7 +12,7 @@
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Servidor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
-<tag:headerHome_inicio title="SisCoor Web - Início" titlePage="SisCoor Web | Início" caminho="resources"/>
+<tag:headerHome_inicio paramVolta="../SisCoorWeb" title="SisCoor Web - Início" titlePage="SisCoor Web | Início" caminho="resources"/>
 
 <tag:conteudoInicio />
 <tag:open_coluna tamanho="12"/>
@@ -45,4 +45,4 @@
 </center>
 <tag:close_coluna/>
 <tag:conteudoFim />
-<tag:footerHome ano="2017" versao="1.0" caminho="resources" desenvolvedores="Alunos do 5º período do curso de Tecnologia em Análise e Desenvolvimento de Sistemas, do Instituto Federal Goiano - Campus Urutaí."/>
+<tag:footer ano="2017" versao="1.0" caminho="resources" desenvolvedores="Alunos do 5º período do curso de Tecnologia em Análise e Desenvolvimento de Sistemas, do Instituto Federal Goiano - Campus Urutaí."/>

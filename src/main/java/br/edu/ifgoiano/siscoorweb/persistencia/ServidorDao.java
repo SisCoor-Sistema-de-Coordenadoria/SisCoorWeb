@@ -24,12 +24,12 @@ import java.util.logging.Logger;
 public class ServidorDao {
 
     private Connection connection;
-
+    
     public ServidorDao() {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
 
-    public Servidor auntenticacao(Servidor servidor) {
+    public Servidor autenticacao(Servidor servidor) {
         Servidor servidorretorno = null;
         String sql = "SELECT * FROM servidor WHERE suap=? and senha=?";
         try {
@@ -179,5 +179,75 @@ public class ServidorDao {
             Logger.getLogger(ServidorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
+    } 
+    
+    public boolean cpfJaCadastrado(String cpf){
+        String sql = "SELECT * FROM Servidor where cpf like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,cpf);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
+    
+    public boolean emailJaCadastrado(String email){
+        String sql = "SELECT * FROM Servidor where email like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,email);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean siapeJaCadastrado(String siape){
+        String sql = "SELECT * FROM Servidor where suap like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,siape);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
 }

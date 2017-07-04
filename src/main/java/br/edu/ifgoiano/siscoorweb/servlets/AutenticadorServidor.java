@@ -10,6 +10,7 @@ import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
 import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
+import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -52,7 +53,7 @@ public class AutenticadorServidor extends HttpServlet {
           a.setSiape(ssuap);
           a.setSenha(ssenha);
           
-          Servidor aautenticado = adao.auntenticacao(a);
+          Servidor aautenticado = adao.autenticacao(a);
           if(aautenticado != null){
               session.removeAttribute("erro_login");
               session.setAttribute("nomeUsuario", aautenticado.getNome());
@@ -66,7 +67,31 @@ public class AutenticadorServidor extends HttpServlet {
               }
               response.sendRedirect("tela_login/login_servidor.jsp");
           }
-        
+       
+
+        ServidorDao sdao = new ServidorDao();
+        Servidor s = new Servidor();
+
+        String ssiape = request.getParameter("siape");
+        ssenha = Criptografia.criptografar(request.getParameter("senha")).toLowerCase();
+
+        s.setSiape(ssiape);
+        s.setSenha(ssenha);
+
+        aautenticado = sdao.autenticacao(s);
+        if (aautenticado != null) {
+            session.removeAttribute("erro_login");
+            session.setAttribute("nomeUsuario", aautenticado.getNome());
+            response.sendRedirect("logado.jsp");
+        } else {
+            if (request.getParameter("siape").isEmpty() || request.getParameter("senha").isEmpty()) {
+                session.setAttribute("erro_login", "vazio");
+            } else {
+                session.setAttribute("erro_login", "validacao");
+            }
+            response.sendRedirect("tela_login/login_servidor.jsp");
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

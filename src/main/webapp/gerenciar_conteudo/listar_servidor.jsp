@@ -57,9 +57,9 @@ if(listaServidor.isEmpty())
                         servidor=listaServidor.get(i);
                     %>    
                         <tr>
-                            <td class="active"><%=servidor.getIdServidor()%></td>
-                            <td class="active"><%=servidor.getNome()%></td>
+                            <td class="active"><%=servidor.getIdServidor()%></td>                           
                             <td class="active"><%=servidor.getSiape()%></td>
+                            <td class="active"><%=servidor.getNome()%></td>
                             <td class="active"><%=servidor.getEmail()%></td>
                             <td class="active"><%=servidor.getTelefone()%></td>
                             <td class="active"><%=servidor.getDataNascimento()%></td>

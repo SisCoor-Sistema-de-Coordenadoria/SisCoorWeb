@@ -8,10 +8,10 @@
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Aluno"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
-<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Excluir Aluno" title="SisCoor | Gerenciar Conteúdo | Excluir Aluno" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
+<tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo| Gerenciar Conteúdo | Excluir Aluno" title="SisCoor | Gerenciar Conteúdo | Excluir Aluno" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
 <%AlunoDao alunoDAO = new AlunoDao();
@@ -59,7 +59,7 @@ if(listaAluno.isEmpty())
             <div class="form-body pal">
                 <div class="row">
                     <div class="col-md-12">
-                        <!-- Conteudo do formulário -->
+                        <!-- Conteudo do formulÃ¡rio -->
                         
                         <%if(session.getAttribute("Dados_excluir_aluno")!=null)
                         {
@@ -88,7 +88,7 @@ if(listaAluno.isEmpty())
                                 </div>
                             </div>
                         </div>
-                        <!-- Botão Buscar -->            
+                        <!-- BotÃ£o Buscar -->            
                         <div class="col-md-12" style="text-align: right">
                             <input type="submit" class="btn btn-blue" value="Buscar dados" name="botao"/>
                         </div>
@@ -214,7 +214,7 @@ if(listaAluno.isEmpty())
                                 </div>
                             </div>
                         </div>
-                        <!-- Botão Buscar -->  
+                        <!-- BotÃ£o Buscar -->  
                         <div class="col-md-12" style="text-align: right">
                             <input type="submit" class="btn btn-blue" value="Buscar dados" name="botao"/>
                         </div>

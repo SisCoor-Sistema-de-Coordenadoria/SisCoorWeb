@@ -82,7 +82,7 @@ if(listaCurso.isEmpty())
                                     <select id="titulo" class="form-control" name="idCurso">
                                         
                                         <%for (int i = 0; i < listaCurso.size(); i++) {
-                                            if(curso.getNome().equals(listaCurso.get(i).getNome()) && curso.getTurno()==listaCurso.get(i).getTurno()){%>
+                                            if(curso.getNome().equals(listaCurso.get(i).getNome()) && curso.getTurno().equals(listaCurso.get(i).getTurno())){%>
                                         
                                         <option selected value=<%=listaCurso.get(i).getIdCurso()%>><%=listaCurso.get(i).getNome()+" - "+listaCurso.get(i).getTurno()%></option><%}else{%>
                                         

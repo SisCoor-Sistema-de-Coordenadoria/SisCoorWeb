@@ -37,7 +37,7 @@
         <link type="text/css" rel="stylesheet" href="${caminho}/styles/pace.css">
         <link type="text/css" rel="stylesheet" href="${caminho}/styles/jquery.news-ticker.css">
     </head>
-    <body>
+    <body style="color: black">
         <div>
             <!--BEGIN BACK TO TOP-->
             <a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
@@ -193,9 +193,9 @@
                             <div class="page-title">${titlePage}</div>
                         </div>
                         <ol class="breadcrumb page-breadcrumb pull-right">
-                            <li><i class="fa fa-home"></i>&nbsp;<a href="../../SisCoorWeb/logado.jsp">Início</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                            <li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                            <li class="active">${titlePage}</li>
+                            <li><i class="fa fa-home"></i>&nbsp;<a style="color: black" href="../../SisCoorWeb/logado.jsp">Início</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                            <li class="hidden"><a style="color: black" href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                            <li class="active" style="color: black">${titlePage}</li>
                         </ol>
                         <div class="clearfix">
                         </div>

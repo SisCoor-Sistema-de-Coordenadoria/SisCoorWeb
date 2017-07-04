@@ -4,18 +4,18 @@
     Author     : Tarcisio & Joesio
 --%>
 
-<%if(session.getAttribute("nomeUsuario")!=null){
-    response.sendRedirect("../logado.jsp");
-}%>
+<%if (session.getAttribute("nomeUsuario") != null) {
+        response.sendRedirect("../logado.jsp");
+    }%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
-<tag:header_inicio title="SisCoor Web - Aluno" titlePage="SisCoor Web | Aluno" caminho="../resources" paramVolta="../" alunoAtivo="active"/>
+<tag:headerHome_inicio title="SisCoor Web - Aluno" titlePage="SisCoor Web | Aluno" caminho="../resources" paramVolta="../SisCoorWeb" alunoAtivo="active"/>
 
 <tag:conteudoInicio/>
 <%if (session.getAttribute("erro_login") != null) {%>
 <div id="alert_danger" class="alert alert-danger col-lg-12" role="alert" style="text-align: center">
-    <%if (session.getAttribute("erro_login").equals("vazio")){%>
+    <%if (session.getAttribute("erro_login").equals("vazio")) {%>
     <strong>Preencha todos os campos!</strong>
     <%session.setAttribute("erro_login", null);
     } else {%>
@@ -25,7 +25,7 @@
         }
     %>
 </div>
-    <%}%>
+<%}%>
 <tag:open_coluna tamanho="12"/>
 
 <div class="col-lg-3"></div>
@@ -52,7 +52,8 @@
                             <div class="input-icon right">
                                 <i class="fa fa-lock"></i>
                                 <input name="senha" id="inputPassword" type="password" class="form-control" /></div>
-                            <span class="help-block mbn"><a href="#"><small>Forgot password?</small> </a></span>
+                            <br>Não tem uma conta? Cadastre-se clicando <a href="cadastro_aluno.jsp"><strong><u>aqui!</u></strong></a>
+                            <!--<span class="help-block mbn"><a href="#"><small>Forgot password?</small> </a></span>-->
                         </div>
                     </div>
                     <div class="form-group mbn">
@@ -63,7 +64,6 @@
                 <div class="form-actions pal">
                     <div class="form-group mbn">
                         <div class="col-md-offset-3 col-md-6">
-                            <a href="cadastro_aluno.jsp" class="btn btn-primary">Cadastre-se</a>&nbsp;&nbsp;
                             <button type="submit" class="btn btn-primary">
                                 Entrar</button>
                         </div>

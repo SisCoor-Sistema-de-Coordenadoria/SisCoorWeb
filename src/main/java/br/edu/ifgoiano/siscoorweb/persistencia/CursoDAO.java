@@ -109,10 +109,34 @@ public class CursoDAO
     }
     
     public Curso buscarPorId(int id){
-       String sql = "SELECT * FROM curso WHERE id_Curso=?;";
+       String sql = "SELECT * FROM curso WHERE id_Curso LIKE ?;";
         
        Curso curso = new Curso();
-       
+
+       try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1,id);
+            
+            ResultSet rs = stmt.executeQuery();
+            rs.first();
+            
+            curso.setIdCurso(rs.getInt("id_Curso"));
+            curso.setNome(rs.getString("nome"));
+            curso.setTurno(rs.getString("turno"));
+            curso.setNumDePeriodos(rs.getInt("numero_de_Periodos"));
+            curso.setIdProfessorCoordenador(rs.getInt("professor_Coordenador"));
+      
+        } catch (SQLException ex) {
+            Logger.getLogger(CursoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return curso;
+    }
+    
+    public Curso buscarCoordenadorId(int id){
+       String sql = "SELECT * FROM curso WHERE professor_Coordenador LIKE ?;";
+        
+       Curso curso = new Curso();
+
        try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1,id);

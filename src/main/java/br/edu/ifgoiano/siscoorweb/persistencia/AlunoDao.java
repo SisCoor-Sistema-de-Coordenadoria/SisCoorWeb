@@ -5,7 +5,6 @@
  */
 package br.edu.ifgoiano.siscoorweb.persistencia;
 
-import br.edu.ifgoiano.siscoorweb.persistencia.ConnectionFactory;
 import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +26,7 @@ public class AlunoDao {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
 
-    public Aluno auntenticacao(Aluno aluno) {
+    public Aluno autenticacao(Aluno aluno) {
         Aluno alunoretorno = null;
         String sql = "select * FROM Aluno where matricula=? and senha=?";
         try {
@@ -42,7 +41,6 @@ public class AlunoDao {
                 alunoretorno.setSenha(rs.getString("senha"));
                 alunoretorno.setNome(rs.getString("nome"));
             }
-            System.out.println("logado com sucesso");
 
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,20 +51,19 @@ public class AlunoDao {
     }
 
     public void adiciona(Aluno aluno) {
-        String sql = "insert into Aluno"
-                + "(id_Aluno,nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento)"
+        String sql = "insert into Aluno (id_Curso,nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento)"
                 + "values(?,?,?,?,?,?,?,?,?)";
         try {
             //prepared statement para inserção
             PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
             //seta os valores
-            stmt.setInt(1, aluno.getIdAluno());
+            stmt.setInt(1, aluno.getCurso().getIdCurso());
             stmt.setString(2, aluno.getNome());
             stmt.setString(3, aluno.getCpf());
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getSenha());
             stmt.setString(6, aluno.getTelefone());
-            stmt.setInt(7, aluno.getTipo());
+            stmt.setInt(7, 4);
             stmt.setString(8, aluno.getMatricula());
             stmt.setDate(9, aluno.getDataNascimento());
 
@@ -96,6 +93,7 @@ public class AlunoDao {
                 aluno.setSenha(rs.getString("senha"));
                 aluno.setTelefone(rs.getString("telefone"));
                 aluno.setTipo(rs.getInt("tipo"));
+                aluno.setIdCurso(rs.getInt("id_Curso"));
                 aluno.setMatricula(rs.getString("matricula"));
                 aluno.setDataNascimento(rs.getDate("data_de_Nascimento"));
                 alunos.add(aluno);
@@ -108,6 +106,104 @@ public class AlunoDao {
             return null;
         }
         return alunos;
+    }
+    
+    public Aluno getAluno(int idAluno) {
+        Aluno aluno = new Aluno();
+        String sql = "SELECT * FROM Aluno WHERE id_Aluno = ?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idAluno);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                aluno.setIdAluno(rs.getInt("id_Aluno"));
+                aluno.setNome(rs.getString("nome"));
+                aluno.setCpf(rs.getString("cpf"));
+                aluno.setEmail(rs.getString("email"));
+                aluno.setSenha(rs.getString("senha"));
+                aluno.setTelefone(rs.getString("telefone"));
+                aluno.setTipo(rs.getInt("tipo"));
+                aluno.setMatricula(rs.getString("matricula"));
+                aluno.setDataNascimento(rs.getDate("data_de_Nascimento"));
+            }
+            rs.close();
+            stmt.close();
+            return aluno;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public boolean cpfJaCadastrado(String cpf){
+        String sql = "SELECT * FROM Aluno where cpf like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,cpf);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean emailJaCadastrado(String email){
+        String sql = "SELECT * FROM Aluno where email like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,email);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean matriculaJaCadastrado(String matricula){
+        String sql = "SELECT * FROM Aluno where matricula like ?";
+        
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            
+            stmt.setString(1,matricula);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean existe = rs.first();
+            
+            System.out.println(existe);
+            
+            rs.close();
+            stmt.close();
+            return existe;
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     public Aluno buscarPorId(int id){
@@ -150,4 +246,5 @@ public class AlunoDao {
         }
         return true;
     }
+
 }

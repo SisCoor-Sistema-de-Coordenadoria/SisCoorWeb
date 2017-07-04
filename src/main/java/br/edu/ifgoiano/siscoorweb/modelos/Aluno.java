@@ -23,6 +23,7 @@ public class Aluno {
     private int tipo;
     private int idCurso;
     private String nomeCurso;
+    private Curso curso;
 
     public Aluno(String nome) {
         this.nome = nome;
@@ -136,5 +137,13 @@ public class Aluno {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 }

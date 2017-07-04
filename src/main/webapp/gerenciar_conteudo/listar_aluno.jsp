@@ -4,6 +4,7 @@
     Author     : Diego
 --%>
 
+<%@page import="br.edu.ifgoiano.siscoorweb.persistencia.CursoDAO"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Aluno"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.Curso"%>
@@ -16,6 +17,8 @@
 <%AlunoDao alunoDAO = new AlunoDao();
 ArrayList<Aluno> listaAlunos = new ArrayList<Aluno>();
 listaAlunos=alunoDAO.getLista();
+CursoDAO cursoDAO = new CursoDAO();
+Curso curso = new Curso();
 
 if(listaAlunos.isEmpty())
 {
@@ -45,6 +48,7 @@ if(listaAlunos.isEmpty())
                     <th>Código</th>
                     <th>Matricula</th>
                     <th>Nome</th>
+                    <th>Curso</th>
                     <th>E-mail</th>
                     <th>Telefone</th>
                     <th>Data de Nascimento</th>
@@ -57,11 +61,14 @@ if(listaAlunos.isEmpty())
                     {
                         Aluno aluno = new Aluno();
                         aluno=listaAlunos.get(i);
+                        curso=cursoDAO.buscarPorId(aluno.getIdCurso());
+                        aluno.setNomeCurso(curso.getNome());
                     %>    
                         <tr>
                             <td class="active"><%=aluno.getIdAluno()%></td>
                             <td class="active"><%=aluno.getMatricula()%></td>
                             <td class="active"><%=aluno.getNome()%></td>
+                            <td class="active"><%=aluno.getNomeCurso()%></td>
                             <td class="active"><%=aluno.getEmail()%></td>
                             <td class="active"><%=aluno.getTelefone()%></td>
                             <td class="active"><%=aluno.getDataNascimento()%></td>

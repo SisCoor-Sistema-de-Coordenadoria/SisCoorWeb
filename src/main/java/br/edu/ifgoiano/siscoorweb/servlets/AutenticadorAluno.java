@@ -8,6 +8,7 @@ package br.edu.ifgoiano.siscoorweb.servlets;
 
 import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
+import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -39,33 +40,36 @@ public class AutenticadorAluno extends HttpServlet {
       
         HttpSession session = request.getSession();
         
-            AlunoDao adao = new AlunoDao();
-            Aluno a = new Aluno();
-            
+        AlunoDao adao = new AlunoDao();
+        Aluno a = new Aluno();
+                 
+        String smatricula=request.getParameter("matricula");
+        String ssenha=Criptografia.criptografar(request.getParameter("senha")).toLowerCase();
            
-          String smatricula=request.getParameter("matricula");
+        a.setMatricula(smatricula);
+        a.setSenha(ssenha);
           
-          String ssenha=request.getParameter("senha");
-          
-          
-          a.setMatricula(smatricula);
-          a.setSenha(ssenha);
-          
-          Aluno aautenticado = adao.auntenticacao(a);
-          if(aautenticado != null){
-              session.removeAttribute("erro_login");
-              session.setAttribute("nomeUsuario", aautenticado.getNome());
-              response.sendRedirect("logado.jsp");
-          }else{
-              if(request.getParameter("matricula").isEmpty()||request.getParameter("senha").isEmpty()){
-                  session.setAttribute("erro_login", "vazio");
-              }else{
-                  session.setAttribute("erro_login", "validacao");
-              }
-              response.sendRedirect("tela_login/login_aluno.jsp");
-          }
+        Aluno aautenticado = adao.autenticacao(a);
         
-        
+        if(aautenticado != null)
+        {
+            session.removeAttribute("erro_login");
+            session.setAttribute("nomeUsuario", aautenticado.getNome());
+            response.sendRedirect("logado.jsp");
+        }
+        else
+        {
+            if(request.getParameter("matricula").isEmpty()||request.getParameter("senha").isEmpty())
+            {
+                session.setAttribute("erro_login", "vazio");
+            }else
+            {
+                session.setAttribute("erro_login", "validacao");
+            }
+            
+            response.sendRedirect("tela_login/login_aluno.jsp");
+        }
+               
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
