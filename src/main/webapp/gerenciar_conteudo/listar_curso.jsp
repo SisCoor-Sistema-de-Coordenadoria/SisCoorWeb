@@ -16,7 +16,6 @@
 <%CursoDAO cursoDAO = new CursoDAO();
 ArrayList<Curso> listaCursos = new ArrayList<Curso>();
 listaCursos=cursoDAO.getLista();
-
 if(listaCursos.isEmpty())
 {
     session.setAttribute("msg", "Nenhum curso cadastrado no momento.");

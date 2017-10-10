@@ -100,7 +100,7 @@
         Cadastrar um Aluno
     </div>
     <div class="panel-body pan">
-        <form action="../CadastroAlunoServlet" method="POST">
+        <form action="../AdicionarAlunoServlet" method="POST">
             <div class="form-body pal">
                 <div class="row">
                     <div class="col-md-12">

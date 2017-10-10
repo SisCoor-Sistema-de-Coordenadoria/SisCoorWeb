@@ -77,7 +77,7 @@ public class CursoDAO
     }
     
    public ArrayList<Curso> getLista() {
-        String sql = "SELECT * FROM curso ORDER BY nome asc";
+        String sql = "SELECT * FROM curso ORDER BY nome asc;";
         ArrayList<Curso> listaCursos = new ArrayList<Curso>();
         
         try {

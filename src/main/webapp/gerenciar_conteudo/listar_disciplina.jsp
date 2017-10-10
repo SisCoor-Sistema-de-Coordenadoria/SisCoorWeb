@@ -5,8 +5,9 @@
 --%>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="br.edu.ifgoiano.siscoorweb.modelos.Disciplina"%>
 <%@page import="br.edu.ifgoiano.siscoorweb.persistencia.DisciplinaDAO"%>
+<%@page import="br.edu.ifgoiano.siscoorweb.modelos.Aluno"%>
+<%@page import="br.edu.ifgoiano.siscoorweb.modelos.Disciplina"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
 <tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Lista de Disciplinas" title="SisCoor | Gerenciar Conteúdo | Lista de Disciplinas" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>

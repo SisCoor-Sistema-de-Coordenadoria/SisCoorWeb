@@ -48,6 +48,15 @@ public class Aluno {
         this.nomeCurso = nomeCurso;
     }
 
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    
     public Aluno() {
     }
 
@@ -137,13 +146,5 @@ public class Aluno {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
     }
 }

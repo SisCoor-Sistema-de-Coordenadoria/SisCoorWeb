@@ -48,7 +48,6 @@
 <%
 ServidorDao servidorDAO = new ServidorDao();
 ArrayList<Servidor> servidores = new ArrayList<Servidor>();
-
 servidores=servidorDAO.getLista();
 //Collections.sort(servidores);
 %>

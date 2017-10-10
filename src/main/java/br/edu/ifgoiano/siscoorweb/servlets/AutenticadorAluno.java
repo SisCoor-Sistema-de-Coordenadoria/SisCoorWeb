@@ -49,26 +49,25 @@ public class AutenticadorAluno extends HttpServlet {
         a.setMatricula(smatricula);
         a.setSenha(ssenha);
           
-        Aluno aautenticado = adao.autenticacao(a);
+          
+          a.setMatricula(smatricula);
+          a.setSenha(ssenha);
+          
+          Aluno aautenticado = adao.auntenticacao(a);
+          if(aautenticado != null){
+              session.removeAttribute("erro_login");
+              session.setAttribute("nomeUsuario", aautenticado.getNome());
+              response.sendRedirect("logado.jsp");
+          }else{
+              if(request.getParameter("matricula").isEmpty()||request.getParameter("senha").isEmpty()){
+                  session.setAttribute("erro_login", "vazio");
+              }else{
+                  session.setAttribute("erro_login", "validacao");
+              }
+              response.sendRedirect("tela_login/login_aluno.jsp");
+          }
         
-        if(aautenticado != null)
-        {
-            session.removeAttribute("erro_login");
-            session.setAttribute("nomeUsuario", aautenticado.getNome());
-            response.sendRedirect("logado.jsp");
-        }
-        else
-        {
-            if(request.getParameter("matricula").isEmpty()||request.getParameter("senha").isEmpty())
-            {
-                session.setAttribute("erro_login", "vazio");
-            }else
-            {
-                session.setAttribute("erro_login", "validacao");
-            }
-            
-            response.sendRedirect("tela_login/login_aluno.jsp");
-        }
+        
                
     }
 

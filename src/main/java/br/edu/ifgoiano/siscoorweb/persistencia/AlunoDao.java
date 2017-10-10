@@ -26,7 +26,7 @@ public class AlunoDao {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
 
-    public Aluno autenticacao(Aluno aluno) {
+    public Aluno auntenticacao(Aluno aluno) {
         Aluno alunoretorno = null;
         String sql = "select * FROM Aluno where matricula=? and senha=?";
         try {
@@ -51,19 +51,20 @@ public class AlunoDao {
     }
 
     public void adiciona(Aluno aluno) {
-        String sql = "insert into Aluno (id_Curso,nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento)"
+        String sql = "insert into Aluno"
+                + "(id_Aluno,nome,cpf,email,senha,telefone,tipo,matricula,data_de_Nascimento)"
                 + "values(?,?,?,?,?,?,?,?,?)";
         try {
             //prepared statement para inserção
             PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
             //seta os valores
-            stmt.setInt(1, aluno.getCurso().getIdCurso());
+            stmt.setInt(1, aluno.getIdAluno());
             stmt.setString(2, aluno.getNome());
             stmt.setString(3, aluno.getCpf());
             stmt.setString(4, aluno.getEmail());
             stmt.setString(5, aluno.getSenha());
             stmt.setString(6, aluno.getTelefone());
-            stmt.setInt(7, 4);
+            stmt.setInt(7, aluno.getTipo());
             stmt.setString(8, aluno.getMatricula());
             stmt.setDate(9, aluno.getDataNascimento());
 
@@ -77,14 +78,14 @@ public class AlunoDao {
     }
 
     public ArrayList<Aluno> getLista(){        
-        String sql = "SELECT * FROM aluno ORDER BY nome asc";
-        ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+        String sql = "SELECT * FROM Aluno";
+        
         try {
-            
+            ArrayList<Aluno> alunos = new ArrayList();
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
-                
                 Aluno aluno = new Aluno();
                 aluno.setIdAluno(rs.getInt("id_Aluno"));
                 aluno.setNome(rs.getString("nome"));
@@ -100,37 +101,7 @@ public class AlunoDao {
             }
             rs.close();
             stmt.close();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-        return alunos;
-    }
-    
-    public Aluno getAluno(int idAluno) {
-        Aluno aluno = new Aluno();
-        String sql = "SELECT * FROM Aluno WHERE id_Aluno = ?";
-
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idAluno);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                aluno.setIdAluno(rs.getInt("id_Aluno"));
-                aluno.setNome(rs.getString("nome"));
-                aluno.setCpf(rs.getString("cpf"));
-                aluno.setEmail(rs.getString("email"));
-                aluno.setSenha(rs.getString("senha"));
-                aluno.setTelefone(rs.getString("telefone"));
-                aluno.setTipo(rs.getInt("tipo"));
-                aluno.setMatricula(rs.getString("matricula"));
-                aluno.setDataNascimento(rs.getDate("data_de_Nascimento"));
-            }
-            rs.close();
-            stmt.close();
-            return aluno;
+            return alunos;
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -247,4 +218,5 @@ public class AlunoDao {
         return true;
     }
 
+    
 }

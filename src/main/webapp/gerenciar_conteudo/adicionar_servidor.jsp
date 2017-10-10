@@ -97,7 +97,7 @@
         Cadastrar um Servidor
     </div>
     <div class="panel-body pan">
-        <form action="../CadastroServidorServlet" method="POST">
+        <form action="../AdicionarServidorServlet" method="POST">
             <div class="form-body pal">
                 <div class="row">
                     <div class="col-md-12">
