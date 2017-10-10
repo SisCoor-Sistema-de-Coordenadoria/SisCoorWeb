@@ -11,7 +11,10 @@
 <tag:conteudoInicio/>
 <tag:open_coluna tamanho="12"/>
 
-    
+    <div class="col-md-12">
+        <div id="area-chart-spline" style="width: 100%; height: 300px; display: none;">
+        </div>
+    </div>
 
     <div class="col-lg-12">
         <div class="col-lg-12">
@@ -66,7 +69,7 @@
                                 </div>  
                             </a>
                         </div>
-                        <div class="row"></div>
+
                         <div class="col-sm-6 col-md-4 col-lg-4">
                             <a href="listar_disciplina.jsp">
                                 <div class="panel profit db mbm">
@@ -82,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-    <%-- Aqui começa o CRUD curso --%>
+<%-- Aqui começa o CRUD curso --%>
                 <div id="crud_curso" class="tab-pane fade">                   
                     <div id="sum_box" class="row mbl">
                         <div class="col-sm-6 col-md-4 col-lg-4">
@@ -126,7 +129,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="row"></div>
+
                         <div class="col-sm-6 col-md-4 col-lg-4">
                             <a href="listar_curso.jsp">
                                 <div class="panel profit db mbm">

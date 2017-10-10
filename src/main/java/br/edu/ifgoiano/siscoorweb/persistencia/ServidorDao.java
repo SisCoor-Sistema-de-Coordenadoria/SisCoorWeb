@@ -28,7 +28,7 @@ public class ServidorDao {
         this.connection = new ConnectionFactory().getConnectionFactory();
     }
 
-    public Servidor autenticacao(Servidor servidor) {
+    public Servidor auntenticacao(Servidor servidor) {
         Servidor servidorretorno = null;
         String sql = "SELECT * FROM servidor WHERE suap=? and senha=?";
         try {

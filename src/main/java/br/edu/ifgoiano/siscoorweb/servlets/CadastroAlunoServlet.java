@@ -12,7 +12,6 @@ import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
 import br.edu.ifgoiano.siscoorweb.persistencia.CursoDAO;
 import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
-import br.edu.ifgoiano.siscoorweb.utilitarios.ValidaEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -257,90 +256,4 @@ public class CadastroAlunoServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public static boolean adicionarAluno(int idCurso, String snome, String scpf, String semail, String ssenha, String sddd, String stelefone, String smatricula, Date sdata) {
-        Aluno a = new Aluno();
-        AlunoDao adao = new AlunoDao();
-        CursoDAO cdao = new CursoDAO();
-
-        a.setNome(snome);
-        a.setCpf(scpf);
-        a.setEmail(semail);
-        a.setSenha(ssenha);
-        a.setTelefone(sddd + stelefone);
-        a.setCurso(cdao.buscarPorId(idCurso));
-        a.setMatricula(smatricula);
-        a.setDataNascimento(sdata);
-
-        a.setSenha(Criptografia.criptografar(a.getSenha()).toLowerCase());
-        adao.adiciona(a);
-        return true;
-    }
-    
-    /**
-     * Método responsável por setar os erros na sessão, para exibir a mensagem
-     * adequada na tela de cadastro.
-     *
-     * @param session
-     * @param erroEmail
-     * @param erroTelefone
-     * @param erroDataNasc
-     * @param erroMatricula
-     * @param erroSenha
-     * @param erroCSenha
-     * @param erroVazio
-     * @param erroCpf
-     * @param erroAceite
-     * @param erroEmailCad
-     * @param erroMatriculaCad
-     * @param erroCpfCad
-     */
-    public static void setaErrosSessao(HttpSession session, boolean erroEmail, boolean erroTelefone, boolean erroDataNasc, boolean erroMatricula, boolean erroSenha, boolean erroCSenha, boolean erroVazio, boolean erroCpf, boolean erroAceite, boolean erroEmailCad, boolean erroMatriculaCad, boolean erroCpfCad) {
-        if (erroVazio) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "vazio" : (session.getAttribute("erro_cadastro") + "|" + "vazio"));
-        }
-
-        if (erroSenha) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "senha_peq" : (session.getAttribute("erro_cadastro") + "|" + "senha_peq"));
-        }
-
-        if (erroMatricula) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "matricula_inv" : (session.getAttribute("erro_cadastro") + "|" + "matricula_inv"));
-        }
-
-        if (erroCpf) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "cpf_inv" : (session.getAttribute("erro_cadastro") + "|" + "cpf_inv"));
-        }
-
-        if (erroEmail) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "email_inv" : (session.getAttribute("erro_cadastro") + "|" + "email_inv"));
-        }
-
-        if (erroTelefone) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "telefone_inv" : (session.getAttribute("erro_cadastro") + "|" + "telefone_inv"));
-        }
-
-        if (erroCSenha) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "senhas_dif" : (session.getAttribute("erro_cadastro") + "|" + "senhas_dif"));
-        }
-
-        if (erroAceite) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "termos_uso" : (session.getAttribute("erro_cadastro") + "|" + "termos_uso"));
-        }
-
-        if (erroCpfCad) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "cpf_existe" : (session.getAttribute("erro_cadastro") + "|" + "cpf_existe"));
-        }
-
-        if (erroMatriculaCad) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "matricula_existe" : (session.getAttribute("erro_cadastro") + "|" + "matricula_existe"));
-        }
-
-        if (erroEmailCad) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "email_existe" : (session.getAttribute("erro_cadastro") + "|" + "email_existe"));
-        }
-
-        if (erroDataNasc) {
-            session.setAttribute("erro_cadastro", (session.getAttribute("erro_cadastro") == null) ? "data_inv" : (session.getAttribute("erro_cadastro") + "|" + "data_inv"));
-        }
-    }
 }

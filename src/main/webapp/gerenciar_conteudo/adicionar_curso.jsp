@@ -4,42 +4,13 @@
     Author     : Diego
 --%>
 
-<%@page import="java.util.Collections"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.TreeMap"%>
-<%@page import="br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao"%>
-<%@page import="br.edu.ifgoiano.siscoorweb.modelos.Servidor"%>
-<%@page import="br.edu.ifgoiano.siscoorweb.persistencia.CursoDAO"%>
-<%@page import="br.edu.ifgoiano.siscoorweb.modelos.Curso"%>
-<%@page import="br.edu.ifgoiano.siscoorweb.modelos.Disciplina"%>
 <%@taglib tagdir="/WEB-INF/tags/" prefix="tag"%>
 
 <tag:header caminho="../resources" paramVolta="../../SisCoorWeb" titlePage="Módulo | Gerenciar Conteúdo | Novo Curso" title="SisCoor | Gerenciar Conteúdo | Novo Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>" crudMenuConteudoAtivo="active"/>
 
 <tag:conteudoInicio/>
+<tag:open_coluna tamanho="12"/>
 
-<% if (session.getAttribute("msg") != null) {
-        String tipo_msg = String.valueOf(session.getAttribute("tipo_msg"));
-        if (tipo_msg.equals("danger")) {%>
-<div id="alert_danger" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
-     style="text-align: center">
-    <strong><%= session.getAttribute("msg")%></strong>
-</div>
-<%session.setAttribute("msg", null);
-    session.setAttribute("tipo_msg", null);
-} else if (tipo_msg.equals("success")) {%>
-<div id="alert" class="alert alert-<%=session.getAttribute("tipo_msg")%> col-lg-12" role="alert" ng-hide="delay_scroll."
-     style="text-align: center">
-    <strong><%= session.getAttribute("msg")%>
-    </strong>
-</div>
-<%session.setAttribute("msg", null);
-            session.setAttribute("tipo_msg", null);
-        }
-    } else {
-        session.setAttribute("msg", null);
-        session.setAttribute("tipo_msg", null);
-    }%>
     
 <tag:open_coluna tamanho="2"/>
 <tag:close_coluna/>

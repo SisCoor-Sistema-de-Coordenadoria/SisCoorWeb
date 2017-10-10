@@ -67,9 +67,7 @@ if(listaCursos.isEmpty())
         </div>
     </div>
 
-
+    
 <tag:close_coluna/>
-
-<%}%>
 <tag:conteudoFim/>
 <tag:footer ano="2017" caminho="../resources" desenvolvedores="Diego F. Pereira" versao="1.0"/>

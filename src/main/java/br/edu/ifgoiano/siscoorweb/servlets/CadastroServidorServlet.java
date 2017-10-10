@@ -13,7 +13,6 @@ import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
 import br.edu.ifgoiano.siscoorweb.persistencia.CursoDAO;
 import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
 import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
-import br.edu.ifgoiano.siscoorweb.utilitarios.ValidaEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;

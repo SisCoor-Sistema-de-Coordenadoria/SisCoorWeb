@@ -5,11 +5,6 @@
  */
 package br.edu.ifgoiano.siscoorweb.servlets;
 
-
-import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
-import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
-import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
-import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author joesi
+ * @author Diego
  */
-@WebServlet(name = "AutenticadorServidor", urlPatterns = {"/AutenticadorServidor"})
-public class AutenticadorServidor extends HttpServlet {
+@WebServlet(name = "CrudDisciplinas", urlPatterns = {"/CrudDisciplinas"})
+public class CrudDisciplinas extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,59 +32,21 @@ public class AutenticadorServidor extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
-          HttpSession session = request.getSession();
-        
-            ServidorDao adao = new ServidorDao();
-            Servidor a = new Servidor();
-            
-           
-          String ssuap=request.getParameter("suap");
-          
-          String ssenha=request.getParameter("senha");
-          
-          a.setSiape(ssuap);
-          a.setSenha(ssenha);
-          
-          Servidor aautenticado = adao.autenticacao(a);
-          if(aautenticado != null){
-              session.removeAttribute("erro_login");
-              session.setAttribute("nomeUsuario", aautenticado.getNome());
-              response.sendRedirect("logado.jsp");
-
-          }else{
-              if(request.getParameter("suap").isEmpty()||request.getParameter("senha").isEmpty()){
-                  session.setAttribute("erro_login", "vazio");
-              }else{
-                  session.setAttribute("erro_login", "validacao");
-              }
-              response.sendRedirect("tela_login/login_servidor.jsp");
-          }
-       
-
-        ServidorDao sdao = new ServidorDao();
-        Servidor s = new Servidor();
-
-        String ssiape = request.getParameter("siape");
-        ssenha = Criptografia.criptografar(request.getParameter("senha")).toLowerCase();
-
-        s.setSiape(ssiape);
-        s.setSenha(ssenha);
-
-        aautenticado = sdao.autenticacao(s);
-        if (aautenticado != null) {
-            session.removeAttribute("erro_login");
-            session.setAttribute("nomeUsuario", aautenticado.getNome());
-            response.sendRedirect("logado.jsp");
-        } else {
-            if (request.getParameter("siape").isEmpty() || request.getParameter("senha").isEmpty()) {
-                session.setAttribute("erro_login", "vazio");
-            } else {
-                session.setAttribute("erro_login", "validacao");
-            }
-            response.sendRedirect("tela_login/login_servidor.jsp");
+        PrintWriter out = response.getWriter();
+        try {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CrudDisciplinas</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CrudDisciplinas at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {
+            out.close();
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
