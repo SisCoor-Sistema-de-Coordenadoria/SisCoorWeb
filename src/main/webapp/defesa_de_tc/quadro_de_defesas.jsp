@@ -6,7 +6,7 @@
 <%@page import="br.edu.ifgoiano.siscoorweb.modelos.DefesaTC"%>
 <%@page import="java.util.ArrayList"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags/"%>
-<tag:header defesaAtivo="active" caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Defesa de Trabalho de Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>"/>
+<tag:header defesaAtivo="active" usuario="<%=(String)session.getAttribute("nomeUsuario")%>" caminho="../resources" paramVolta="../../SisCoorWeb" title="SisCoor | Defesa de TC" titlePage="Defesa de Trabalho de Curso" usuario="<%=(String) session.getAttribute("nomeUsuario")%>"/>
 
 <!-- Escondendo Mensagem Danger-->
 <script language="JavaScript">
