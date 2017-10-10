@@ -10,6 +10,7 @@ import br.edu.ifgoiano.siscoorweb.modelos.Aluno;
 import br.edu.ifgoiano.siscoorweb.modelos.Servidor;
 import br.edu.ifgoiano.siscoorweb.persistencia.AlunoDao;
 import br.edu.ifgoiano.siscoorweb.persistencia.ServidorDao;
+import br.edu.ifgoiano.siscoorweb.utilitarios.Criptografia;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
